@@ -1,0 +1,15 @@
+mat-card{
+    margin-top: 20vh;
+    height: 50vh;
+    width: 50vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.example-full-width {
+    width: 100%;
+  }
+
+#marginContent{
+    margin-top: 5vh;
+}
