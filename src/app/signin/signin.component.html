@@ -5,12 +5,15 @@
   <mat-card-content id="marginContent">
       <form class="example-form">
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Email" [value]="email">
+            <input matInput placeholder="Email" [value]="email"
+            (input) = "email = $event.target.value">
           </mat-form-field>
         
           <mat-form-field class="example-full-width">
-            <input matInput placeholder="Password" [value] = "pass">
+            <input matInput placeholder="Password" [value] = "pass"
+            (input) = "pass = $event.target.value">
           </mat-form-field>
         </form>
   </mat-card-content>
+  <button mat-button (click) = "SignIn()">Sign In</button>
 </mat-card>

@@ -6,6 +6,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTabsModule} from '@angular/material/tabs';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 import { AppComponent } from './app.component';
@@ -14,6 +17,9 @@ import { TabsComponent } from './tabs/tabs.component';
 import { FooterComponent } from './footer/footer.component';
 import { SigninComponent } from './signin/signin.component';
 import {MatInputModule} from '@angular/material/input';
+import { AuthService } from './Services/auth.service';
+import { SignupComponent } from './signup/signup.component';
+import {EventService} from './Services/event.service';
 
 const routes: Routes = [
   {path: '', component: SigninComponent},
@@ -27,7 +33,8 @@ const routes: Routes = [
     NavComponent,
     TabsComponent,
     FooterComponent,
-    SigninComponent
+    SigninComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -38,9 +45,12 @@ const routes: Routes = [
     MatTabsModule,
     BrowserAnimationsModule,
     MatCardModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule,
+    FlexLayoutModule,
+    MatDividerModule
   ],
-  providers: [],
+  providers: [AuthService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
