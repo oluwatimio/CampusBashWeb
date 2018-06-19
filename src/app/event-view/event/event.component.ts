@@ -10,14 +10,16 @@ import {Event} from './Event';
 })
 export class EventComponent implements OnInit {
   sections: EventSection[]; // This holds event sections which all contain arrays of events
-  events: Event[];
+  events: EventSection[];
   eventService: EventService;
   constructor(eventService: EventService) {
     this.eventService = eventService;
   }
 
   ngOnInit() {
-    this.events = this.eventService.getEvents();
+    this.eventService.getEvents().then((events) => {
+      this.events = events;
+    });
     console.log(this.events);
   }
 
