@@ -28,7 +28,7 @@ export class AuthService {
     firebase.auth().signInWithEmailAndPassword(email, pass).catch(function(error) {
       console.log(error.message);
     }).then(() => {
-      this.router.navigateByUrl('events');
+      this.router.navigateByUrl('tabs');
     });
   }
 

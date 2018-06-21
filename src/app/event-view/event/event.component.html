@@ -1,38 +1,41 @@
-<div fxLayout="column">
-  <div *ngFor="let event of events">
-    <div *ngIf="event.events.length > 0">
-      <h5>{{event.sectionName}}</h5>
-      <div fxLayout="row wrap" fxLayoutAlign="center center">
-        <div *ngFor="let event1 of event.events">
-          <mat-card>
-            <mat-card-content>
-              <div *ngIf="event1.placeHolderImage != null">
-                <img mat-card-image src="{{event1.placeHolderImage.url}}">
-                <mat-divider></mat-divider>
+<body style="overflow: scroll;">
+    <div fxLayout="column">
+        <div *ngFor="let event of events">
+          <div *ngIf="event.events.length > 0">
+            <h2>{{event.sectionName}}</h2>
+            <mat-divider></mat-divider>
+            <div fxLayout="row wrap" fxLayoutAlign="center center">
+              <div *ngFor="let event1 of event.events">
+                <mat-card>
+                  <mat-card-content>
+                    <div *ngIf="event1.placeHolderImage != null">
+                      <img mat-card-image src="{{event1.placeHolderImage.url}}">
+                      <mat-divider></mat-divider>
+                    </div>
+                    <div *ngIf="event1.placeHolderImage == null">
+                      <img mat-card-image src="assets/placeholder.png">
+                      <mat-divider></mat-divider>
+                    </div>
+                  </mat-card-content>
+                  <mat-card-footer>
+                    <div fxLayout="row" id="footer">
+                      <div fxLayout="column">
+                        <div>
+                          {{getDate(event1.startTime)[1]}}
+                        </div>
+                        <div>
+                          {{getDate(event1.startTime)[2]}}
+                        </div>
+                      </div>
+                      <div id="margin">
+                        {{event1.eventName}}
+                      </div>
+                    </div>
+                  </mat-card-footer>
+                </mat-card>
               </div>
-              <div *ngIf="event1.placeHolderImage == null">
-                <img mat-card-image src="assets/placeholder.png">
-                <mat-divider></mat-divider>
-              </div>
-            </mat-card-content>
-            <mat-card-footer>
-              <div fxLayout="row" id="footer">
-                <div fxLayout="column">
-                  <div>
-                    {{getDate(event1.startTime)[1]}}
-                  </div>
-                  <div>
-                    {{getDate(event1.startTime)[2]}}
-                  </div>
-                </div>
-                <div id="margin">
-                  {{event1.eventName}}
-                </div>
-              </div>
-            </mat-card-footer>
-          </mat-card>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+</body>

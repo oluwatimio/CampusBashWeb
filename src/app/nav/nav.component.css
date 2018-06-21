@@ -1,4 +1,13 @@
 mat-toolbar{
-  background-color: red;
+  background-color:#D4262F;
   color: white;
+}
+
+img{
+  height: 8vh;
+  width: 8vh;
+}
+
+.example-fill-remaining-space {
+  flex: 1 1 auto;
 }
