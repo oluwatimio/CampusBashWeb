@@ -25,10 +25,11 @@ export class AuthService {
 
   signIn(email: string, pass: string) {
     console.log(email);
-    firebase.auth().signInWithEmailAndPassword(email, pass).catch(function(error) {
-      console.log(error.message);
-    }).then(() => {
+    firebase.auth().signInWithEmailAndPassword(email, pass).then(() => {
       this.router.navigateByUrl('tabs');
+    }).catch(function(error) {
+      console.log(error.message);
+      alert('Wrong user name or password');
     });
   }
 

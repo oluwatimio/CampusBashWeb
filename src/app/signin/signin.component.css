@@ -4,6 +4,8 @@ mat-card{
     width: 50vh;
     margin-left: auto;
     margin-right: auto;
+    background-color:#D4262F;
+    color: white ;
 }
 
 .example-full-width {
@@ -12,4 +14,8 @@ mat-card{
 
 #marginContent{
     margin-top: 5vh;
+}
+
+input{
+  color: white;
 }

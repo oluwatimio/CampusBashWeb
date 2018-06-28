@@ -12,6 +12,7 @@ export class EventService {
   constructor() { }
 
   async getEvents() {
+    this.events = new Array();
     const db = firebase.firestore();
     await  db.collection('events').get().then((querySnapshot) => {
 

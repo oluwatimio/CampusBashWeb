@@ -12,10 +12,11 @@ $custom-typography: mat-typography-config(
 @include angular-material-typography($custom-typography);
 
 @include mat-core();
-$app-primary: #D4262F;
-$app-accent:mat-palette($mat-orange, A400, A700);
-$app-warn:  mat-palette($mat-red);
+$app-primary: mat-palette($mat-red,900);
+$app-accent:mat-palette($mat-brown,400);
+$app-warn:  mat-palette($mat-red,900);
 $app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
 
 @include angular-material-theme($app-theme);
 @include mat-core($custom-typography);

@@ -1,15 +1,15 @@
 <mat-card>
   <mat-card-header>
-    Campus Bash SignIn
+    CampusBash Signin
   </mat-card-header>
   <mat-card-content id="marginContent">
       <form class="example-form">
-          <mat-form-field class="example-full-width">
+          <mat-form-field class="example-full-width" color="accent">
             <input matInput placeholder="Email" [value]="email"
             (input) = "email = $event.target.value">
           </mat-form-field>
-        
-          <mat-form-field class="example-full-width">
+
+          <mat-form-field class="example-full-width" color="accent">
             <input matInput placeholder="Password" [value] = "pass"
             (input) = "pass = $event.target.value">
           </mat-form-field>

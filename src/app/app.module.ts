@@ -10,6 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
 
 
 import { AppComponent } from './app.component';
@@ -22,11 +23,13 @@ import { AuthService } from './Services/auth.service';
 import { SignupComponent } from './signup/signup.component';
 import {EventService} from './Services/event.service';
 import { SearchComponent } from './search/search.component';
+import { AddeventComponent } from './addevent/addevent.component';
 
 const routes: Routes = [
   {path: '', component: SigninComponent},
   {path: 'events', component: EventComponent},
   {path: 'tabs', component: TabsComponent},
+  {path: 'addevent', component: AddeventComponent}
 ];
 
 @NgModule({
@@ -38,7 +41,8 @@ const routes: Routes = [
     FooterComponent,
     SigninComponent,
     SignupComponent,
-    SearchComponent
+    SearchComponent,
+    AddeventComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +57,8 @@ const routes: Routes = [
     MatButtonModule,
     FlexLayoutModule,
     MatDividerModule,
-    MatChipsModule
+    MatChipsModule,
+    MatIconModule
   ],
   providers: [AuthService, EventService],
   bootstrap: [AppComponent]
