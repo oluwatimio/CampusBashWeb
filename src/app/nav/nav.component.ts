@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
 import {MDCTopAppBar} from '@material/top-app-bar/index';
 import * as firebase from 'firebase/app'
 import {EventService} from '../Services/event.service';
 import {Router} from '@angular/router';
+import {SigninemitterService} from '../Services/signinemitter.service';
 
 
 @Component({
@@ -13,18 +14,17 @@ import {Router} from '@angular/router';
 export class NavComponent implements OnInit {
   hideAddEvent: boolean;
   router: Router;
+  semmiter: SigninemitterService;
+  subscription: EventEmitter<any>;
 
-  constructor(router: Router) {
+  constructor(router: Router, semmiter: SigninemitterService) {
     this.hideAddEvent = false;
     this.router = router;
+    this.semmiter = semmiter;
   }
 
   ngOnInit() {
-    const currentUser = firebase.auth().currentUser;
-    if (currentUser != null) {
-      console.log(currentUser);
-      this.hideAddEvent = false;
-    }
+    this.subscription = this.semmiter.getEmittedValue().subscribe(item => this.hideAddEvent = item);
   }
 
   addEvent() {

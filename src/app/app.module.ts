@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
+import {MatStepperModule} from '@angular/material/stepper';
 
 
 import { AppComponent } from './app.component';
@@ -24,12 +25,18 @@ import { SignupComponent } from './signup/signup.component';
 import {EventService} from './Services/event.service';
 import { SearchComponent } from './search/search.component';
 import { AddeventComponent } from './addevent/addevent.component';
+import {SigninemitterService} from './Services/signinemitter.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatOptionModule} from '@angular/material';
+import {MatSelectModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 const routes: Routes = [
   {path: '', component: SigninComponent},
   {path: 'events', component: EventComponent},
   {path: 'tabs', component: TabsComponent},
-  {path: 'addevent', component: AddeventComponent}
+  {path: 'addevent', component: AddeventComponent},
+  {path: 'signup', component: SignupComponent}
 ];
 
 @NgModule({
@@ -58,9 +65,15 @@ const routes: Routes = [
     FlexLayoutModule,
     MatDividerModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatFormFieldModule,
+    MatOptionModule,
+    MatSelectModule,
+    MatStepperModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
-  providers: [AuthService, EventService],
+  providers: [AuthService, EventService, SigninemitterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

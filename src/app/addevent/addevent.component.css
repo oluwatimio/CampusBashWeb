@@ -1,0 +1,16 @@
+#headerAlign{
+  text-align: center;
+}
+
+.eventDetails{
+  margin-top: 3vh;
+  width: 100%;
+}
+
+#input{
+  text-align: center;
+}
+
+.example-full-width{
+  width: 50%;
+}

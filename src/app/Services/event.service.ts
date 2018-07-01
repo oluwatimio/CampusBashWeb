@@ -27,7 +27,6 @@ export class EventService {
         });
         console.log(this.events);
         console.log(this.getSections());
-
       });
       return this.getSections();
     }

@@ -1,3 +1,27 @@
-<p>
-  addevent works!
-</p>
+<div style="margin-top: 10vh">
+  <!--<h1 id="headerAlign">Post an Event</h1>-->
+  <!--<mat-divider></mat-divider>-->
+
+  <h2 id="headerAlign">Event Details</h2>
+  <mat-divider></mat-divider>
+  <form class="eventDetails">
+    <div id="input">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="What are we calling this?" value="Sushi">
+      </mat-form-field>
+    </div>
+    <div id="input">
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Give us a short description"></textarea>
+      </mat-form-field>
+    </div>
+
+    <div id="input">
+      <mat-form-field class="example-full-width">
+        <mat-select placeholder="Select Event Type">
+          <mat-option value="option">Option</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
