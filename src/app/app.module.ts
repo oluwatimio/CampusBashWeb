@@ -30,10 +30,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatOptionModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {UserSingle} from './Services/UserSingle';
 
 const routes: Routes = [
-  {path: '', component: SigninComponent},
-  {path: 'events', component: EventComponent},
+  {path: 'signin', component: SigninComponent},
+  {path: '', component: EventComponent},
   {path: 'tabs', component: TabsComponent},
   {path: 'addevent', component: AddeventComponent},
   {path: 'signup', component: SignupComponent}
@@ -73,7 +74,7 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, EventService, SigninemitterService],
+  providers: [AuthService, EventService, SigninemitterService, UserSingle],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

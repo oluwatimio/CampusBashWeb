@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {SigninemitterService} from './signinemitter.service';
+import {UserSingle} from './UserSingle';
 
 @Injectable()
 export class AuthService {
@@ -10,16 +11,20 @@ export class AuthService {
   isAnonymous: boolean;
   uid: string;
   user: any;
-  constructor(router: Router, emitter: SigninemitterService) {
+  userS: UserSingle;
+  constructor(router: Router, emitter: SigninemitterService, userS: UserSingle) {
     this.router = router;
     this.emitter = emitter;
+    this.userS = userS;
   }
-
   OnInit() {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         console.log(user.email);
         this.user = user;
+        this.userS.getInstance().setIsAnonymous(false);
+        this.userS.getInstance().setSigned(true);
+        this.userS.getInstance().setUid(user.uid);
       }
       this.isAnonymous = user.isAnonymous;
       this.uid = user.uid;
