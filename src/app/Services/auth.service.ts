@@ -22,9 +22,6 @@ export class AuthService {
       if (user) {
         console.log(user.email);
         this.user = user;
-        this.userS.getInstance().setIsAnonymous(false);
-        this.userS.getInstance().setSigned(true);
-        this.userS.getInstance().setUid(user.uid);
       }
       this.isAnonymous = user.isAnonymous;
       this.uid = user.uid;

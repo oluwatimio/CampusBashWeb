@@ -5,6 +5,7 @@ import {MatCardModule} from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import {MatDividerModule} from '@angular/material';
 import {MatIconModule} from '@angular/material/icon';
+import {FooterComponent} from '../footer/footer.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import {MatIconModule} from '@angular/material/icon';
     MatDividerModule,
     MatIconModule
   ],
-  declarations: [EventComponent]
+  declarations: [EventComponent, FooterComponent]
 })
 export class EventViewModule { }

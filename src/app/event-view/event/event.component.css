@@ -3,6 +3,7 @@ mat-card{
   height: 28vh;
   width: 28vh;
   margin-left: 2vh;
+  margin-bottom: 2vh;
 }
 
 img{
@@ -15,4 +16,8 @@ img{
 
 #margin{
   margin-left: 2vh;
+}
+
+body{
+  margin-bottom: 10vh;
 }

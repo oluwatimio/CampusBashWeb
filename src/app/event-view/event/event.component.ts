@@ -19,6 +19,7 @@ export class EventComponent implements OnInit {
   constructor(eventService: EventService, authS: AuthService) {
     this.eventService = eventService;
     this.authS = authS;
+    this.userisHere = false;
   }
 
   ngOnInit() {
@@ -29,7 +30,7 @@ export class EventComponent implements OnInit {
         this.userisHere = true;
       }
     });
-    if (this.userisHere === false){
+    if (this.userisHere === false) {
       this.authS.signinAno();
     }
 
