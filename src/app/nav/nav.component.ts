@@ -18,22 +18,27 @@ export class NavComponent implements OnInit {
   subscription: EventEmitter<any>;
   hideSignIn: boolean;
   authS: AuthService;
+  uid: string;
+  user: any;
 
   constructor(router: Router, authService: AuthService) {
     this.hideAddEvent = false;
     this.router = router;
-    this.hideSignIn = false;
     this.authS = authService;
+    this.hideSignIn = false;
   }
 
   ngOnInit() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user.email);
-        if (user.isAnonymous === false) {
-          this.hideSignIn = true;
-        }
-        console.log(user.email);
+
+    this.authS.user.subscribe((user) => {
+      if (this.user !== undefined || this.user !== null) {
+        console.log('User signed in');
+        this.user = user;
+        console.log(user);
+        this.uid = user.uid;
+        console.log(this.user.email);
+        this.hideSignIn = true;
+        console.log(this.hideSignIn);
       }
     });
   }
@@ -42,7 +47,7 @@ export class NavComponent implements OnInit {
     this.router.navigateByUrl('addevent');
   }
 
-  signInPage(){
+  signInPage() {
     this.router.navigateByUrl('signin');
   }
 

@@ -12,6 +12,7 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 
 import { AppComponent } from './app.component';
@@ -31,11 +32,12 @@ import {MatOptionModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserSingle} from './Services/UserSingle';
+import { HostingComponent } from './hosting/hosting.component';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
-  {path: '', component: EventComponent},
-  {path: 'tabs', component: TabsComponent},
+  {path: 'events', component: EventComponent},
+  {path: '', component: TabsComponent},
   {path: 'addevent', component: AddeventComponent},
   {path: 'signup', component: SignupComponent}
 ];
@@ -50,7 +52,8 @@ const routes: Routes = [
     SigninComponent,
     SignupComponent,
     SearchComponent,
-    AddeventComponent
+    AddeventComponent,
+    HostingComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ const routes: Routes = [
     MatSelectModule,
     MatStepperModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireAuthModule
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle],
   bootstrap: [AppComponent]

@@ -4,6 +4,8 @@ import {EventService} from '../../Services/event.service';
 import {Event} from './Event';
 import {AuthService} from '../../Services/auth.service';
 import * as firebase from 'firebase/app';
+import {Observable} from 'rxjs';
+import { from } from 'rxjs';
 
 @Component({
   selector: 'app-event',
@@ -12,32 +14,28 @@ import * as firebase from 'firebase/app';
 })
 export class EventComponent implements OnInit {
   sections: EventSection[]; // This holds event sections which all contain arrays of events
-  events: EventSection[];
+  events: EventSection[] = new Array();
+  allEvents: Observable<EventSection[]>;
   eventService: EventService;
   authS: AuthService;
   userisHere: boolean;
+  uid: string;
+  user: any;
   constructor(eventService: EventService, authS: AuthService) {
     this.eventService = eventService;
     this.authS = authS;
-    this.userisHere = false;
+    this.uid = '';
   }
 
   ngOnInit() {
-
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log(user.email);
-        this.userisHere = true;
-      }
+    this.allEvents = from(this.eventService.getEvents());
+      this.authS.user.subscribe((user) => {
+        if (user !== undefined) {
+          this.user = user;
+          this.uid = user.uid;
+          console.log(this.user.email);
+        }
     });
-    if (this.userisHere === false) {
-      this.authS.signinAno();
-    }
-
-    this.eventService.getEvents().then((events) => {
-      this.events = events;
-    });
-    console.log(this.events);
   }
 
   getDate(dateM: number) {

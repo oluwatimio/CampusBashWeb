@@ -25,8 +25,8 @@ export class EventService {
               doc.data().university);
               this.events.push(event);
         });
-        console.log(this.events);
-        console.log(this.getSections());
+        // console.log(this.events);
+        // console.log(this.getSections());
       });
       return this.getSections();
     }
@@ -45,7 +45,6 @@ export class EventService {
       console.log(this.events.length)
       for (var i = 0; i < this.events.length; i++) {
         if (this.events[i].eventType === 'House Party') {
-          console.log(this.events[i])
           houseParty.push(this.events[i]);
         } else if (this.events[i].eventType === 'Pool Party') {
           poolParty.push(this.events[i]);
