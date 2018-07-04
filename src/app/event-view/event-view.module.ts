@@ -15,6 +15,6 @@ import {FooterComponent} from '../footer/footer.component';
     MatDividerModule,
     MatIconModule
   ],
-  declarations: [EventComponent, FooterComponent]
+  declarations: []
 })
 export class EventViewModule { }
