@@ -1,3 +1,41 @@
-<p>
-  hosting works!
-</p>
+<body style="overflow: scroll;">
+<div *ngIf="events.length > 0">
+  <h2>Events you're hosting</h2>
+  <mat-divider></mat-divider>
+</div>
+<div fxLayout="row wrap" fxLayoutAlign="center center">
+  <div *ngIf="events.length === 0">
+    <!--<img src="assets/sad_emoji.png" align="center">-->
+    <h3>You're not hosting any events</h3>
+  </div>
+  <div *ngFor="let event of events">
+          <mat-card>
+            <mat-card-content>
+              <div *ngIf="event.placeHolderImage != null">
+                <img mat-card-image src="{{event.placeHolderImage.url}}">
+                <mat-divider></mat-divider>
+              </div>
+              <div *ngIf="event.placeHolderImage == null">
+                <img mat-card-image src="assets/placeholder.png">
+                <mat-divider></mat-divider>
+              </div>
+            </mat-card-content>
+            <mat-card-footer>
+              <div fxLayout="row" id="footer">
+                <div fxLayout="column">
+                  <div>
+                    {{getDate(event.startTime)[1]}}
+                  </div>
+                  <div>
+                    {{getDate(event.startTime)[2]}}
+                  </div>
+                </div>
+                <div id="margin">
+                  {{event.eventName}}
+                </div>
+              </div>
+            </mat-card-footer>
+          </mat-card>
+  </div>
+</div>
+</body>

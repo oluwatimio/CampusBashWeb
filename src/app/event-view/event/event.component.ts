@@ -30,7 +30,7 @@ export class EventComponent implements OnInit {
   ngOnInit() {
     this.allEvents = from(this.eventService.getEvents());
       this.authS.user.subscribe((user) => {
-        if (user !== undefined) {
+        if (user !== undefined && user !== null) {
           this.user = user;
           this.uid = user.uid;
           console.log(this.user.email);

@@ -13,32 +13,25 @@ import {AuthService} from '../Services/auth.service';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
-  hideAddEvent: boolean;
   router: Router;
   subscription: EventEmitter<any>;
-  hideSignIn: boolean;
   authS: AuthService;
   uid: string;
   user: any;
 
   constructor(router: Router, authService: AuthService) {
-    this.hideAddEvent = false;
     this.router = router;
     this.authS = authService;
-    this.hideSignIn = false;
   }
 
   ngOnInit() {
-
     this.authS.user.subscribe((user) => {
-      if (this.user !== undefined || this.user !== null) {
-        console.log('User signed in');
+      if (this.user !== null) {
         this.user = user;
-        console.log(user);
         this.uid = user.uid;
         console.log(this.user.email);
-        this.hideSignIn = true;
-        console.log(this.hideSignIn);
+        document.getElementById('showSignIn').style.visibility = 'hidden';
+        document.getElementById('showSignIn').style.display = 'none';
       }
     });
   }

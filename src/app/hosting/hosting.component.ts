@@ -3,6 +3,7 @@ import {EventService} from '../Services/event.service';
 import {EventSection} from '../event-view/event/EventSection';
 import * as firebase from 'firebase/app';
 import {AuthService} from '../Services/auth.service';
+import {Event} from '../event-view/event/Event';
 
 @Component({
   selector: 'app-hosting',
@@ -11,7 +12,7 @@ import {AuthService} from '../Services/auth.service';
 })
 export class HostingComponent implements OnInit {
   eventService: EventService;
-  event: Event[];
+  events: Event[] = new Array();
   authS: AuthService;
   user: any;
   uid: string;
@@ -21,27 +22,33 @@ export class HostingComponent implements OnInit {
   }
 
   ngOnInit() {
-    //
-    // this.authS.user.subscribe((user) => {
-    //   this.user = user;
-    //   this.uid = user.uid;
-    //   this.getHosted();
-    // });
 
-  }
-  getHosted() {
-    this.eventService.getEvents().then((events) => {
-
-      for (let i = 0; i < events.length; i++) {
-        if (events[i].events.length !== 0) {
-          for (let g = 0; g < events[i].events.length; g++ ) {
-            if (events[i].events[g].creator.uid === this.user.uid) {
-              console.log(events[i].events[g]);
-            }
-          }
-        }
+    this.authS.user.subscribe((user) => {
+      if (user !== null && user !== undefined) {
+        this.user = user;
+        this.uid = user.uid;
+        this.getHosted();
       }
     });
+
+  }
+
+  getHosted() {
+    this.eventService.getEventsHosting().then((events) => {
+      for (let i = 0; i < events.length; i++) {
+            if (events[i].creator.uid === this.user.uid) {
+              const eventGotten = events[i];
+              this.events.push(eventGotten);
+            }
+      }
+    });
+  }
+
+  getDate(dateM: number) {
+    const date = new Date(dateM);
+    const dateArray = date.toString().split(' ');
+    // dateArray[1] + ' ' + dateArray[2];
+    return dateArray;
   }
 
 }

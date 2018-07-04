@@ -1,0 +1,23 @@
+mat-card{
+  margin-top: 5vh;
+  height: 28vh;
+  width: 28vh;
+  margin-left: 2vh;
+  margin-bottom: 2vh;
+}
+
+img{
+  height: 22vh;
+}
+
+#footer{
+  margin-left: 1vh;
+}
+
+#margin{
+  margin-left: 2vh;
+}
+
+body{
+  margin-bottom: 10vh;
+}

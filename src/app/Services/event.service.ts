@@ -9,6 +9,7 @@ export class EventService {
   eventTypes = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk', 'Festival']
   sections: EventSection[] = new Array();
   events: Event[] = new Array();
+  eventsHost: Event[] = new Array()
   constructor() { }
 
   async getEvents() {
@@ -25,6 +26,8 @@ export class EventService {
               doc.data().university);
               this.events.push(event);
         });
+
+        console.log(this.events);
         // console.log(this.events);
         // console.log(this.getSections());
       });
@@ -78,6 +81,24 @@ export class EventService {
       const festSect = new EventSection('Festival', festival);
       this.sections = [eSect, poolSect, keggerSect, sportsSect, confSect, concertSect, tournSect, netSect, seminarSect, festSect];
       return this.sections;
+    }
+    async getEventsHosting() {
+      this.eventsHost = new Array();
+      const db = firebase.firestore();
+      await  db.collection('events').get().then((querySnapshot) => {
+
+        querySnapshot.forEach((doc) => {
+          const event = new Event(doc.data().address,
+            doc.data().creator, doc.data().description, doc.data().endTime,
+            doc.data().eventId, doc.data().eventName, doc.data().eventType,
+            doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
+            doc.data().startTime, doc.data().tickets, doc.data().timezone,
+            doc.data().university);
+          this.eventsHost.push(event);
+        });
+      });
+
+      return this.eventsHost;
     }
 
 }
