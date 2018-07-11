@@ -33,13 +33,16 @@ import {MatSelectModule} from '@angular/material';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserSingle} from './Services/UserSingle';
 import { HostingComponent } from './hosting/hosting.component';
+import { EventdetailComponent } from './eventdetail/eventdetail.component';
+import { EventclickedService } from './Services/eventclicked.service';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
   {path: 'events', component: EventComponent},
   {path: '', component: TabsComponent},
   {path: 'addevent', component: AddeventComponent},
-  {path: 'signup', component: SignupComponent}
+  {path: 'signup', component: SignupComponent},
+  {path: 'detail', component: EventdetailComponent}
 ];
 
 @NgModule({
@@ -53,7 +56,8 @@ const routes: Routes = [
     SignupComponent,
     SearchComponent,
     AddeventComponent,
-    HostingComponent
+    HostingComponent,
+    EventdetailComponent
   ],
   imports: [
     BrowserModule,
@@ -78,7 +82,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     AngularFireAuthModule
   ],
-  providers: [AuthService, EventService, SigninemitterService, UserSingle],
+  providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

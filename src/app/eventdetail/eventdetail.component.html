@@ -1,0 +1,31 @@
+ <body>
+   <div style="display: flex; justify-content: center">
+      <img *ngIf = "eventClicked !== undefined" src="{{eventClicked.placeHolderImage.url}}" id="imgdiv">
+   </div>
+   <div style="display: flex; justify-content: center; margin-top: 2vh">
+      <mat-card>
+          <mat-card-content>
+            <h2>{{eventClicked.eventName}}</h2>
+          </mat-card-content>
+        </mat-card>
+   </div>
+   <div style="display: flex; justify-content: center; margin-top: 2vh">
+      <mat-card>
+          <mat-card-content>
+            <p>Card 2</p>
+          </mat-card-content>
+        </mat-card>
+   </div>
+   <div style="display: flex; justify-content: center; margin-top: 2vh">
+      <mat-card>
+          <mat-card-content>
+            <p>Card 3</p>
+          </mat-card-content>
+        </mat-card>
+   </div>
+ </body>
+  <!-- <mat-card>
+    <mat-card-content>
+
+    </mat-card-content>
+  </mat-card> -->

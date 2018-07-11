@@ -1,0 +1,12 @@
+body{
+    margin-bottom: 10vh;
+  }
+
+  mat-card{
+      width: 50vh;
+  }
+
+  #imgdiv{
+      height: 25vh;
+      width: 25vh;
+  }

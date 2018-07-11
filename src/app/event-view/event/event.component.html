@@ -6,7 +6,7 @@
         <mat-divider></mat-divider>
         <div fxLayout="row wrap" fxLayoutAlign="center center">
           <div *ngFor="let event1 of event.events">
-            <mat-card>
+            <mat-card (click) = "eventDetail(event1)">
               <mat-card-content>
                 <div *ngIf="event1.placeHolderImage != null">
                   <img mat-card-image src="{{event1.placeHolderImage.url}}">

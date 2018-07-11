@@ -6,6 +6,8 @@ import {AuthService} from '../../Services/auth.service';
 import * as firebase from 'firebase/app';
 import {Observable} from 'rxjs';
 import { from } from 'rxjs';
+import { Router } from '../../../../node_modules/@angular/router';
+import { EventclickedService } from '../../Services/eventclicked.service';
 
 @Component({
   selector: 'app-event',
@@ -21,10 +23,14 @@ export class EventComponent implements OnInit {
   userisHere: boolean;
   uid: string;
   user: any;
-  constructor(eventService: EventService, authS: AuthService) {
+  router: Router;
+  eventClickS: EventclickedService;
+  constructor(eventService: EventService, authS: AuthService, router: Router, eventClickS: EventclickedService) {
     this.eventService = eventService;
     this.authS = authS;
     this.uid = '';
+    this.router = router;
+    this.eventClickS = eventClickS;
   }
 
   ngOnInit() {
@@ -43,6 +49,12 @@ export class EventComponent implements OnInit {
     const dateArray = date.toString().split(' ');
     // dateArray[1] + ' ' + dateArray[2];
     return dateArray;
+  }
+
+  eventDetail(event: Event) {
+    console.log(event);
+    this.eventClickS.setEventClicked(event);
+    this.router.navigateByUrl('detail');
   }
 
 }
