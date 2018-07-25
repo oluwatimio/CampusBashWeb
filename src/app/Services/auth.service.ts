@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {SigninemitterService} from './signinemitter.service';
 import {UserSingle} from './UserSingle';
-;
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class AuthService {
