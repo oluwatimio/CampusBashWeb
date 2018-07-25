@@ -27,7 +27,7 @@ export class AuthService {
 
   signUp(email: string, pass: string) {
     firebase.auth().createUserWithEmailAndPassword(email , pass).then(() => {
-      // this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/');
     }).catch((error) => {
       console.log(error.code);
       alert(error.message);
@@ -37,11 +37,13 @@ export class AuthService {
   signIn(email: string, pass: string) {
     console.log(email);
     firebase.auth().signInWithEmailAndPassword(email, pass).then(() => {
-      //this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/');
     }).catch((error) => {
       console.log(error.code);
       if (error.code === 'auth/user-not-found') {
         this.signUp(email, pass);
+      } else if (error.code === 'auth/wrong-password') {
+        alert('Wrong user name or password');
       }
     });
   }
@@ -52,18 +54,16 @@ export class AuthService {
   observeUser(observer) {
     firebase.auth().onAuthStateChanged((user) => {
       observer.next(user);
-      if (user) {
-        this.router.navigateByUrl('tabs');
-      }
     });
   }
 
   googleSignIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().useDeviceLanguage();
-
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithPopup(provider).then((result) => {
       // const token = result.credential.accessToken;
+      this.router.navigateByUrl('/');
+      location.reload();
       const user = result.user;
       console.log(user);
     }).catch(function(error) {
@@ -79,7 +79,8 @@ export class AuthService {
     const provider = new firebase.auth.FacebookAuthProvider();
 
     firebase.auth().useDeviceLanguage();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
+    firebase.auth().signInWithPopup(provider).then((result) => {
+      this.router.navigateByUrl('/');
       const user = result.user;
     }).catch(function(error) {
       const errorCode = error.code;
@@ -107,8 +108,10 @@ export class AuthService {
   }
 
   signOut() {
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then(() => {
       // Sign-out successful.
+      this.router.navigateByUrl('signin');
+      location.reload();
     }).catch(function(error) {
       // An error happened.
     });

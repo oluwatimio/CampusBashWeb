@@ -18,20 +18,22 @@ export class NavComponent implements OnInit {
   authS: AuthService;
   uid: string;
   user: any;
+  signedIn: boolean;
 
   constructor(router: Router, authService: AuthService) {
     this.router = router;
     this.authS = authService;
+    this.signedIn = false;
   }
 
   ngOnInit() {
     this.authS.user.subscribe((user) => {
+      console.log(this.user);
       if (this.user !== null) {
+        this.signedIn = true;
         this.user = user;
         this.uid = user.uid;
         console.log(this.user.email);
-        document.getElementById('showSignIn').style.visibility = 'hidden';
-        document.getElementById('showSignIn').style.display = 'none';
       }
     });
   }

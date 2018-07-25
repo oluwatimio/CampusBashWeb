@@ -5,18 +5,18 @@
     <button mat-button><i class="material-icons" id="iconD">phone_iphone</i>GET THE MOBILE APP</button>
     <button mat-button (click)="addEvent()"><i class="material-icons" id="iconD">add_box</i>HOST AN EVENT </button>
 
-  <div id="showSignIn">
-    <button mat-button (click)="signInPage();"><i class="material-icons" id="iconD">account_circle</i>SIGN IN</button>
+  <div id="navBM">
+    <button *ngIf="signedIn === false" mat-button (click)="signInPage();"><i class="material-icons" id="iconD">account_circle</i>SIGN IN</button>
   </div>
 
-  <div>
-      <button mat-button (click)="signOut();"><i class="material-icons" id="iconD">account_circle</i>SIGN OUT</button>
+  <div id="navBM">
+      <button *ngIf="signedIn === true" mat-button (click)="signOut();"><i class="material-icons" id="iconD">account_circle</i>SIGN OUT</button>
     </div>
-
-<button mat-button [matMenuTriggerFor]="menu"><i class="material-icons" id="iconD">menu</i></button>
+<button mat-button [matMenuTriggerFor]="menu" id="navBD"><i class="material-icons" id="iconD">menu</i></button>
 <mat-menu #menu="matMenu">
   <button mat-menu-item><i class="material-icons">phone_iphone</i>GET THE MOBILE APP</button>
   <button mat-menu-item><i class="material-icons">add_box</i>HOST AN EVENT</button>
-  <button mat-menu-item><i class="material-icons">account_circle</i>SIGN IN</button>
+  <button *ngIf="signedIn === false" mat-menu-item ><i class="material-icons">account_circle</i>SIGN IN</button>
+  <button *ngIf="signedIn === true" mat-menu-item ><i class="material-icons">account_circle</i>SIGN OUT</button>
 </mat-menu>
 </mat-toolbar>
