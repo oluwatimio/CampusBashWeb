@@ -1,9 +1,20 @@
  <body style="overflow: scroll;">
   <div fxLayout="column">
+    <!--<mat-card id="matcard2">
+      <mat-card-content style="margin-left: 2vh">
+          <p id="happening">Here's what's happening in</p>
+          <mat-form-field id="happening2">
+              <mat-select placeholder="University">
+                <mat-option *ngFor="let food of foods" [value]="food.value">
+                  {{food.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>    
+      </mat-card-content>
+    </mat-card>-->
     <div *ngFor="let event of allEvents | async">
       <div *ngIf="event.events.length > 0">
-        <h2>{{event.sectionName}}</h2>
-        <mat-divider></mat-divider>
+        <h1 style="text-align: center">{{event.sectionName}}</h1>
         <div fxLayout="row wrap" fxLayoutAlign="center center">
           <div *ngFor="let event1 of event.events">
             <mat-card (click) = "eventDetail(event1)">

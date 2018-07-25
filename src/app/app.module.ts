@@ -13,6 +13,9 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import {AngularFireAuthModule} from 'angularfire2/auth';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+import {MatMenuModule} from '@angular/material/menu';
 
 
 import { AppComponent } from './app.component';
@@ -40,6 +43,7 @@ const routes: Routes = [
   {path: 'signin', component: SigninComponent},
   {path: 'events', component: EventComponent},
   {path: '', component: TabsComponent},
+  {path: 'tabs', component: TabsComponent},
   {path: 'addevent', component: AddeventComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'detail', component: EventdetailComponent}
@@ -80,7 +84,10 @@ const routes: Routes = [
     MatStepperModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMenuModule
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService],
   bootstrap: [AppComponent]

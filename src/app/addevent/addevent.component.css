@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+#postEvent{
+ margin-left: auto;
+ margin-right: auto;
+}
 .eventDetails{
   margin-top: 3vh;
   width: 100%;
@@ -11,6 +15,123 @@
   text-align: center;
 }
 
-.example-full-width{
-  width: 50%;
+.materialIcon{
+  width: 60px;
+  height: 60px;
+  margin-right: 1vh;
+}
+
+.full-width{
+  width: 95%;
+}
+
+#happening2{
+  font-size: 1em;
+}
+
+input{
+  display: inline;
+}
+
+mat-card{
+  margin-left: auto;
+  margin-right: auto;
+  width: 45vh;
+  height: 45vh;
+}
+
+label{
+  color: red !important;
+}
+
+.mdc-text-field{
+  width: 100%;
+}
+
+#tickets{
+  width: 80%;
+}
+
+#buttonTickets{
+  width: 20%;
+}
+
+.mdc-select{
+  width: 100%;
+}
+
+@media (min-width: 320px) and (max-width: 575.98px) {
+  mat-card{
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: 100%;
+  }
+
+  #marginCardTop{
+    margin-top: 12vh;
+    margin-bottom: 12vh
+  }
+
+  .full-widthdate{
+    width:50%;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  mat-card{
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: 100%;
+  }
+
+  #marginCardTop{
+    margin-top: 12vh;
+    margin-bottom: 12vh;
+  }
+
+  .full-widthdate{
+    width:50%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #marginCardTop{
+    margin-top: 20vh;
+    margin-bottom: 12vh;
+  }
+
+  .full-widthdate{
+    width:50%;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  #marginCardTop{
+    margin-top: 20vh;
+    margin-bottom: 12vh;
+  }
+
+  .full-widthdate{
+    width:50%;
+  }
+}
+
+@media (min-width: 1200px) {
+
+  mat-card{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50vh;
+    height: 50vh;
+  }
+  #marginCardTop{
+    margin-top: 20vh;
+    margin-bottom: 12vh;
+  }
+
+  .full-widthdate{
+    width:50%;
+  }
 }

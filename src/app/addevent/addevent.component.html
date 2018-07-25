@@ -1,27 +1,199 @@
-<div style="margin-top: 10vh">
-  <!--<h1 id="headerAlign">Post an Event</h1>-->
-  <!--<mat-divider></mat-divider>-->
+<div id="marginCardTop">
 
-  <h2 id="headerAlign">Event Details</h2>
-  <mat-divider></mat-divider>
-  <form class="eventDetails">
-    <div id="input">
-      <mat-form-field class="example-full-width">
-        <input matInput placeholder="What are we calling this?" value="Sushi">
-      </mat-form-field>
-    </div>
-    <div id="input">
-      <mat-form-field class="example-full-width">
-        <textarea matInput placeholder="Give us a short description"></textarea>
-      </mat-form-field>
+
+   <!--<form class="suggestEventForm">-->
+
+    <!--<div fxLayout="row">-->
+        <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f481-1f3fd-2640.png" class="materialIcon">-->
+        <!--<mat-form-field class="full-width" id="happening2">-->
+          <!--<input matInput placeholder="What are we calling this?"> &lt;!&ndash;value="Sushi"&ndash;&gt;-->
+        <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div fxLayout="row">-->
+      <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f937-1f3fc-2642.png" class="materialIcon">-->
+      <!--<mat-form-field class="full-width" id="happening2">-->
+          <!--<input matInput placeholder="Give us a short description"> &lt;!&ndash;value="Sushi"&ndash;&gt;-->
+        <!--</mat-form-field>-->
+    <!--</div>-->
+
+    <!--<div fxLayout="row">-->
+      <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f57a-1f3fe.png" class="materialIcon">-->
+      <!--<mat-form-field class="full-width" id="happening2">-->
+          <!--<mat-select placeholder="Type of event">-->
+            <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
+              <!--{{food.viewValue}}-->
+            <!--</mat-option>-->
+          <!--</mat-select>-->
+        <!--</mat-form-field>  -->
+    <!--</div>  -->
+
+    <!--<div fxLayout="row">-->
+      <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f55b.png" class="materialIcon">-->
+      <!--<mat-form-field class="full-widthdate" id="happening2">-->
+          <!--<input matInput [matDatepicker]="picker" placeholder="When does it start?" disabled>-->
+          <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+          <!--<mat-datepicker #picker disabled="false"></mat-datepicker>-->
+        <!--</mat-form-field>-->
+
+        <!--<mat-form-field class="full-widthdate" id="happening2">-->
+            <!--<mat-select placeholder="Time">-->
+              <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
+                <!--{{food.viewValue}}-->
+              <!--</mat-option>-->
+            <!--</mat-select>-->
+          <!--</mat-form-field> -->
+    <!--</div>-->
+
+    <!--<div fxLayout="row">-->
+        <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f55d.png" class="materialIcon">-->
+        <!--<mat-form-field class="full-widthdate" id="happening2">-->
+            <!--<input matInput [matDatepicker]="picker2" placeholder="When does it end?" disabled>-->
+            <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+            <!--<mat-datepicker #picker2 disabled="false"></mat-datepicker>-->
+          <!--</mat-form-field>-->
+
+          <!--<mat-form-field class="full-widthdate" id="happening2">-->
+              <!--<mat-select placeholder="Time">-->
+                <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
+                  <!--{{food.viewValue}}-->
+                <!--</mat-option>-->
+              <!--</mat-select>-->
+            <!--</mat-form-field>-->
+      <!--</div>-->
+
+              <!--<div fxLayout="row">-->
+                <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/2753.png" class="materialIcon">-->
+                <!--<mat-form-field class="full-width" id="happening2">-->
+                    <!--<input matInput placeholder="Where is it happening?"> &lt;!&ndash;value="Sushi"&ndash;&gt;-->
+                  <!--</mat-form-field>-->
+              <!--</div>-->
+
+              <!--<div fxLayout="row">-->
+                <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f3eb.png" class="materialIcon">-->
+                <!--<mat-form-field class="full-width" id="happening2">-->
+                    <!--<mat-select placeholder="Closest University">-->
+                      <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
+                        <!--{{food.viewValue}}-->
+                      <!--</mat-option>-->
+                    <!--</mat-select>-->
+                  <!--</mat-form-field> -->
+              <!--</div>-->
+    <!--</form>-->
+
+    <!--<div fxLayout="row" fxLayoutAlign="center center">-->
+        <!--<button mat-fab color="primary"><i class="material-icons">check</i></button>-->
+    <!--</div>-->
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="mdc-text-field mdc-text-field--outlined name">
+      <input type="text" id="tf-outlined" class="mdc-text-field__input">
+      <label for="tf-outlined" class="mdc-floating-label">What are we calling this?</label>
+      <div class="mdc-notched-outline">
+        <svg>
+          <path class="mdc-notched-outline__path"/>
+        </svg>
+      </div>
+      <div class="mdc-notched-outline__idle"></div>
     </div>
 
-    <div id="input">
-      <mat-form-field class="example-full-width">
-        <mat-select placeholder="Select Event Type">
-          <mat-option value="option">Option</mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div class="mdc-text-field mdc-text-field--outlined description">
+      <input type="text" id="tf-outlined" class="mdc-text-field__input">
+      <label for="tf-outlined" class="mdc-floating-label">Give us a short description</label>
+      <div class="mdc-notched-outline">
+        <svg>
+          <path class="mdc-notched-outline__path"/>
+        </svg>
+      </div>
+      <div class="mdc-notched-outline__idle"></div>
     </div>
-  </form>
+
+    <div class="mdc-select">
+      <select class="mdc-select__native-control">
+        <option value="" disabled selected></option>
+        <option value="grains">
+          Bread, Cereal, Rice, and Pasta
+        </option>
+        <option value="vegetables">
+          Vegetables
+        </option>
+        <option value="fruit">
+          Fruit
+        </option>
+      </select>
+      <label class="mdc-floating-label">Type of event</label>
+      <div class="mdc-line-ripple"></div>
+    </div>
+
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-form-field class="full-widthdate" id="happening2">
+      <input matInput [matDatepicker]="picker" placeholder="When does it start?" disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-widthdate" id="happening2">
+      <mat-select placeholder="Time">
+        <mat-option *ngFor="let food of foods" [value]="food.value">
+          {{food.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <mat-form-field class="full-widthdate" id="happening2">
+      <input matInput [matDatepicker]="picker2" placeholder="When does it end?" disabled>
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2 disabled="false"></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="full-widthdate" id="happening2">
+      <mat-select placeholder="Time">
+        <mat-option *ngFor="let food of foods" [value]="food.value">
+          {{food.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <div class="mdc-text-field mdc-text-field--outlined where">
+      <input type="text" id="tf-outlined" class="mdc-text-field__input">
+      <label for="tf-outlined" class="mdc-floating-label">Where is it happening?</label>
+      <div class="mdc-notched-outline">
+        <svg>
+          <path class="mdc-notched-outline__path"/>
+        </svg>
+      </div>
+      <div class="mdc-notched-outline__idle"></div>
+    </div>
+
+    <div class="mdc-text-field mdc-text-field--outlined address">
+      <input type="text" id="tf-outlined" class="mdc-text-field__input">
+      <label for="tf-outlined" class="mdc-floating-label">Search for an address</label>
+      <div class="mdc-notched-outline">
+        <svg>
+          <path class="mdc-notched-outline__path"/>
+        </svg>
+      </div>
+      <div class="mdc-notched-outline__idle"></div>
+    </div>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <h3 style="font-family: Roboto">Add tickets if you have any</h3>
+    <button style="margin-left: 2vh" mat-raised-button (click) = "SignIn()" color="primary">ADD TICKETS</button>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button mat-fab color="primary"><i class="material-icons">check</i></button>
+  </div>
+
+
+
+
+
 </div>
+
+

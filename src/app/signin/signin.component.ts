@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../Services/auth.service';
 import {Router} from '@angular/router';
+import {MDCTextField} from '@material/textfield';
 
 @Component({
   selector: 'app-signin',
@@ -19,10 +20,20 @@ export class SigninComponent implements OnInit {
    }
 
   ngOnInit() {
+    const textField = new MDCTextField(document.querySelector('.emailt'));
+    const textField2 = new MDCTextField(document.querySelector('.passt'));
   }
 
   SignIn() {
     this.serviceAuth.signIn(this.email, this.pass);
+  }
+
+  signInGoogle() {
+    this.serviceAuth.googleSignIn();
+  }
+
+  signInFacebook() {
+    this.serviceAuth.facebookSignIn();
   }
 
 

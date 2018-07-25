@@ -6,9 +6,46 @@
     margin-top: 5vh;
 }
 
-input{
-  color: white;
+#marginTop{
+  margin-top: 10vh;
+  margin-bottom: 15vh;
 }
+
+#iconSizeSocial{
+  height: 20px;
+  width: 20px;
+  margin-right: 0.5vh;
+}
+
+#socialButtons{
+  margin-left: 1vh;
+}
+
+#imageSignUp{
+  width: 12vh;
+  height: 12vh;
+}
+
+h1{
+  font-size: 2em;
+  font-family: roboto;
+  text-align: center;
+}
+
+#subTextSignup{
+  text-align: center;
+  font-size: 1em;
+  font-family: roboto;
+}
+
+label{
+  color: red !important;
+}
+
+.mat-form-field-underline{
+  background-color: #f3dc50 !important;
+}
+
 
 @media (min-width: 320px) and (max-width: 575.98px) {
   mat-card{
@@ -17,6 +54,18 @@ input{
     width: 100%;
     background-color:#D4262F;
     color: white ;
+  }
+
+  h1{
+    font-size: 1em;
+    font-family: roboto;
+    text-align: center;
+  }
+
+  #subTextSignup{
+    text-align: center;
+    font-size: 0.8em;
+    font-family: roboto;
   }
 }
 
@@ -29,6 +78,18 @@ input{
     margin-right: auto;
     background-color:#D4262F;
     color: white ;
+  }
+
+  h1{
+    font-size: 0.8em;
+    font-family: roboto;
+    text-align: center;
+  }
+
+  #subTextSignup{
+    text-align: center;
+    font-size: 0.8em;
+    font-family: roboto;
   }
 }
 

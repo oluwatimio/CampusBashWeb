@@ -1,9 +1,20 @@
 mat-card{
-  margin-top: 10vh;
+  margin-top: 5vh;
   height: 28vh;
   width: 28vh;
   margin-left: 2vh;
   margin-bottom: 2vh;
+}
+
+#matcard2{
+  margin-top: 5vh;
+  height: 22vh;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 2vh;
+  /*background-color: #f3dc50;*/
+  background-color: #D4262F;
 }
 
 img{
@@ -20,4 +31,56 @@ img{
 
 body{
   margin-bottom: 10vh;
+}
+
+@media (min-width: 320px) and (max-width: 575.98px) {
+  #happening{
+    color: white; font-size: 1.5em
+  }
+
+  #happening2{
+    font-size: 1.2em;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #happening{
+    color: white; font-size: 1.5em
+  }
+
+  #happening2{
+    font-size: 1.2em;
+  }
+
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #happening{
+    color: white; font-size: 1.5em
+  }
+
+  #happening2{
+    font-size: 1.2em;
+  }
+
+}
+
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  #happening{
+    color: white; font-size: 1.5em
+  }
+
+  #happening2{
+    font-size: 1.2em;
+  }
+}
+
+@media (min-width: 1200px) {
+  #happening{
+    color: white; font-size: 2em
+  }
+
+  #happening2{
+    font-size: 1.5em;
+  }
 }

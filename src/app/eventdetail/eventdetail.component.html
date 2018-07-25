@@ -1,8 +1,8 @@
- <body>
+ <body style="margin-top: 10vh">
    <div style="display: flex; justify-content: center">
       <img *ngIf = "eventClicked !== undefined" src="{{eventClicked.placeHolderImage.url}}" id="imgdiv">
    </div>
-   <div style="display: flex; justify-content: center; margin-top: 2vh">
+   <div style="display: flex; justify-content: center; margin-top: 2vh" *ngIf="eventClicked !== undefined">
       <mat-card>
           <mat-card-content>
             <h2>{{eventClicked.eventName}}</h2>
@@ -12,14 +12,50 @@
    <div style="display: flex; justify-content: center; margin-top: 2vh">
       <mat-card>
           <mat-card-content>
-            <p>Card 2</p>
+            <div fxLayout="column">
+                  <h3><i class="material-icons">calendar_today</i>{{getDate(eventClicked.startTime)}}</h3>
+                  <h3><i class="material-icons">location_on</i>{{eventClicked.address}}</h3>
+                  <div *ngIf="eventClicked.tickets.length > 0">
+                      <h3><i class="material-icons">local_offer</i>{{eventClicked.tickets[0].price}}</h3>
+                  </div>
+            </div>
           </mat-card-content>
         </mat-card>
    </div>
    <div style="display: flex; justify-content: center; margin-top: 2vh">
       <mat-card>
+        <mat-card-header>
+          <h2>About</h2>
+        </mat-card-header>
           <mat-card-content>
-            <p>Card 3</p>
+            <div fxLayout="column">
+                <h3><i class="material-icons">info</i>{{eventClicked.description}}</h3>
+            </div>
+          </mat-card-content>
+        </mat-card>
+   </div>
+   <div style="display: flex; justify-content: center; margin-top: 2vh">
+      <mat-card>
+        <mat-card-header>
+          <h2>Location</h2>
+        </mat-card-header>
+          <mat-card-content>
+            <div fxLayout="column">
+                <h3><i class="material-icons">info</i>{{eventClicked.description}}</h3>
+            </div>
+          </mat-card-content>
+        </mat-card>
+   </div>
+   <div style="display: flex; justify-content: center; margin-top: 2vh">
+      <mat-card>
+        <mat-card-header>
+          <h2>Host</h2>
+        </mat-card-header>
+          <mat-card-content>
+            <div fxLayout="column">
+                <!-- <i class="material-icons">info</i> -->
+                <h3><img class="hostpic" src="{{eventClicked.creator.imageUrl}}">{{eventClicked.creator.name}}</h3>
+            </div>
           </mat-card-content>
         </mat-card>
    </div>

@@ -17,9 +17,17 @@ export class EventdetailComponent implements OnInit {
   ngOnInit() {
     this.clicks.localStorages.getItem<Event>('event').subscribe((event) => {
       this.eventClicked = event;
-      console.log(this.eventClicked.placeHolderImage.url);
+      console.log(this.eventClicked.description);
     });
     //this.eventClicked = event;
+  }
+
+  getDate(dateM: number) {
+    const date = new Date(dateM);
+    const dateArray = date.toString().split(' ');
+    // dateArray[1] + ' ' + dateArray[2];
+    const date2 = dateArray[0] + ' ' + dateArray[1] + ' ' + dateArray[2];
+    return date2;
   }
 
 }

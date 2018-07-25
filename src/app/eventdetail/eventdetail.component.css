@@ -3,10 +3,27 @@ body{
   }
 
   mat-card{
-      width: 50vh;
+      width: 50%;
   }
 
   #imgdiv{
       height: 25vh;
       width: 25vh;
+  }
+
+  .material-icons{
+    position: relative;
+    top: 5px;
+    left: 5px;
+    margin-right: 2vh
+  }
+
+  .hostpic{
+      position: relative;
+      top:5px;
+      left: 5px;
+      margin-right: 2vh;
+      width: 3.5vh;
+      height: 3.5vh;
+      border-radius: 50%;
   }

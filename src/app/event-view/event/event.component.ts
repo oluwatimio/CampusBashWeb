@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 import { from } from 'rxjs';
 import { Router } from '../../../../node_modules/@angular/router';
 import { EventclickedService } from '../../Services/eventclicked.service';
+import {delay} from 'q';
 
 @Component({
   selector: 'app-event',
@@ -51,9 +52,12 @@ export class EventComponent implements OnInit {
     return dateArray;
   }
 
-  eventDetail(event: Event) {
+  async eventDetail(event: Event) {
+    //console.log(event);
+    console.log('event problem');
     console.log(event);
     this.eventClickS.setEventClicked(event);
+    await delay(1);
     this.router.navigateByUrl('detail');
   }
 

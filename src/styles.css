@@ -8,3 +8,19 @@ mat-toolbar{
     z-index: 2;
   }
 
+.mat-tab-label {
+    width: 33.33%;
+}
+
+label{
+  color: #f3dc50 !important;
+}
+
+.mat-form-field-underline{
+  background-color: #f3dc50 !important;
+}
+
+
+.mat-select-arrow{
+  color: #f3dc50 !important;
+}

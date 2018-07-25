@@ -1,4 +1,56 @@
-<mat-card>
+
+<div id="marginTop">
+  <div fxLayout="row" fxLayoutAlign="center center">
+      <img id="imageSignUp" src="../../assets/EmojiOne_3.1.1_128x128_png/1f64b-1f3fe-2642.png">
+  </div>
+  <h1>You're one step closer to awesome events</h1>
+  <p id="subTextSignup">Sign up or login using one of the methods below</p>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div class="mdc-text-field mdc-text-field--outlined emailt">
+      <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="email"
+             (input) = "email = $event.target.value">
+      <label for="tf-outlined" class="mdc-floating-label">Email</label>
+      <div class="mdc-notched-outline">
+        <svg>
+          <path class="mdc-notched-outline__path"/>
+        </svg>
+      </div>
+      <div class="mdc-notched-outline__idle"></div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <div class="mdc-text-field mdc-text-field--outlined passt">
+      <input type="text" id="tf-outlined" class="mdc-text-field__input" type="password" [value] = "pass"
+             (input) = "pass = $event.target.value">
+      <label for="tf-outlined" class="mdc-floating-label">Password</label>
+      <div class="mdc-notched-outline">
+        <svg>
+          <path class="mdc-notched-outline__path"/>
+        </svg>
+      </div>
+      <div class="mdc-notched-outline__idle"></div>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-bottom: 1vh">
+    <button style="background-color: #D4262F; color: white; " mat-raised-button (click) = "SignIn()">
+      <img id="iconSizeSocial" src="../../assets/app_icon.svg"> Sign In</button>
+  </div>
+
+  <div>
+    <h2 style="font-family: Roboto; text-align: center">Or</h2>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center center">
+    <button id="socialButtons" mat-raised-button (click) = "signInFacebook()" color="primary"><img id="iconSizeSocial" src="https://static.xx.fbcdn.net/rsrc.php/v3/yy/r/uPlIYLfynqH.png">Facebook Sign in</button>
+    <button id="socialButtons" mat-raised-button (click) = "signInGoogle()"><img id="iconSizeSocial" src="../../assets/icons8-google.svg">Google Sign in</button>
+  </div>
+</div>
+
+
+<!-- <mat-card>
   <mat-card-header>
     CampusBash Signin
   </mat-card-header>
@@ -15,5 +67,4 @@
           </mat-form-field>
         </form>
   </mat-card-content>
-  <button mat-button (click) = "SignIn()">Sign In</button>
-</mat-card>
+</mat-card> -->
