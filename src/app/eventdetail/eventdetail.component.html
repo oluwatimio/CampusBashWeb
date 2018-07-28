@@ -1,7 +1,13 @@
  <body style="margin-top: 10vh">
-   <div style="display: flex; justify-content: center">
-      <img *ngIf = "eventClicked !== undefined" src="{{eventClicked.placeHolderImage.url}}" id="imgdiv">
+   <div *ngIf = "eventClicked.placeHolderImage !== null" style="display: flex; justify-content: center">
+      <img src="{{eventClicked.placeHolderImage.url}}" id="imgdiv">
    </div>
+
+   <div *ngIf = "eventClicked.placeHolderImage === null" style="display: flex; justify-content: center">
+     <img src="assets/placeholder.png" id="imgdiv">
+   </div>
+
+
    <div style="display: flex; justify-content: center; margin-top: 2vh" *ngIf="eventClicked !== undefined">
       <mat-card>
           <mat-card-content>
@@ -14,10 +20,15 @@
           <mat-card-content>
             <div fxLayout="column">
                   <h3><i class="material-icons">calendar_today</i>{{getDate(eventClicked.startTime)}}</h3>
-                  <h3><i class="material-icons">location_on</i>{{eventClicked.address}}</h3>
+                  <h3><i class="material-icons">location_on</i>{{address}}</h3>
                   <div *ngIf="eventClicked.tickets.length > 0">
-                      <h3><i class="material-icons">local_offer</i>{{eventClicked.tickets[0].price}}</h3>
+                    <div *ngFor="let ticket of eventClicked.tickets">
+                      <h3><i class="material-icons">local_offer</i>{{ticket.currency + '' + ticket.price}}</h3>
+                    </div>
                   </div>
+                 <div *ngIf="eventClicked.tickets.length === 0">
+                   <h3><i class="material-icons">local_offer</i>No Tickets</h3>
+                </div>
             </div>
           </mat-card-content>
         </mat-card>
@@ -41,7 +52,7 @@
         </mat-card-header>
           <mat-card-content>
             <div fxLayout="column">
-                <h3><i class="material-icons">info</i>{{eventClicked.description}}</h3>
+              <div #gmap style="width:100%;height:50vh"></div>
             </div>
           </mat-card-content>
         </mat-card>

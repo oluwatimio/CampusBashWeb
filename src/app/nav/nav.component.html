@@ -2,17 +2,17 @@
   <img src="../../assets/applogo.svg">
 
   <span class="example-fill-remaining-space"></span>
-    <button mat-button><i class="material-icons" id="iconD">phone_iphone</i>GET THE MOBILE APP</button>
-    <button mat-button (click)="addEvent()"><i class="material-icons" id="iconD">add_box</i>HOST AN EVENT </button>
+    <button id = "navBD" mat-button><i class="material-icons" id="iconD">phone_iphone</i>GET THE MOBILE APP</button>
+    <button id = "navBD" mat-button (click)="addEvent()"><i class="material-icons" id="iconD">add_box</i>HOST AN EVENT </button>
 
-  <div id="navBM">
+  <div id="navBD">
     <button *ngIf="signedIn === false" mat-button (click)="signInPage();"><i class="material-icons" id="iconD">account_circle</i>SIGN IN</button>
   </div>
 
-  <div id="navBM">
+  <div id="navBD">
       <button *ngIf="signedIn === true" mat-button (click)="signOut();"><i class="material-icons" id="iconD">account_circle</i>SIGN OUT</button>
     </div>
-<button mat-button [matMenuTriggerFor]="menu" id="navBD"><i class="material-icons" id="iconD">menu</i></button>
+<button mat-button [matMenuTriggerFor]="menu" id="navBM"><i class="material-icons" id="iconD">menu</i></button>
 <mat-menu #menu="matMenu">
   <button mat-menu-item><i class="material-icons">phone_iphone</i>GET THE MOBILE APP</button>
   <button mat-menu-item><i class="material-icons">add_box</i>HOST AN EVENT</button>

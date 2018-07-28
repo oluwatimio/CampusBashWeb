@@ -6,7 +6,8 @@ import {delay} from 'q';
 
 @Injectable()
 export class EventService {
-  eventTypes = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk', 'Festival']
+  eventTypes = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference',
+    'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk', 'Festival']
   sections: EventSection[] = new Array();
   events: Event[] = new Array();
   eventsHost: Event[] = new Array()
