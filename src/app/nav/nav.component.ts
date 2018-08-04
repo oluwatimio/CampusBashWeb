@@ -33,6 +33,8 @@ export class NavComponent implements OnInit {
         this.signedIn = true;
         this.user = user;
         this.uid = user.uid;
+        document.getElementById('signOut').style.display = 'block';
+        document.getElementById('signIn').style.display = 'none';
         console.log(this.user.email);
       }
     });
@@ -47,6 +49,8 @@ export class NavComponent implements OnInit {
   }
 
   signOut() {
+    document.getElementById('signOut').style.display = 'none';
+    document.getElementById('signIn').style.display = 'block';
     this.authS.signOut();
   }
 

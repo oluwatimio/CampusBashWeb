@@ -21,6 +21,10 @@
   margin-left: 1vh;
 }
 
+#socialButtonsG{
+  margin-left: 1vh;
+}
+
 #imageSignUp{
   width: 12vh;
   height: 12vh;
@@ -126,5 +130,15 @@ label{
     margin-right: auto;
     background-color:#D4262F;
     color: white ;
+  }
+}
+
+.mdc-text-field{
+  width: 80%;
+}
+
+@media (min-width: 1000px) {
+  .mdc-text-field{
+    width: 40%;
   }
 }

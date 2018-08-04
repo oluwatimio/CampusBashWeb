@@ -24,3 +24,7 @@ label{
 .mat-select-arrow{
   color: #f3dc50 !important;
 }
+
+.mat-select-value{
+  color: white;
+}

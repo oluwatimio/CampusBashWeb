@@ -3,7 +3,7 @@
         <p id="happening">Here's what's happening in</p>
         <mat-form-field id="happening2">
             <mat-select placeholder="Select your University">
-              <mat-option *ngFor="let university of universities" [value]="university">
+              <mat-option *ngFor="let university of universities" [value]="university" (onSelectionChange)="filterUni()">
                 {{university}}
               </mat-option>
             </mat-select>
@@ -14,6 +14,7 @@
 <mat-tab-group>
     <mat-tab label="Events"><app-event></app-event></mat-tab>
     <mat-tab label="Search"><app-search></app-search></mat-tab>
+    <mat-tab *ngIf="userExists === true" label="Tickets"></mat-tab>
     <mat-tab label="Hosting"><app-hosting></app-hosting></mat-tab>
   </mat-tab-group>
 

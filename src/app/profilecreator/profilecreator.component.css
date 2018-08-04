@@ -1,0 +1,28 @@
+#imageSignUp{
+  width: 15vh;
+  height: 15vh;
+}
+
+#marginTop{
+  margin-top: 20vh;
+  margin-bottom: 15vh;
+}
+
+.mdc-text-field{
+  width: 80%;
+}
+
+@media (min-width: 1000px) {
+  .mdc-text-field{
+    width: 40%;
+  }
+}
+
+#nextButton{
+  background-color:#D4262F;
+  margin-top: 5vh;
+}
+
+label{
+  color: #D4262F !important;
+}

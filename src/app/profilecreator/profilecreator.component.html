@@ -1,0 +1,30 @@
+<div id="marginTop" fxLayout="column" fxLayoutAlign="center center">
+  <img id="imageSignUp" src="../../assets/EmojiOne_3.1.1_128x128_png/1f471-1f3fc-2640.png">
+
+  <div class="mdc-text-field mdc-text-field--outlined username">
+    <input type="text" id="tf-outlined" class="mdc-text-field__input" [value] = "username"
+           (input) = "username = $event.target.value">
+    <label for="tf-outlined" class="mdc-floating-label">Enter a Username</label>
+    <div class="mdc-notched-outline">
+      <svg>
+        <path class="mdc-notched-outline__path"/>
+      </svg>
+    </div>
+    <div class="mdc-notched-outline__idle"></div>
+  </div>
+
+  <div class="mdc-text-field mdc-text-field--outlined summary">
+    <input type="text" id="tf-outlined" class="mdc-text-field__input" [value] = "summary"
+           (input) = "summary = $event.target.value">
+    <label for="tf-outlined" class="mdc-floating-label">Enter summary of yourself</label>
+    <div class="mdc-notched-outline">
+      <svg>
+        <path class="mdc-notched-outline__path"/>
+      </svg>
+    </div>
+    <div class="mdc-notched-outline__idle"></div>
+  </div>
+
+
+  <button mat-flat-button id="nextButton">NEXT</button>
+</div>

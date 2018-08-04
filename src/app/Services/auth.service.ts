@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {SigninemitterService} from './signinemitter.service';
 import {UserSingle} from './UserSingle';
 import {Observable} from 'rxjs';
+import {delay} from 'q';
 
 @Injectable()
 export class AuthService {
@@ -27,6 +28,7 @@ export class AuthService {
 
   signUp(email: string, pass: string) {
     firebase.auth().createUserWithEmailAndPassword(email , pass).then(() => {
+
       this.router.navigateByUrl('/');
     }).catch((error) => {
       console.log(error.code);
@@ -63,7 +65,7 @@ export class AuthService {
     firebase.auth().signInWithPopup(provider).then((result) => {
       // const token = result.credential.accessToken;
       this.router.navigateByUrl('/');
-      location.reload();
+      location.reload(true);
       const user = result.user;
       console.log(user);
     }).catch(function(error) {
@@ -81,6 +83,7 @@ export class AuthService {
     firebase.auth().useDeviceLanguage();
     firebase.auth().signInWithPopup(provider).then((result) => {
       this.router.navigateByUrl('/');
+      location.reload(true);
       const user = result.user;
     }).catch(function(error) {
       const errorCode = error.code;
@@ -111,7 +114,7 @@ export class AuthService {
     firebase.auth().signOut().then(() => {
       // Sign-out successful.
       this.router.navigateByUrl('signin');
-      location.reload();
+      //location.reload();
     }).catch(function(error) {
       // An error happened.
     });

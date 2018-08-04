@@ -38,6 +38,9 @@ import {UserSingle} from './Services/UserSingle';
 import { HostingComponent } from './hosting/hosting.component';
 import { EventdetailComponent } from './eventdetail/eventdetail.component';
 import { EventclickedService } from './Services/eventclicked.service';
+import { MappComponent } from './mapp/mapp.component';
+import { ProfilecreatorComponent } from './profilecreator/profilecreator.component';
+import {ProfileService} from './Services/profile.service';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -46,7 +49,9 @@ const routes: Routes = [
   {path: 'tabs', component: TabsComponent},
   {path: 'addevent', component: AddeventComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'detail', component: EventdetailComponent}
+  {path: 'detail', component: EventdetailComponent},
+  {path: 'mapp', component: MappComponent},
+  {path: 'profilec', component: ProfilecreatorComponent}
 ];
 
 @NgModule({
@@ -61,7 +66,9 @@ const routes: Routes = [
     SearchComponent,
     AddeventComponent,
     HostingComponent,
-    EventdetailComponent
+    EventdetailComponent,
+    MappComponent,
+    ProfilecreatorComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +96,7 @@ const routes: Routes = [
     MatNativeDateModule,
     MatMenuModule
   ],
-  providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService],
+  providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -60,3 +60,7 @@ img{
     display: none;
   }
 }
+
+#signOut{
+  display: none;
+}
