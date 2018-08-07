@@ -12,10 +12,10 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
-import {AngularFireAuthModule} from 'angularfire2/auth';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 
 import { AppComponent } from './app.component';
@@ -41,6 +41,8 @@ import { EventclickedService } from './Services/eventclicked.service';
 import { MappComponent } from './mapp/mapp.component';
 import { ProfilecreatorComponent } from './profilecreator/profilecreator.component';
 import {ProfileService} from './Services/profile.service';
+import {environment} from '../environments/environment';
+import {InterestsComponent} from './interests/interests.component';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -68,7 +70,8 @@ const routes: Routes = [
     HostingComponent,
     EventdetailComponent,
     MappComponent,
-    ProfilecreatorComponent
+    ProfilecreatorComponent,
+    InterestsComponent
   ],
   imports: [
     BrowserModule,
@@ -90,8 +93,8 @@ const routes: Routes = [
     MatSelectModule,
     MatStepperModule,
     FormsModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     ReactiveFormsModule,
-    AngularFireAuthModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule

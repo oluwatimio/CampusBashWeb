@@ -5,6 +5,7 @@ import {SigninemitterService} from './signinemitter.service';
 import {UserSingle} from './UserSingle';
 import {Observable} from 'rxjs';
 import {delay} from 'q';
+import {ProfileService} from './profile.service';
 
 @Injectable()
 export class AuthService {
@@ -13,9 +14,10 @@ export class AuthService {
   uid: string;
   user: Observable<any>;
   userS: UserSingle;
-
-  constructor(router: Router) {
+  ps: ProfileService;
+  constructor(router: Router, ps: ProfileService) {
     this.router = router;
+    this.ps = ps;
 
     this.user = new Observable((observer) => {
       this.observeUser(observer);
@@ -27,9 +29,8 @@ export class AuthService {
   }
 
   signUp(email: string, pass: string) {
-    firebase.auth().createUserWithEmailAndPassword(email , pass).then(() => {
-
-      this.router.navigateByUrl('/');
+    firebase.auth().createUserWithEmailAndPassword(email , pass).then((response) => {
+      this.router.navigateByUrl('profilec');
     }).catch((error) => {
       console.log(error.code);
       alert(error.message);
@@ -64,8 +65,9 @@ export class AuthService {
     firebase.auth().useDeviceLanguage();
     firebase.auth().signInWithPopup(provider).then((result) => {
       // const token = result.credential.accessToken;
-      this.router.navigateByUrl('/');
-      location.reload(true);
+      this.router.navigateByUrl('/').then(() => {
+        location.reload(true);
+      });
       const user = result.user;
       console.log(user);
     }).catch(function(error) {
@@ -73,6 +75,7 @@ export class AuthService {
       const errorMessage = error.message;
       const email = error.email;
       const credential = error.credential;
+      console.log(errorMessage);
     });
 
   }
@@ -82,8 +85,9 @@ export class AuthService {
 
     firebase.auth().useDeviceLanguage();
     firebase.auth().signInWithPopup(provider).then((result) => {
-      this.router.navigateByUrl('/');
-      location.reload(true);
+      this.router.navigateByUrl('/').then(() => {
+        location.reload(true);
+      });
       const user = result.user;
     }).catch(function(error) {
       const errorCode = error.code;
@@ -113,8 +117,9 @@ export class AuthService {
   signOut() {
     firebase.auth().signOut().then(() => {
       // Sign-out successful.
-      this.router.navigateByUrl('signin');
-      //location.reload();
+      this.router.navigateByUrl('signin').then(() => {
+        location.reload();
+      });
     }).catch(function(error) {
       // An error happened.
     });

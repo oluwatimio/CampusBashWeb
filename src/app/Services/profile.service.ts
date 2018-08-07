@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import {Preference} from '../Classes/Preference';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class ProfileService {
-  constructor() {
+  router: Router;
+  constructor(router: Router) {
+    this.router = router;
   }
 
   addUser(email: string, uid: string) {
@@ -15,6 +18,17 @@ export class ProfileService {
   }
 
   updateUserWithUserName(username: string, summary: string, uid: string) {
+    const db = firebase.firestore();
+    db.collection('users').doc(uid).update({
+      username: username,
+      summary: summary
+    }).then(() => {
+      console.log('Username Updated');
+      this.router.navigateByUrl('')
+    });
+  }
+
+  updateUserWithUserP(username: string, summary: string, uid: string) {
     const db = firebase.firestore();
     db.collection('users').doc(uid).update({
       username: username,
