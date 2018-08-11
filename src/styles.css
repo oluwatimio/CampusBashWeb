@@ -28,3 +28,16 @@ label{
 .mat-select-value{
   color: white;
 }
+
+.mat-checkbox-label{
+  color: red;
+}
+
+mat-card{
+  border-radius: 15px !important;
+}
+
+.mat-card-image{
+  margin-bottom: 0px !important;
+}
+

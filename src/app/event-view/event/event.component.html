@@ -18,16 +18,14 @@
         <div fxLayout="row wrap" fxLayoutAlign="center center">
           <div *ngFor="let event1 of event.events">
             <mat-card (click) = "eventDetail(event1)">
-              <mat-card-content>
                 <div *ngIf="event1.placeHolderImage != null">
-                  <img mat-card-image src="{{event1.placeHolderImage.url}}">
+                  <img style="border-radius: 15px" mat-card-image src="{{event1.placeHolderImage.url}}">
                   <mat-divider></mat-divider>
                 </div>
                 <div *ngIf="event1.placeHolderImage == null">
-                  <img mat-card-image src="assets/placeholder.png">
+                  <img style="border-radius: 15px" mat-card-image src="assets/placeholder.png">
                   <mat-divider></mat-divider>
                 </div>
-              </mat-card-content>
               <mat-card-footer>
                 <div fxLayout="row" id="footer">
                   <div fxLayout="column">
