@@ -36,6 +36,7 @@
     "core-js": "^2.5.7",
     "firebase": "^5.3.1",
     "firebaseui": "^3.2.0",
+    "node-sass": "^4.9.2",
     "rxjs": "^6.2.2",
     "technicalindicators": "1.0.19",
     "zone.js": "^0.8.26"

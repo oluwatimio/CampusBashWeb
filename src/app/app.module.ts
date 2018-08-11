@@ -13,7 +13,7 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material';
+import {MatDialogModule, MatNativeDateModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -33,6 +33,7 @@ import {SigninemitterService} from './Services/signinemitter.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatOptionModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material';
+import {MatListModule} from '@angular/material/list';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserSingle} from './Services/UserSingle';
 import { HostingComponent } from './hosting/hosting.component';
@@ -43,6 +44,8 @@ import { ProfilecreatorComponent } from './profilecreator/profilecreator.compone
 import {ProfileService} from './Services/profile.service';
 import {environment} from '../environments/environment';
 import {InterestsComponent} from './interests/interests.component';
+import { GetTicketsViewComponent } from './get-tickets-view/get-tickets-view.component';
+import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.component';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -53,7 +56,8 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'detail', component: EventdetailComponent},
   {path: 'mapp', component: MappComponent},
-  {path: 'profilec', component: ProfilecreatorComponent}
+  {path: 'profilec', component: ProfilecreatorComponent},
+  {path: ':eventId/buyTicket', component: GetTicketsViewComponent}
 ];
 
 @NgModule({
@@ -71,7 +75,9 @@ const routes: Routes = [
     EventdetailComponent,
     MappComponent,
     ProfilecreatorComponent,
-    InterestsComponent
+    InterestsComponent,
+    GetTicketsViewComponent,
+    QuantityDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -97,7 +103,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatMenuModule
+    MatMenuModule,
+    MatDialogModule,
+    MatListModule
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
   bootstrap: [AppComponent]

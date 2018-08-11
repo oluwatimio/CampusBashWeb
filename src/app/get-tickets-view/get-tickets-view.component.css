@@ -1,0 +1,16 @@
+.main {
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.left {
+  margin-right: 20px;
+}
+
+.get-ticket-button {
+  width: 100%;
+}
+
+.quantity {
+  width: 100%;
+}
