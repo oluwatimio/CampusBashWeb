@@ -1,90 +1,91 @@
+<aside id="my-mdc-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="my-mdc-dialog-label" aria-describedby="my-mdc-dialog-description">
+  <div class="mdc-dialog__surface">
+    <header class="mdc-dialog__header">
+      <h2 id="my-mdc-dialog-label" class="mdc-dialog__header__title" style="font-family: Roboto">
+        Add Tickets
+        <mat-divider></mat-divider>
+      </h2>
+    </header>
+    <section id="my-mdc-dialog-description" class="mdc-dialog__body">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <div class="mdc-text-field mdc-text-field--outlined ticketname">
+          <input type="text" id="tf-outlined" class="mdc-text-field__input">
+          <label for="tf-outlined" class="mdc-floating-label">Enter ticket name</label>
+          <div class="mdc-notched-outline">
+            <svg>
+              <path class="mdc-notched-outline__path"/>
+            </svg>
+          </div>
+          <div class="mdc-notched-outline__idle"></div>
+        </div>
+        <div class="mdc-text-field mdc-text-field--outlined ticketdescription">
+          <input type="text" id="tf-outlined" class="mdc-text-field__input">
+          <label for="tf-outlined" class="mdc-floating-label">Enter ticket description</label>
+          <div class="mdc-notched-outline">
+            <svg>
+              <path class="mdc-notched-outline__path"/>
+            </svg>
+          </div>
+          <div class="mdc-notched-outline__idle"></div>
+        </div>
+        <div class="mdc-text-field mdc-text-field--outlined ticketquantity">
+          <input type="text" id="tf-outlined" class="mdc-text-field__input">
+          <label for="tf-outlined" class="mdc-floating-label">Enter ticket quantity</label>
+          <div class="mdc-notched-outline">
+            <svg>
+              <path class="mdc-notched-outline__path"/>
+            </svg>
+          </div>
+          <div class="mdc-notched-outline__idle"></div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="center center">
+          <div class="mdc-form-field">
+            <div class="mdc-checkbox">
+              <input type="checkbox"
+                     class="mdc-checkbox__native-control"
+                     id="checkbox-1"/>
+              <div class="mdc-checkbox__background">
+                <svg class="mdc-checkbox__checkmark"
+                     viewBox="0 0 24 24">
+                  <path class="mdc-checkbox__checkmark-path"
+                        fill="none"
+                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                </svg>
+                <div class="mdc-checkbox__mixedmark"></div>
+              </div>
+            </div>
+            <label for="checkbox-1">Free</label>
+          </div>
+          <div class="mdc-form-field">
+            <div class="mdc-checkbox">
+              <input type="checkbox"
+                     class="mdc-checkbox__native-control"
+                     id="checkbox-1"/>
+              <div class="mdc-checkbox__background">
+                <svg class="mdc-checkbox__checkmark"
+                     viewBox="0 0 24 24">
+                  <path class="mdc-checkbox__checkmark-path"
+                        fill="none"
+                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+                </svg>
+                <div class="mdc-checkbox__mixedmark"></div>
+              </div>
+            </div>
+            <label for="checkbox-1">Paid</label>
+          </div>
+        </div>
+      </div>
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" style="color: red" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Close</button>
+      <button type="button" style="color: red;" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Add</button>
+    </footer>
+  </div>
+  <div class="mdc-dialog__backdrop"></div>
+</aside>
+
+
 <div id="marginCardTop">
-
-
-   <!--<form class="suggestEventForm">-->
-
-    <!--<div fxLayout="row">-->
-        <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f481-1f3fd-2640.png" class="materialIcon">-->
-        <!--<mat-form-field class="full-width" id="happening2">-->
-          <!--<input matInput placeholder="What are we calling this?"> &lt;!&ndash;value="Sushi"&ndash;&gt;-->
-        <!--</mat-form-field>-->
-    <!--</div>-->
-
-    <!--<div fxLayout="row">-->
-      <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f937-1f3fc-2642.png" class="materialIcon">-->
-      <!--<mat-form-field class="full-width" id="happening2">-->
-          <!--<input matInput placeholder="Give us a short description"> &lt;!&ndash;value="Sushi"&ndash;&gt;-->
-        <!--</mat-form-field>-->
-    <!--</div>-->
-
-    <!--<div fxLayout="row">-->
-      <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f57a-1f3fe.png" class="materialIcon">-->
-      <!--<mat-form-field class="full-width" id="happening2">-->
-          <!--<mat-select placeholder="Type of event">-->
-            <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
-              <!--{{food.viewValue}}-->
-            <!--</mat-option>-->
-          <!--</mat-select>-->
-        <!--</mat-form-field>  -->
-    <!--</div>  -->
-
-    <!--<div fxLayout="row">-->
-      <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f55b.png" class="materialIcon">-->
-      <!--<mat-form-field class="full-widthdate" id="happening2">-->
-          <!--<input matInput [matDatepicker]="picker" placeholder="When does it start?" disabled>-->
-          <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-          <!--<mat-datepicker #picker disabled="false"></mat-datepicker>-->
-        <!--</mat-form-field>-->
-
-        <!--<mat-form-field class="full-widthdate" id="happening2">-->
-            <!--<mat-select placeholder="Time">-->
-              <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
-                <!--{{food.viewValue}}-->
-              <!--</mat-option>-->
-            <!--</mat-select>-->
-          <!--</mat-form-field> -->
-    <!--</div>-->
-
-    <!--<div fxLayout="row">-->
-        <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f55d.png" class="materialIcon">-->
-        <!--<mat-form-field class="full-widthdate" id="happening2">-->
-            <!--<input matInput [matDatepicker]="picker2" placeholder="When does it end?" disabled>-->
-            <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
-            <!--<mat-datepicker #picker2 disabled="false"></mat-datepicker>-->
-          <!--</mat-form-field>-->
-
-          <!--<mat-form-field class="full-widthdate" id="happening2">-->
-              <!--<mat-select placeholder="Time">-->
-                <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
-                  <!--{{food.viewValue}}-->
-                <!--</mat-option>-->
-              <!--</mat-select>-->
-            <!--</mat-form-field>-->
-      <!--</div>-->
-
-              <!--<div fxLayout="row">-->
-                <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/2753.png" class="materialIcon">-->
-                <!--<mat-form-field class="full-width" id="happening2">-->
-                    <!--<input matInput placeholder="Where is it happening?"> &lt;!&ndash;value="Sushi"&ndash;&gt;-->
-                  <!--</mat-form-field>-->
-              <!--</div>-->
-
-              <!--<div fxLayout="row">-->
-                <!--<img src="../../assets/EmojiOne_3.1.1_128x128_png/1f3eb.png" class="materialIcon">-->
-                <!--<mat-form-field class="full-width" id="happening2">-->
-                    <!--<mat-select placeholder="Closest University">-->
-                      <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
-                        <!--{{food.viewValue}}-->
-                      <!--</mat-option>-->
-                    <!--</mat-select>-->
-                  <!--</mat-form-field> -->
-              <!--</div>-->
-    <!--</form>-->
-
-    <!--<div fxLayout="row" fxLayoutAlign="center center">-->
-        <!--<button mat-fab color="primary"><i class="material-icons">check</i></button>-->
-    <!--</div>-->
-
   <div fxLayout="column" fxLayoutAlign="center center">
     <div class="mdc-text-field mdc-text-field--outlined name">
       <input type="text" id="tf-outlined" class="mdc-text-field__input">
@@ -111,20 +112,13 @@
     <div class="mdc-select">
       <select class="mdc-select__native-control">
         <option value="" disabled selected></option>
-        <option value="grains">
-          Bread, Cereal, Rice, and Pasta
-        </option>
-        <option value="vegetables">
-          Vegetables
-        </option>
-        <option value="fruit">
-          Fruit
+        <option *ngFor="let eventType of eventTypes" value="{{eventType}}">
+          {{eventType}}
         </option>
       </select>
       <label class="mdc-floating-label">Type of event</label>
       <div class="mdc-line-ripple"></div>
     </div>
-
   </div>
 
   <div fxLayout="row" fxLayoutAlign="center center">
@@ -170,25 +164,13 @@
       </div>
       <div class="mdc-notched-outline__idle"></div>
     </div>
-
-    <div class="mdc-text-field mdc-text-field--outlined address">
-      <input type="text" id="tf-outlined" class="mdc-text-field__input">
-      <label for="tf-outlined" class="mdc-floating-label">Search for an address</label>
-      <div class="mdc-notched-outline">
-        <svg>
-          <path class="mdc-notched-outline__path"/>
-        </svg>
-      </div>
-      <div class="mdc-notched-outline__idle"></div>
-    </div>
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
-    <h3 style="font-family: Roboto">Add tickets if you have any</h3>
-    <!--<button style="margin-left: 2vh" mat-raised-button (click) = "SignIn()" color="primary">ADD TICKETS</button>-->
+    <button style="background-color: #D4262F" mat-flat-button (click) = "openTicketDialog()" color="primary">ADD TICKETS</button>
   </div>
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <button mat-fab color="primary"><i class="material-icons">check</i></button>
-  </div>
+  <!--<div fxLayout="row" fxLayoutAlign="center center">-->
+    <!--<button mat-fab color="primary"><i class="material-icons">check</i></button>-->
+  <!--</div>-->
 
 
 

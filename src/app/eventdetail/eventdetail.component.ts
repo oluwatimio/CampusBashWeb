@@ -71,6 +71,8 @@ export class EventdetailComponent implements OnInit {
       if (status === 'OK') {
         if (results[0]) {
           this.address = results[0].formatted_address;
+          this.eventClicked.address = this.address;
+          this.clicks.localStorages.setItem('event', event);
         } else {
           window.alert('No results found');
         }
