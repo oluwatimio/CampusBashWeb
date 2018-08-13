@@ -110,7 +110,7 @@ const routes: Routes = [
     MatMenuModule,
     MatDialogModule,
     MatListModule,
-    MatSnackBarModule
+    MatSnackBarModule,
     MatCheckboxModule
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
