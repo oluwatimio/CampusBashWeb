@@ -33,6 +33,7 @@ import {SigninemitterService} from './Services/signinemitter.service';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatOptionModule} from '@angular/material';
 import {MatSelectModule} from '@angular/material';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatListModule} from '@angular/material/list';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserSingle} from './Services/UserSingle';
@@ -45,7 +46,7 @@ import {ProfileService} from './Services/profile.service';
 import {environment} from '../environments/environment';
 import {InterestsComponent} from './interests/interests.component';
 import { GetTicketsViewComponent } from './get-tickets-view/get-tickets-view.component';
-import { QuantityDialogComponent } from './quantity-dialog/quantity-dialog.component';
+import { PayForTicketComponent } from './pay-for-ticket/pay-for-ticket.component';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -57,7 +58,8 @@ const routes: Routes = [
   {path: 'detail', component: EventdetailComponent},
   {path: 'mapp', component: MappComponent},
   {path: 'profilec', component: ProfilecreatorComponent},
-  {path: ':eventId/buyTicket', component: GetTicketsViewComponent}
+  {path: ':eventId/buyTicket', component: GetTicketsViewComponent},
+  {path: 'payForTicket', component: PayForTicketComponent}
 ];
 
 @NgModule({
@@ -77,7 +79,7 @@ const routes: Routes = [
     ProfilecreatorComponent,
     InterestsComponent,
     GetTicketsViewComponent,
-    QuantityDialogComponent
+    PayForTicketComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +107,8 @@ const routes: Routes = [
     MatNativeDateModule,
     MatMenuModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    MatSnackBarModule
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
   bootstrap: [AppComponent]

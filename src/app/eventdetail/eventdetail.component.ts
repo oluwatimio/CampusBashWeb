@@ -3,6 +3,8 @@ import { ViewChild } from '@angular/core';
 import {Event} from '../event-view/event/Event';
 import {EventclickedService} from '../Services/eventclicked.service';
 import {} from '@types/googlemaps';
+import {AuthService} from '../Services/auth.service';
+import {isNullOrUndefined} from 'util';
 
 declare var google: any;
 
@@ -16,9 +18,10 @@ export class EventdetailComponent implements OnInit {
   clicks: EventclickedService;
   eventClicked: Event;
   address: string;
-  constructor(clicks: EventclickedService) {
+  user: any = null;
+  constructor(clicks: EventclickedService, private auth: AuthService) {
     this.clicks = clicks;
-   }
+  }
 
   ngOnInit() {
     this.clicks.localStorages.getItem<Event>('event').subscribe((event) => {
@@ -26,6 +29,9 @@ export class EventdetailComponent implements OnInit {
       console.log(this.eventClicked.description);
       this.setMap();
       this.getAddress(this.eventClicked.placeId);
+    });
+    this.auth.user.subscribe((user) => {
+      this.user = user;
     });
     //this.eventClicked = event;
   }
@@ -78,6 +84,12 @@ export class EventdetailComponent implements OnInit {
         window.alert('Geocoder failed due to: ' + status);
       }
     });
+  }
+  getTicketRoute(): string {
+    if (isNullOrUndefined(this.user)) {
+      return '/signin';
+    }
+    return `/${this.eventClicked.eventId}/buyTicket`;
   }
 
 }

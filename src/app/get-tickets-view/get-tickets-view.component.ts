@@ -1,11 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Event} from '../event-view/event/Event';
 import {EventclickedService} from '../Services/eventclicked.service';
-import {MatDialog, MatDialogConfig, MatDialogRef} from '@angular/material';
-import {QuantityDialogComponent} from '../quantity-dialog/quantity-dialog.component';
+import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
 import {Tickets} from '../Classes/Tickets';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {isNullOrUndefined, log} from 'util';
+import {ProfileService} from '../Services/profile.service';
+import {User} from '../Classes/User';
+import {Util} from '../Util';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-get-tickets-view',
@@ -15,7 +18,6 @@ import {isNullOrUndefined, log} from 'util';
 export class GetTicketsViewComponent implements OnInit {
   event: Event;
   service: EventclickedService;
-  dialogRef: MatDialogRef<QuantityDialogComponent>;
   form: FormGroup;
   fb: FormBuilder;
   formCreated: Boolean = false;
@@ -26,10 +28,16 @@ export class GetTicketsViewComponent implements OnInit {
     {type: 'minValue', message: 'Minimum ticket number is o'}
   ];
   ticketMap = {};
+  orderMap = {};
+  private user: User = null;
 
-  constructor(service: EventclickedService, private dialog: MatDialog, fb: FormBuilder) {
+  constructor(service: EventclickedService, private profileService: ProfileService, fb: FormBuilder, private snackBar: MatSnackBar,
+              private router: Router) {
     this.service = service;
     this.fb = fb;
+    this.profileService.getUser().subscribe((user: User) => {
+      this.user = user;
+    });
   }
 
   ngOnInit() {
@@ -42,7 +50,6 @@ export class GetTicketsViewComponent implements OnInit {
   createFormGroup() {
     const group = {};
     this.event.tickets.forEach((ticket, index) => {
-      // console.log(JSON.stringify(ticket));
       group[String(index)] = new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^[0-9]$')
@@ -52,34 +59,10 @@ export class GetTicketsViewComponent implements OnInit {
     this.form.valueChanges
       .subscribe((value) => {
         this.updateTicketMap(value);
-        console.log(JSON.stringify(value));
       });
     this.formCreated = true;
-    console.log('Form created!!');
   }
 
-  openDialog(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    this.dialogRef = this.dialog.open(QuantityDialogComponent, dialogConfig);
-    this.dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-    });
-  }
-
-  getPossibleQuantities(ticket: Tickets) {
-    const quans = Array();
-    const quantityLeft = ticket.quantity - ticket.ticketsSold;
-    let end = quantityLeft;
-    if (end > 10) {
-      end = 10;
-    }
-    for (let i = 0; i <= end; i++) {
-      quans.push(i);
-    }
-    return quans;
-  }
   getId(index: number): string {
     return String(index);
   }
@@ -120,13 +103,16 @@ export class GetTicketsViewComponent implements OnInit {
         this.ticketMap[ticket.name] = parseInt(value, 10);
         total += ticket.price * parseInt(value, 10);
       } else {
-        this.ticketMap[ticket.name] = 0;
+        delete this.ticketMap[ticket.name];
       }
     });
     console.log(this.ticketMap);
     this.ticketFee = total;
-  }
-  buy() {
+    this.orderMap = {
+      ticketMap: this.ticketMap,
+      ticketFee: this.ticketFee
+    };
+    this.service.changeTicketMessage(this.orderMap);
   }
   quantityLeft(ticket: Tickets): number {
     return ticket.quantity - ticket.ticketsSold;
@@ -134,8 +120,20 @@ export class GetTicketsViewComponent implements OnInit {
   isSoldOut(ticket: Tickets): boolean {
     return this.quantityLeft(ticket) <= 0;
   }
-  ticketRoute(): string {
-    return '';
+  async ticketRoute() {
+    if (this.ticketFee > 0.0) {
+      this.router.navigateByUrl('/payForTicket');
+    } else {
+      const data = this.service.buildTicketPayload(this.ticketFee, this.ticketMap, null, this.user);
+      console.log(data);
+      const result = await this.service.addTicket(data, this.event);
+      if (result === true) {
+        Util.openSnackbar('Ticket purchase complete, please check your email', this.snackBar);
+      } else {
+        Util.openSnackbar('Oops, something went wrong, we could not process your ticket', this.snackBar);
+      }
+      this.router.navigateByUrl('');
+    }
   }
 }
 

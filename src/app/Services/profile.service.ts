@@ -2,12 +2,39 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import {Preference} from '../Classes/Preference';
 import {Router} from '@angular/router';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import {User} from '../Classes/User';
+import {AuthService} from './auth.service';
+import {isNullOrUndefined} from 'util';
+import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 
 @Injectable()
 export class ProfileService {
   router: Router;
-  constructor(router: Router) {
+  private user = new BehaviorSubject(null);
+  private uid = '';
+  private db = firebase.firestore();
+  constructor(router: Router, private auth: AuthService) {
     this.router = router;
+    this.auth.user.subscribe((currentUser) => {
+      const uid = currentUser.uid as string;
+      if (!isNullOrUndefined(uid)) {
+        this.uid = uid;
+        this.observeUser();
+      }
+    });
+  }
+
+  private observeUser() {
+    this.db.collection('users').doc(this.uid)
+      .onSnapshot((doc: DocumentSnapshot) => {
+        if (doc.exists) {
+          this.user.next(<User> doc.data());
+        }
+      });
+  }
+  getUser(): Observable<any> {
+    return this.user.asObservable();
   }
 
   addUser(email: string, uid: string) {
@@ -24,7 +51,7 @@ export class ProfileService {
       summary: summary
     }).then(() => {
       console.log('Username Updated');
-      this.router.navigateByUrl('')
+      this.router.navigateByUrl('');
     });
   }
 

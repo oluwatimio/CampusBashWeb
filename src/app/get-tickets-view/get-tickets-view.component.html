@@ -2,7 +2,7 @@
 <form [formGroup]="form">
   <div><h2>Tickets</h2></div>
   <div class="row" *ngFor="let ticket of event.tickets; index as i">
-    <mat-card class="main col-12" >
+    <mat-card *ngIf="ticket.visible" class="main col-12" >
         <div class="col-8">
           <div>
             {{ticket.name}}
@@ -27,5 +27,5 @@
     </mat-card>
   </div>
 </form>
-<button class="row" mat-button routerLink="{{ticketRoute()}}">GET TICKET</button>
+<button class="row" mat-button (click)="ticketRoute()">GET TICKET</button>
 </body>
