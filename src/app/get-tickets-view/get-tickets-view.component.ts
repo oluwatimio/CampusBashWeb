@@ -123,7 +123,7 @@ export class GetTicketsViewComponent implements OnInit {
   async ticketRoute() {
     if (this.ticketFee > 0.0) {
       this.router.navigateByUrl('/payForTicket');
-    } else {
+    } else if (Object.keys(this.ticketMap).length > 0) {
       const data = this.service.buildTicketPayload(this.ticketFee, this.ticketMap, null, this.user);
       console.log(data);
       const result = await this.service.addTicket(data, this.event);
