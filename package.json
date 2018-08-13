@@ -26,6 +26,8 @@
     "@angular/pwa": "^0.6.8",
     "@angular/router": "6.1.1",
     "@angular/service-worker": "^6.1.1",
+    "@material/checkbox": "^0.38.0",
+    "@material/dialog": "^0.38.0",
     "@material/select": "^0.37.1",
     "@material/textfield": "^0.37.1",
     "@material/top-app-bar": "^0.35.2",

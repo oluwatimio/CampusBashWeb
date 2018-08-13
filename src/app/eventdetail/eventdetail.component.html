@@ -1,40 +1,22 @@
  <body style="margin-top: 10vh">
-   <div *ngIf = "eventClicked.placeHolderImage !== null" style="display: flex; justify-content: center">
-      <img src="{{eventClicked.placeHolderImage.url}}" id="imgdiv">
-   </div>
-
-   <div *ngIf = "eventClicked.placeHolderImage === null" style="display: flex; justify-content: center">
-     <img src="assets/placeholder.png" id="imgdiv">
-   </div>
-
-
-   <div style="display: flex; justify-content: center; margin-top: 2vh" *ngIf="eventClicked !== undefined">
-      <mat-card>
-          <mat-card-content>
-            <h2>{{eventClicked.eventName}}</h2>
-          </mat-card-content>
-        </mat-card>
-   </div>
+ <div fxLayout="row" fxLayoutAlign="center center">
+   <mat-card style="width: 60%; background-color: #D4262F; color: white; padding: 0px !important;">
+     <div fxLayout="row" style="width: 100%">
+       <img *ngIf = "eventClicked.placeHolderImage !== null" src="{{eventClicked.placeHolderImage.url}}" id="imgdiv"
+             style="border-radius: 15px; margin-right: 8vw">
+       <img  *ngIf = "eventClicked.placeHolderImage === null" src="assets/placeholder.png" id="imgdiv"
+             style="border-radius: 15px;  margin-right: 8vw;">
+       <div style="right: 0px">
+         <h1 *ngIf="eventClicked !== undefined"  style="font-family: Arial; font-size: 30px">{{eventClicked.eventName}}</h1>
+         <h3 *ngIf="eventClicked !== undefined"  style="font-family: Arial; font-size: 15px">{{getDate(eventClicked.startTime)}}</h3>
+         <h4 *ngIf="eventClicked !== undefined"  style="font-family: Arial; font-size: 15px">{{eventClicked.address}}</h4>
+         <h4>Hosted by {{eventClicked.creator.name}}</h4>
+       </div>
+     </div>
+   </mat-card>
+ </div>
    <div style="display: flex; justify-content: center; margin-top: 2vh">
-      <mat-card>
-          <mat-card-content>
-            <div fxLayout="column">
-                  <h3><i class="material-icons">calendar_today</i>{{getDate(eventClicked.startTime)}}</h3>
-                  <h3><i class="material-icons">location_on</i>{{address}}</h3>
-                  <div *ngIf="eventClicked.tickets.length > 0">
-                    <div *ngFor="let ticket of eventClicked.tickets">
-                      <h3><i class="material-icons">local_offer</i>{{ticket.currency + '' + ticket.price}}</h3>
-                    </div>
-                  </div>
-                 <div *ngIf="eventClicked.tickets.length === 0">
-                   <h3><i class="material-icons">local_offer</i>Event is Free</h3>
-                </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-   </div>
-   <div style="display: flex; justify-content: center; margin-top: 2vh">
-      <mat-card>
+      <mat-card style="width: 60%; padding: 0px;">
         <mat-card-header>
           <h2>About</h2>
         </mat-card-header>
@@ -46,26 +28,10 @@
         </mat-card>
    </div>
    <div style="display: flex; justify-content: center; margin-top: 2vh">
-      <mat-card>
-        <mat-card-header>
-          <h2>Location</h2>
-        </mat-card-header>
+      <mat-card style="padding: 0px !important; width: 60%">
           <mat-card-content>
             <div fxLayout="column">
-              <div #gmap style="width:100%;height:50vh"></div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-   </div>
-   <div style="display: flex; justify-content: center; margin-top: 2vh">
-      <mat-card>
-        <mat-card-header>
-          <h2>Host</h2>
-        </mat-card-header>
-          <mat-card-content>
-            <div fxLayout="column">
-                <!-- <i class="material-icons">info</i> -->
-                <h3><img class="hostpic" src="{{eventClicked.creator.imageUrl}}">{{eventClicked.creator.name}}</h3>
+              <div #gmap style="width:100%;height:50vh; border-radius: 15px;"></div>
             </div>
           </mat-card-content>
         </mat-card>
@@ -77,8 +43,3 @@
    </button>
  </div>
  </body>
-  <!-- <mat-card>
-    <mat-card-content>
-
-    </mat-card-content>
-  </mat-card> -->

@@ -16,6 +16,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule, MatNativeDateModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 
 
 import { AppComponent } from './app.component';
@@ -109,6 +111,7 @@ const routes: Routes = [
     MatDialogModule,
     MatListModule,
     MatSnackBarModule
+    MatCheckboxModule
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
   bootstrap: [AppComponent]

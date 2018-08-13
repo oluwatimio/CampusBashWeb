@@ -20,7 +20,6 @@ label{
   background-color: #f3dc50 !important;
 }
 
-
 .mat-select-arrow{
   color: #f3dc50 !important;
 }
@@ -38,6 +37,7 @@ label{
 .col-1{
   width: 8.33%;
 }
+
 .col-2{
   width: 16.67%;
 }
@@ -70,5 +70,16 @@ label{
 }
 .col-12{
   width: 100%;
+
+.mat-checkbox-label{
+  color: red;
+}
+
+mat-card{
+  border-radius: 15px !important;
+}
+
+.mat-card-image{
+  margin-bottom: 0px !important;
 }
 
