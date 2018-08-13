@@ -1,11 +1,12 @@
 import {Preference} from './Preference';
 
-export class Users {
+export class User {
   country: string;
   email: string;
   fcmToken: string;
   preference: Preference[];
-  stripeCustomerID: string;
+  stripeCustomerId: string;
+  stripeAccountId: string;
   summary: string;
   uid: string;
   university: string;

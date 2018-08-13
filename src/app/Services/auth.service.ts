@@ -14,10 +14,8 @@ export class AuthService {
   uid: string;
   user: Observable<any>;
   userS: UserSingle;
-  ps: ProfileService;
-  constructor(router: Router, ps: ProfileService) {
+  constructor(router: Router) {
     this.router = router;
-    this.ps = ps;
 
     this.user = new Observable((observer) => {
       this.observeUser(observer);
