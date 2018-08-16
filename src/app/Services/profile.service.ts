@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import {Preference} from '../Classes/Preference';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {User} from '../Classes/User';
 import {AuthService} from './auth.service';
@@ -12,9 +13,9 @@ import DocumentSnapshot = firebase.firestore.DocumentSnapshot;
 export class ProfileService {
   router: Router;
   private user = new BehaviorSubject(null);
-  private uid = '';
+  private uid: string = null;
   private db = firebase.firestore();
-  constructor(router: Router, private auth: AuthService) {
+  constructor(router: Router, public snackbar: MatSnackBar, private auth: AuthService) {
     this.router = router;
     this.auth.user.subscribe((currentUser) => {
       const uid = currentUser.uid as string;
@@ -33,42 +34,67 @@ export class ProfileService {
         }
       });
   }
-  getUser(): Observable<any> {
+  getUserProfile(): Observable<any> {
     return this.user.asObservable();
   }
+  getCurrentUser(): Observable<any> {
+    return this.auth.user;
+  }
 
-  addUser(email: string, uid: string) {
+  updateUserWithUserName(username: string, summary: string) {
+    if (isNullOrUndefined(this.uid)) { return; }
     const db = firebase.firestore();
-    db.collection('users').doc(uid).set({email: email, uid: uid}).then(() => {
-      console.log('User added to db');
+    db.collection('users').doc(this.uid).update({
+      userName: username,
+      summary: summary
+    }).then(() => {
+      console.log('Username Updated');
+      this.router.navigateByUrl('interests');
     });
   }
 
-  updateUserWithUserName(username: string, summary: string, uid: string) {
+  updateUserWithUserPreferences(preferences: any) {
+    if (isNullOrUndefined(this.uid)) { return; }
     const db = firebase.firestore();
-    db.collection('users').doc(uid).update({
+    db.collection('users').doc(this.uid).update({
+      preference: preferences,
+    }).then(() => {
+      this.snackbar.open('Interests Added', null, {
+        duration: 5000
+      });
+      this.router.navigateByUrl('university');
+    });
+  }
+
+  updateUserWithUni(uni: any) {
+    if (isNullOrUndefined(this.uid)) { return; }
+    const db = firebase.firestore();
+    db.collection('users').doc(this.uid).update({
+      university: uni,
+    }).then(() => {
+      this.snackbar.open('University Set', null, {
+        duration: 5000
+      });
+      this.router.navigateByUrl('/');
+    });
+  }
+
+  updateUserWithUserP(username: string, summary: string) {
+    if (isNullOrUndefined(this.uid)) { return; }
+    const db = firebase.firestore();
+    db.collection('users').doc(this.uid).update({
       username: username,
       summary: summary
     }).then(() => {
       console.log('Username Updated');
-      this.router.navigateByUrl('');
     });
   }
 
-  updateUserWithUserP(username: string, summary: string, uid: string) {
-    const db = firebase.firestore();
-    db.collection('users').doc(uid).update({
-      username: username,
-      summary: summary
-    }).then(() => {
-      console.log('Username Updated');
-    });
-  }
-
-  updateOnboarding(country: string, university: string, preference: Preference[], uid: string) {
+  updateOnboarding(country: string, university: string, preference: Preference[]) {
+    if (isNullOrUndefined(this.uid)) { return; }
     const db = firebase.firestore();
 
-    db.collection('users').doc(uid).update({
+    db.collection('users').doc(this.uid).update({
       country: country,
       university: university,
       preference: preference
@@ -77,20 +103,22 @@ export class ProfileService {
     });
   }
 
-  updateFCMT(fcmt: string, uid: string) {
+  updateFCMT(fcmt: string) {
+    if (isNullOrUndefined(this.uid)) { return; }
     const db = firebase.firestore();
 
-    db.collection('users').doc(uid).update({
+    db.collection('users').doc(this.uid).update({
       fcmToken: fcmt,
     }).then(() => {
       console.log('fcmt updated');
     });
   }
 
-  updateStripe(stripeid: string, uid: string) {
+  updateStripe(stripeid: string) {
+    if (isNullOrUndefined(this.uid)) { return; }
     const db = firebase.firestore();
 
-    db.collection('users').doc(uid).update({
+    db.collection('users').doc(this.uid).update({
       stripeCustomerId: stripeid,
     }).then(() => {
       console.log('sid updated');

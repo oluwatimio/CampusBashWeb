@@ -1,17 +1,17 @@
 <div style="margin-top: 10vh">
   <h1 style="text-align: center; font-family: Roboto">Select your Interests</h1>
-  <mat-selection-list #interests>
-    <mat-list-option *ngFor="let event of eventTypes" [value]="event">
-      {{event}}
+  <mat-selection-list #unis>
+    <mat-list-option *ngFor="let uni of universities" [value]="uni">
+      {{uni}}
     </mat-list-option>
   </mat-selection-list>
 
   <p>
-    Options selected: {{interests.selectedOptions.selected.length}}
+    Options selected: {{unis.selectedOptions.selected.length}}
   </p>
 
   <div fxLayout="row" fxLayoutAlign="center center">
     <button mat-flat-button style="background-color: #D4262F"
-            (click)="addInterests(interests.selectedOptions.selected)">Next</button>
+            (click)="addUni(unis.selectedOptions.selected)">Done</button>
   </div>
 </div>

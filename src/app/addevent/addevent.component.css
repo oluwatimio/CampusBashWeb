@@ -135,3 +135,7 @@ label{
     width:50%;
   }
 }
+
+#ticketPaidPrice{
+  visibility: hidden;
+ }

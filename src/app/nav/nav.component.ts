@@ -29,7 +29,7 @@ export class NavComponent implements OnInit {
   ngOnInit() {
     this.authS.user.subscribe((user) => {
       console.log(this.user);
-      if (this.user !== null) {
+      if (this.user !== undefined) {
         this.signedIn = true;
         this.user = user;
         this.uid = user.uid;

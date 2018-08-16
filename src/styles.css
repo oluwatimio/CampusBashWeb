@@ -82,4 +82,7 @@ mat-card{
 .mat-card-image{
   margin-bottom: 0px !important;
 }
+.mat-pseudo-checkbox-checked{
+  background-color: #D4262F !important;
+}
 

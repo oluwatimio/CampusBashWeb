@@ -18,8 +18,6 @@ import {MatMenuModule} from '@angular/material/menu';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
-
-
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { TabsComponent } from './tabs/tabs.component';
@@ -47,6 +45,7 @@ import { ProfilecreatorComponent } from './profilecreator/profilecreator.compone
 import {ProfileService} from './Services/profile.service';
 import {environment} from '../environments/environment';
 import {InterestsComponent} from './interests/interests.component';
+import { ChooseuniComponent } from './chooseuni/chooseuni.component';
 import { GetTicketsViewComponent } from './get-tickets-view/get-tickets-view.component';
 import { PayForTicketComponent } from './pay-for-ticket/pay-for-ticket.component';
 
@@ -60,6 +59,8 @@ const routes: Routes = [
   {path: 'detail', component: EventdetailComponent},
   {path: 'mapp', component: MappComponent},
   {path: 'profilec', component: ProfilecreatorComponent},
+  {path: 'interests', component: InterestsComponent},
+  {path: 'university', component: ChooseuniComponent},
   {path: ':eventId/buyTicket', component: GetTicketsViewComponent},
   {path: 'payForTicket', component: PayForTicketComponent}
 ];
@@ -80,6 +81,7 @@ const routes: Routes = [
     MappComponent,
     ProfilecreatorComponent,
     InterestsComponent,
+    ChooseuniComponent,
     GetTicketsViewComponent,
     PayForTicketComponent
   ],
@@ -108,10 +110,10 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    MatDialogModule,
-    MatListModule,
+    MatCheckboxModule,
     MatSnackBarModule,
-    MatCheckboxModule
+    MatDialogModule,
+    MatListModule
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
   bootstrap: [AppComponent]
