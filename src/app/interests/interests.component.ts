@@ -12,16 +12,14 @@ export class InterestsComponent implements OnInit {
 
   eventTypes: string[] = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Festival',
     'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk'];
-  authS: AuthService;
   user: any;
   ps: ProfileService;
-  constructor(authS: AuthService, ps: ProfileService) {
-    this.authS = authS;
+  constructor(ps: ProfileService) {
     this.ps = ps;
   }
 
   ngOnInit() {
-    this.authS.user.subscribe((user) => {
+    this.ps.getCurrentUser().subscribe((user) => {
       if (user !== undefined && user !== null) {
         this.user = user;
         console.log(this.user.email);

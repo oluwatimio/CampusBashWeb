@@ -12,18 +12,16 @@ export class ProfilecreatorComponent implements OnInit {
   username: string;
   summary: string;
   ps: ProfileService;
-  authS: AuthService;
   uid: string;
   user: any;
-  constructor(ps: ProfileService, as: AuthService) {
+  constructor(ps: ProfileService) {
     this.username = '';
     this.summary = '';
     this.ps = ps;
-    this.authS = as;
   }
 
   ngOnInit() {
-    this.authS.user.subscribe((user) => {
+    this.ps.getCurrentUser().subscribe((user) => {
       console.log(this.user);
       if (this.user !== null) {
         this.uid = user.uid;

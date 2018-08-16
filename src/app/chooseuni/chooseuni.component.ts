@@ -12,17 +12,15 @@ export class ChooseuniComponent implements OnInit {
 
   universities: string[] = ['University of Ottawa', 'Carelton University'];
 
-  authS: AuthService;
   user: any;
   ps: ProfileService;
 
-  constructor(authS: AuthService, ps: ProfileService, public snackbar: MatSnackBar) {
-    this.authS = authS;
+  constructor(ps: ProfileService, public snackbar: MatSnackBar) {
     this.ps = ps;
   }
 
   ngOnInit() {
-    this.authS.user.subscribe((user) => {
+    this.ps.getCurrentUser().subscribe((user) => {
       if (user !== undefined && user !== null) {
         this.user = user;
         console.log(this.user.email);
