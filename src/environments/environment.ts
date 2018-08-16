@@ -5,6 +5,7 @@
 import * as firebase from 'firebase';
 export const environment = {
   production: false,
+  stripeKey: 'pk_test_CVyOXRhK6S5K0RlHkLzIiReJ',
    config:{
     apiKey: "AIzaSyAnq8-n9iIIEZdDJUysVFKGPMqXDBGZ_fM",
     authDomain: "campusbash-dev.firebaseapp.com",
