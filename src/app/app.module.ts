@@ -17,6 +17,8 @@ import {MatNativeDateModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatListModule} from '@angular/material/list';
 
 
 
@@ -45,6 +47,8 @@ import { ProfilecreatorComponent } from './profilecreator/profilecreator.compone
 import {ProfileService} from './Services/profile.service';
 import {environment} from '../environments/environment';
 import {InterestsComponent} from './interests/interests.component';
+import { ChooseuniComponent } from './chooseuni/chooseuni.component';
+
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -55,7 +59,10 @@ const routes: Routes = [
   {path: 'signup', component: SignupComponent},
   {path: 'detail', component: EventdetailComponent},
   {path: 'mapp', component: MappComponent},
-  {path: 'profilec', component: ProfilecreatorComponent}
+  {path: 'profilec', component: ProfilecreatorComponent},
+  {path: 'interests', component: InterestsComponent},
+  {path: 'university', component: ChooseuniComponent}
+
 ];
 
 @NgModule({
@@ -73,7 +80,8 @@ const routes: Routes = [
     EventdetailComponent,
     MappComponent,
     ProfilecreatorComponent,
-    InterestsComponent
+    InterestsComponent,
+    ChooseuniComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +108,9 @@ const routes: Routes = [
     MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatSnackBarModule,
+    MatListModule
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
   bootstrap: [AppComponent]

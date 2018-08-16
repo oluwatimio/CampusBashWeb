@@ -29,7 +29,7 @@
           <div class="mdc-notched-outline__idle"></div>
         </div>
         <div class="mdc-text-field mdc-text-field--outlined ticketquantity">
-          <input type="text" id="tf-outlined" class="mdc-text-field__input">
+          <input type="number" id="tf-outlined" class="mdc-text-field__input">
           <label for="tf-outlined" class="mdc-floating-label">Enter ticket quantity</label>
           <div class="mdc-notched-outline">
             <svg>
@@ -39,46 +39,24 @@
           <div class="mdc-notched-outline__idle"></div>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center">
-          <div class="mdc-form-field">
-            <div class="mdc-checkbox">
-              <input type="checkbox"
-                     class="mdc-checkbox__native-control"
-                     id="checkbox-1"/>
-              <div class="mdc-checkbox__background">
-                <svg class="mdc-checkbox__checkmark"
-                     viewBox="0 0 24 24">
-                  <path class="mdc-checkbox__checkmark-path"
-                        fill="none"
-                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                </svg>
-                <div class="mdc-checkbox__mixedmark"></div>
-              </div>
-            </div>
-            <label for="checkbox-1">Free</label>
+          <mat-checkbox style="margin-right: 2vh" [(ngModel)] = "checkedFree" (change)="onSelected()">Free</mat-checkbox>
+          <mat-checkbox style="margin-right: 2vh" [(ngModel)] = "checkedPaid" (change)="onSelected()">Paid</mat-checkbox>
+        </div>
+        <div id="ticketPaidPrice" class="mdc-text-field mdc-text-field--outlined ticketpaidp">
+          <input type="number" id="tf-outlined" class="mdc-text-field__input">
+          <label for="tf-outlined" class="mdc-floating-label">Enter ticket Price</label>
+          <div class="mdc-notched-outline">
+            <svg>
+              <path class="mdc-notched-outline__path"/>
+            </svg>
           </div>
-          <div class="mdc-form-field">
-            <div class="mdc-checkbox">
-              <input type="checkbox"
-                     class="mdc-checkbox__native-control"
-                     id="checkbox-1"/>
-              <div class="mdc-checkbox__background">
-                <svg class="mdc-checkbox__checkmark"
-                     viewBox="0 0 24 24">
-                  <path class="mdc-checkbox__checkmark-path"
-                        fill="none"
-                        d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
-                </svg>
-                <div class="mdc-checkbox__mixedmark"></div>
-              </div>
-            </div>
-            <label for="checkbox-1">Paid</label>
-          </div>
+          <div class="mdc-notched-outline__idle"></div>
         </div>
       </div>
     </section>
     <footer class="mdc-dialog__footer">
       <button type="button" style="color: red" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">Close</button>
-      <button type="button" style="color: red;" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Add</button>
+      <button type="button" style="color: red;" (click) = "addTicket()" class="mdc-button mdc-dialog__footer__button">Add</button>
     </footer>
   </div>
   <div class="mdc-dialog__backdrop"></div>
@@ -155,8 +133,8 @@
 
   <div fxLayout="column" fxLayoutAlign="center center">
     <div class="mdc-text-field mdc-text-field--outlined where">
-      <input type="text" id="tf-outlined" class="mdc-text-field__input">
-      <label for="tf-outlined" class="mdc-floating-label">Where is it happening?</label>
+      <input type="text" id="searchbox" class="mdc-text-field__input whereauto">
+      <!--<label for="tf-outlined" class="mdc-floating-label">Where is it happening?</label>-->
       <div class="mdc-notched-outline">
         <svg>
           <path class="mdc-notched-outline__path"/>
@@ -171,11 +149,6 @@
   <!--<div fxLayout="row" fxLayoutAlign="center center">-->
     <!--<button mat-fab color="primary"><i class="material-icons">check</i></button>-->
   <!--</div>-->
-
-
-
-
-
 </div>
 
 
