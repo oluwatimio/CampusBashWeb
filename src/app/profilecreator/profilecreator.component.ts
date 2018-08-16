@@ -36,7 +36,7 @@ export class ProfilecreatorComponent implements OnInit {
     const summary = new MDCTextField(document.querySelector('.summary'));
   }
   update() {
-    this.ps.updateUserWithUserName(this.username, this.summary, this.uid);
+    this.ps.updateUserWithUserName(this.username, this.summary);
   }
 
 }

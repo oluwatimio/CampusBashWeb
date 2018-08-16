@@ -35,7 +35,7 @@ export class GetTicketsViewComponent implements OnInit {
               private router: Router) {
     this.service = service;
     this.fb = fb;
-    this.profileService.getUser().subscribe((user: User) => {
+    this.profileService.getUserProfile().subscribe((user: User) => {
       this.user = user;
     });
   }

@@ -5,6 +5,7 @@ import {EventService} from '../Services/event.service';
 import {Router} from '@angular/router';
 import {SigninemitterService} from '../Services/signinemitter.service';
 import {AuthService} from '../Services/auth.service';
+import {isNullOrUndefined} from 'util';
 
 
 @Component({
@@ -28,8 +29,8 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.authS.user.subscribe((user) => {
-      console.log(this.user);
-      if (this.user !== undefined) {
+      console.log(user);
+      if (!isNullOrUndefined(user)) {
         this.signedIn = true;
         this.user = user;
         this.uid = user.uid;

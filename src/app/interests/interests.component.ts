@@ -37,7 +37,7 @@ export class InterestsComponent implements OnInit {
       console.log(preference.name);
       preferences.push(preference.name);
     }
-    this.ps.updateUserWithUserPreferences(preferences, this.user.uid);
+    this.ps.updateUserWithUserPreferences(preferences);
   }
 
 }

@@ -32,7 +32,7 @@ export class ChooseuniComponent implements OnInit {
 
   addUni(val: any) {
     if (val.length === 1) {
-      this.ps.updateUserWithUni(val[0].value, this.user.uid);
+      this.ps.updateUserWithUni(val[0].value);
     } else {
       this.snackbar.open('You can only select one University', null, {
         duration: 5000
