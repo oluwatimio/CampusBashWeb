@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {SigninemitterService} from './signinemitter.service';
 import {UserSingle} from './UserSingle';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {delay} from 'q';
 import {ProfileService} from './profile.service';
 
@@ -12,14 +12,11 @@ export class AuthService {
   router: Router;
   isAnonymous: boolean;
   uid: string;
-  user: Observable<any>;
-  userS: UserSingle;
+  private currentUser = new BehaviorSubject(null);
+  user = this.currentUser.asObservable();
   constructor(router: Router) {
     this.router = router;
-
-    this.user = new Observable((observer) => {
-      this.observeUser(observer);
-    });
+    this.observeUser();
   }
 
   OnInit() {
@@ -52,9 +49,9 @@ export class AuthService {
   signinAno() {
     return firebase.auth().signInAnonymously();
   }
-  observeUser(observer) {
+  observeUser() {
     firebase.auth().onAuthStateChanged((user) => {
-      observer.next(user);
+      this.currentUser.next(user);
     });
   }
 
@@ -122,7 +119,5 @@ export class AuthService {
       // An error happened.
     });
   }
-
-
 
 }

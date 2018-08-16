@@ -83,7 +83,7 @@ export class ProfileService {
     if (isNullOrUndefined(this.uid)) { return; }
     const db = firebase.firestore();
     db.collection('users').doc(this.uid).update({
-      username: username,
+      userName: username,
       summary: summary
     }).then(() => {
       console.log('Username Updated');
