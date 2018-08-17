@@ -28,7 +28,7 @@ export class Event {
     this.eventVideo = eventVideo;
     this.placeId = placeId;
     this.placeHolderImage = placeHolderImage;
-    this.tickets = tickets
+    this.tickets = tickets;
     this.startTime = startTime;
     this.timeZone = timeZone;
     this.university = university;

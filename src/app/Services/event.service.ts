@@ -3,6 +3,7 @@ import * as firebase from 'firebase/app';
 import {EventSection} from '../event-view/event/EventSection';
 import {Event} from '../event-view/event/Event';
 import {delay} from 'q';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class EventService {
@@ -11,7 +12,9 @@ export class EventService {
   sections: EventSection[] = new Array();
   events: Event[] = new Array();
   eventsHost: Event[] = new Array()
-  constructor() { }
+  constructor(public sb: MatSnackBar) {
+
+  }
 
   async getEvents() {
     this.events = new Array();
@@ -100,6 +103,30 @@ export class EventService {
       });
 
       return this.eventsHost;
+    }
+
+    addEvent(event: Event) {
+      const db = firebase.firestore();
+
+      db.collection('events').add({
+        address: event.address,
+        creator: event.creator,
+        description: event.description,
+        endTime: event.endTime,
+        eventName: event.eventName,
+        eventType: event.eventType,
+        eventVideo: event.eventVideo,
+        placeId: event.placeId,
+        placeholderImage: event.placeHolderImage,
+        startTime: event.startTime,
+        tickets: event.tickets
+      }).then((docRef) => {
+        db.collection('events').doc(docRef.id).update({
+          eventId: docRef.id
+        }).then(() => {
+          this.sb.open('Event Added', null, {duration: 5000});
+        });
+      });
     }
 
 }

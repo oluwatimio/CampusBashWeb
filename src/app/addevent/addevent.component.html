@@ -66,7 +66,8 @@
 <div id="marginCardTop">
   <div fxLayout="column" fxLayoutAlign="center center">
     <div class="mdc-text-field mdc-text-field--outlined name">
-      <input type="text" id="tf-outlined" class="mdc-text-field__input">
+      <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventName"
+             (input) = "eventName = $event.target.value">
       <label for="tf-outlined" class="mdc-floating-label">What are we calling this?</label>
       <div class="mdc-notched-outline">
         <svg>
@@ -77,7 +78,8 @@
     </div>
 
     <div class="mdc-text-field mdc-text-field--outlined description">
-      <input type="text" id="tf-outlined" class="mdc-text-field__input">
+      <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventDescription"
+             (input) = "eventDescription = $event.target.value">
       <label for="tf-outlined" class="mdc-floating-label">Give us a short description</label>
       <div class="mdc-notched-outline">
         <svg>
@@ -133,7 +135,8 @@
 
   <div fxLayout="column" fxLayoutAlign="center center">
     <div class="mdc-text-field mdc-text-field--outlined where">
-      <input type="text" id="searchbox" class="mdc-text-field__input whereauto">
+      <input type="text" id="searchbox" class="mdc-text-field__input whereauto" [value]="eventAddress"
+             (input) = "eventAddress = $event.target.value">
       <!--<label for="tf-outlined" class="mdc-floating-label">Where is it happening?</label>-->
       <div class="mdc-notched-outline">
         <svg>
@@ -145,6 +148,7 @@
   </div>
   <div fxLayout="row" fxLayoutAlign="center center">
     <button style="background-color: #D4262F" mat-flat-button (click) = "openTicketDialog()" color="primary">ADD TICKETS</button>
+    <button style="background-color: #D4262F" mat-flat-button (click) = "uploadEvent()" color="primary">Add Event</button>
   </div>
   <!--<div fxLayout="row" fxLayoutAlign="center center">-->
     <!--<button mat-fab color="primary"><i class="material-icons">check</i></button>-->

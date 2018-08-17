@@ -6,6 +6,11 @@ import {text} from '../../../node_modules/@angular/core/src/render3/instructions
 import {Tickets} from '../Classes/Tickets';
 import {} from '@types/googlemaps';
 import {tick} from '@angular/core/testing';
+import {Creator} from '../Classes/Creator';
+import {ProfileService} from '../Services/profile.service';
+import {Event} from '../event-view/event/Event';
+import {User} from '../Classes/User';
+import {EventService} from '../Services/event.service';
 
 declare var require: any;
 @Component({
@@ -19,6 +24,9 @@ export class AddeventComponent implements OnInit {
   eventTypes: string[] = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Festival',
     'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk'];
   ticketPrice: string;
+  eventName: string;
+  eventDescription: string;
+  eventAddress: string;
   ticketFree: boolean;
   checkedPaid: boolean;
   checkedFree: boolean;
@@ -32,7 +40,12 @@ export class AddeventComponent implements OnInit {
   ticketType: string;
   ticketPaidPrice: MDCTextField;
   tickets: Tickets[] = new Array();
-  constructor() {
+  ps: ProfileService;
+  user: any;
+  userProfile: User;
+  autocomplete: any;
+  eventS: EventService;
+  constructor(ps: ProfileService, eventS: EventService) {
     this.ticketPrice = '';
     this.ticketFree = true;
     this.checkedPaid = false;
@@ -41,10 +54,28 @@ export class AddeventComponent implements OnInit {
     this.ticketDes = '';
     this.ticketQuant = '';
     this.eventTypeSelected = '';
+    this.ps = ps;
+    this.eventS = eventS;
+    this.eventName = '';
+    this.eventDescription = '';
+    this.eventAddress = '';
 
   }
 
   ngOnInit() {
+
+    this.ps.getCurrentUser().subscribe((user) => {
+      if (user !== undefined && user !== null) {
+        this.user = user;
+        console.log(this.user.email);
+      }
+    });
+
+    this.ps.getUserProfile().subscribe((user) => {
+      if (user !== undefined && user !== null) {
+        this.userProfile = user;
+      }
+    });
     const textField = new MDCTextField(document.querySelector('.name'));
     const textField2 = new MDCTextField(document.querySelector('.description'));
 
@@ -64,12 +95,8 @@ export class AddeventComponent implements OnInit {
     this.ticketQuantity = new MDCTextField(document.querySelector('.ticketquantity'));
     this.ticketPaidPrice = new MDCTextField(document.querySelector('.ticketpaidp'));
 
-    function initialize() {
-      const input = <HTMLInputElement> document.getElementById('searchbox');
-      new google.maps.places.Autocomplete(input);
-    }
-
-  google.maps.event.addDomListener(window, 'load', initialize);
+    const input = <HTMLInputElement> document.getElementById('searchbox');
+    this.autocomplete = new google.maps.places.Autocomplete(input);
   }
   eordFeeField() {
     if (this.ticketPrice === 'PAID') {
@@ -116,6 +143,25 @@ export class AddeventComponent implements OnInit {
     this.checkedFree = undefined;
     this.ticketPaidPrice.value = undefined;
 
+  }
+
+  uploadEvent() {
+    if (this.userProfile !== undefined && this.user !== undefined) {
+      const creator = new Creator(this.user.uid, this.userProfile.userName, this.userProfile.stripeAccountId, '');
+      const cr = JSON.parse( JSON.stringify(creator));
+      const ticks = this.tickets.map((obj) => {
+        return Object.assign({}, obj);
+      });
+      console.log(this.autocomplete.getPlace());
+      const event = new Event('', cr, this.eventDescription, 0, '', this.eventName, this.eventTypeSelected,
+        '', this.autocomplete.getPlace()['place_id'], null, 0, ticks, '',
+        this.userProfile.university);
+      this.eventS.addEvent(event);
+    }
+
+    else{
+      console.log(undefined);
+    }
   }
 
   onSelected() {

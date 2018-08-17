@@ -18,8 +18,8 @@ export class ProfileService {
   constructor(router: Router, public snackbar: MatSnackBar, private auth: AuthService) {
     this.router = router;
     this.auth.user.subscribe((currentUser) => {
-      const uid = currentUser.uid as string;
-      if (!isNullOrUndefined(uid)) {
+      if (!isNullOrUndefined(currentUser)) {
+        const uid = currentUser.uid;
         this.uid = uid;
         this.observeUser();
       }
