@@ -1,0 +1,23 @@
+.form-row {
+  margin-bottom: 10px;
+}
+
+#main {
+  position: relative;
+  min-height: 440px;
+}
+
+#breakdown {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+#header, #header * {
+  background: rgba(40, 40, 100, 0.25);
+}
+
+.breakdown-row {
+  width: 100%;
+  display: block;
+}
