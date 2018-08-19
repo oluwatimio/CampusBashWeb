@@ -29,8 +29,5 @@ export class TicketPurchaseComponent implements OnInit {
 
   ngOnInit() {
   }
-  setQR(ticket: TicketMetaData): string {
-    return ticket.qrUrl;
-  }
 
 }
