@@ -5,6 +5,14 @@ import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 export class Util {
   static getTicketBreakdown(ticketFee: number): any {
     const map = {};
+    if (ticketFee <= 0) {
+      map[Constants.CAMPUSBASH_FEE] = 0;
+      map[Constants.SERVICE_FEE] = 0;
+      map[Constants.PAYMENT_FEE] = 0;
+      map[Constants.TICKET_FEE] = 0;
+      map[Constants.TOTAL_FEE] = 0;
+      return map;
+    }
     const serviceFee = new BigNumber(Constants.CAMPUSBASH_SERVICE_FEE + Constants.STRIPE_SERVICE_FEE);
     let paymentFee = new BigNumber((Constants.CAMPUSBASH_TICKET_CUT + Constants.STRIPE_TICKET_CUT) / 100);
     let totalFee = serviceFee.plus(ticketFee);
