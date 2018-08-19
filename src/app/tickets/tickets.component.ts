@@ -28,5 +28,8 @@ export class TicketsComponent implements OnInit {
   getDate(date: number): string {
     return Util.getDate(date);
   }
+  getRoute(ticket: TicketPurchase) {
+    return `/ticketPurchase/${ticket.ticketId}`;
+  }
 
 }
