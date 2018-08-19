@@ -1,0 +1,13 @@
+<body>
+  <div *ngFor="let ticket of tickets" class="">
+    <mat-card class="main">
+      <div>
+        <img class="placeholder" src="{{ticket.placeholderImage.url}}" mat-card-image>
+      </div>
+      <div>{{ticket.eventName}}</div>
+      <div *ngIf="ticket.ticketCodes.length > 1">{{ticket.ticketCodes.length}} tickets</div>
+      <div *ngIf="ticket.ticketCodes.length == 1">{{ticket.ticketCodes.length}} ticket</div>
+      <div>Starts on {{getDate(ticket.eventTime)}}</div>
+    </mat-card>
+  </div>
+</body>

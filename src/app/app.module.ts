@@ -48,6 +48,7 @@ import {InterestsComponent} from './interests/interests.component';
 import { ChooseuniComponent } from './chooseuni/chooseuni.component';
 import { GetTicketsViewComponent } from './get-tickets-view/get-tickets-view.component';
 import { PayForTicketComponent } from './pay-for-ticket/pay-for-ticket.component';
+import { TicketsComponent } from './tickets/tickets.component';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -83,7 +84,8 @@ const routes: Routes = [
     InterestsComponent,
     ChooseuniComponent,
     GetTicketsViewComponent,
-    PayForTicketComponent
+    PayForTicketComponent,
+    TicketsComponent
   ],
   imports: [
     BrowserModule,
