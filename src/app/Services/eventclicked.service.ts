@@ -59,8 +59,12 @@ export class EventclickedService {
     }
     const bd = Util.getTicketBreakdown(ticketFee);
     let stripeAcctId = null;
-    if (!isNullOrUndefined(stripeAcctId)) {
+    let stripeCustId = null;
+    if (!isNullOrUndefined(user.stripeAccountId)) {
       stripeAcctId = user.stripeAccountId;
+    }
+    if (!isNullOrUndefined(user.stripeCustomerId)) {
+      stripeCustId = user.stripeCustomerId;
     }
     return {
       buyerId: user.uid,
@@ -69,7 +73,7 @@ export class EventclickedService {
       currency: 'CA$',
       quantity: quantity,
       stripeAccountId: stripeAcctId,
-      stripeCustomerId: user.stripeCustomerId,
+      stripeCustomerId: stripeCustId,
       token: cardToken,
       timeSpent: Date.now(),
       total: bd[Constants.TOTAL_FEE],
