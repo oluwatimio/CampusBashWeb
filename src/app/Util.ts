@@ -26,4 +26,11 @@ export class Util {
     config.duration = 2000;
     snackBar.open(message, undefined, config);
   }
+  static getDate(dateM: number) {
+    const date = new Date(dateM);
+    const dateArray = date.toString().split(' ');
+    // dateArray[1] + ' ' + dateArray[2];
+    const date2 = dateArray[0] + ' ' + dateArray[1] + ' ' + dateArray[2];
+    return date2;
+  }
 }

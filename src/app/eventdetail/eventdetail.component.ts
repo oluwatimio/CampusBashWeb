@@ -5,6 +5,7 @@ import {EventclickedService} from '../Services/eventclicked.service';
 import {} from '@types/googlemaps';
 import {AuthService} from '../Services/auth.service';
 import {isNullOrUndefined} from 'util';
+import {Util} from '../Util';
 
 declare var google: any;
 
@@ -63,11 +64,7 @@ export class EventdetailComponent implements OnInit {
   }
 
   getDate(dateM: number) {
-    const date = new Date(dateM);
-    const dateArray = date.toString().split(' ');
-    // dateArray[1] + ' ' + dateArray[2];
-    const date2 = dateArray[0] + ' ' + dateArray[1] + ' ' + dateArray[2];
-    return date2;
+    return Util.getDate(dateM);
   }
 
   getAddress(placeID: string) {
