@@ -3,6 +3,20 @@ import {BigNumber} from 'bignumber.js';
 import {MatSnackBar, MatSnackBarConfig} from '@angular/material';
 
 export class Util {
+  static readonly monthMap = {
+    'Jan': 'January',
+    'Feb': 'February',
+    'Mar': 'March',
+    'Apr': 'April',
+    'May': 'May',
+    'Jun': 'June',
+    'Jul': 'July',
+    'Aug': 'August',
+    'Sept': 'September',
+    'Oct': 'October',
+    'Nov': 'November',
+    'Dec': 'December'
+  };
   static getTicketBreakdown(ticketFee: number): any {
     const map = {};
     if (ticketFee <= 0) {
@@ -40,5 +54,33 @@ export class Util {
     // dateArray[1] + ' ' + dateArray[2];
     const date2 = dateArray[0] + ' ' + dateArray[1] + ' ' + dateArray[2];
     return date2;
+  }
+  static getSaturday(time: number): number {
+    const dt = new Date();
+    dt.setMilliseconds(time);
+    if (dt.toDateString().includes('Sat')) {
+      return time;
+    }
+    return this.getSaturday(this.tomorrowInMillis(time));
+  }
+  static tomorrowInMillis(time: number) {
+    const tom = time + this.getHourInMillis(24);
+    const rem = tom % this.getDayInMillis(1);
+    if (rem === 0) {
+      return tom;
+    }
+    return tom - rem;
+  }
+  static getDayInMillis(time: number): number {
+    return this.getHourInMillis(time * 24);
+  }
+  static getHourInMillis(time: number): number {
+    return this.getMinuteInMillis(time * 60);
+  }
+  static getMinuteInMillis(time: number): number {
+    return this.getSecondInMillis(time * 60);
+  }
+  static getSecondInMillis(time: number): number {
+    return time * 1000;
   }
 }

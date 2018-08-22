@@ -119,7 +119,7 @@ export class AddeventComponent implements OnInit {
     dialog.show();
   }
 
-  checkVal(){}
+  checkVal() {}
 
   addTicket() {
 
@@ -128,14 +128,16 @@ export class AddeventComponent implements OnInit {
     } else {
       this.ticketType = 'Free';
     }
-    if (this.ticketPaidPrice.value !== '' && this.ticketPaidPrice.value !== undefined){
+    if (this.ticketPaidPrice.value !== '' && this.ticketPaidPrice.value !== undefined) {
       const ticket = new Tickets('CA$', this.ticketDescription.value, 10, 1,
-        this.ticketName.value, parseFloat(this.ticketPaidPrice.value), parseInt(this.ticketQuantity.value, 10), null, 0, null, this.ticketType, true );
+        this.ticketName.value, parseFloat(this.ticketPaidPrice.value), parseInt(this.ticketQuantity.value, 10), null,
+        0, null, this.ticketType, true );
       this.tickets.push(ticket);
       console.log(ticket);
     } else {
       const ticket = new Tickets('CA$', this.ticketDescription.value, 10, 1,
-        this.ticketName.value, 0, parseInt(this.ticketQuantity.value, 10), null, 0, null, this.ticketType, true );
+        this.ticketName.value, 0, parseInt(this.ticketQuantity.value, 10), null, 0, null,
+        this.ticketType, true );
       this.tickets.push(ticket);
       console.log(ticket);
     }
@@ -159,7 +161,7 @@ export class AddeventComponent implements OnInit {
       this.eventS.addEvent(event);
     }
 
-    else{
+    else {
       console.log(undefined);
     }
   }
