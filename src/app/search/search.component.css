@@ -5,3 +5,17 @@
 mat-chip-list{
     width: 100%
 }
+
+.main {
+  margin: 10px;
+}
+
+.placeholder {
+  height: 120px;
+  /*width: 100%;*/
+}
+
+.no-tickets {
+  text-align: center;
+}
+
