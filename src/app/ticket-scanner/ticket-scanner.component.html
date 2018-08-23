@@ -1,0 +1,20 @@
+<div style="margin-top: 10vh; height: 100%; width: 100%">
+<!--<header>-->
+  <!---->
+<!--</header>-->
+  <div *ngIf="!cameraFound">
+    No camera found
+  </div>
+  <mat-select *ngIf="cameraFound" [(ngModel)]="selectedCamera" (selectionChange)="cameraSelected()">
+    <mat-option *ngFor="let camera of cameras" [value]="camera.id">
+      {{camera.name}}
+    </mat-option>
+  </mat-select>
+<zxing-scanner #scanner
+               start="true"
+               [scannerEnabled]="true"
+               [autofocusEnabled]="true"
+               [device]="currentDevice"
+               (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
+
+</div>

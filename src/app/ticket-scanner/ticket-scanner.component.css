@@ -1,0 +1,10 @@
+.scanner {
+  min-height: 100%;
+  width: 100%;
+}
+
+mat-select {
+  background: #333;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
