@@ -50,6 +50,8 @@ import { GetTicketsViewComponent } from './get-tickets-view/get-tickets-view.com
 import { PayForTicketComponent } from './pay-for-ticket/pay-for-ticket.component';
 import { TicketsComponent } from './tickets/tickets.component';
 import { TicketPurchaseComponent } from './ticket-purchase/ticket-purchase.component';
+import { TicketScannerComponent } from './ticket-scanner/ticket-scanner.component';
+import {ZXingScannerModule} from '@zxing/ngx-scanner';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -65,7 +67,8 @@ const routes: Routes = [
   {path: 'university', component: ChooseuniComponent},
   {path: ':eventId/buyTicket', component: GetTicketsViewComponent},
   {path: 'payForTicket', component: PayForTicketComponent},
-  {path: 'ticketPurchase/:id', component: TicketPurchaseComponent}
+  {path: 'ticketPurchase/:id', component: TicketPurchaseComponent},
+  {path: 'scan/:eventId', component: TicketScannerComponent}
 ];
 
 @NgModule({
@@ -88,7 +91,8 @@ const routes: Routes = [
     GetTicketsViewComponent,
     PayForTicketComponent,
     TicketsComponent,
-    TicketPurchaseComponent
+    TicketPurchaseComponent,
+    TicketScannerComponent,
   ],
   imports: [
     BrowserModule,
@@ -118,7 +122,8 @@ const routes: Routes = [
     MatCheckboxModule,
     MatSnackBarModule,
     MatDialogModule,
-    MatListModule
+    MatListModule,
+    ZXingScannerModule,
   ],
   providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
   bootstrap: [AppComponent]

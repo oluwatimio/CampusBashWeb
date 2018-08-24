@@ -18,7 +18,7 @@ export class Event {
   timeZone: string;
   university: string;
   constructor(address: string, creator: Creator, description: string, endTime: number, eventId: string, eventName: string,
-              eventType: string, eventVideo: string, placeId: string, placeHolderImage: Media, startTime: number, tickets: Tickets[],
+              eventType: string, eventVideo: string, placeId: string, placeholderImage: Media, startTime: number, tickets: Tickets[],
               timeZone: string, university: string) {
     this.address = address;
     this.creator = creator;
@@ -29,7 +29,7 @@ export class Event {
     this.eventType = eventType;
     this.eventVideo = eventVideo;
     this.placeId = placeId;
-    this.placeholderImage = placeHolderImage;
+    this.placeholderImage = placeholderImage;
     this.tickets = tickets;
     this.startTime = startTime;
     this.timeZone = timeZone;

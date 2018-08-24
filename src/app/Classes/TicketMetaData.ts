@@ -3,4 +3,5 @@ export interface TicketMetaData {
   isUsed: boolean;
   qrUrl: string;
   ticketName: string;
+  ticketPurchaseId: string;
 }
