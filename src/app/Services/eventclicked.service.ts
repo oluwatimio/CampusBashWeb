@@ -6,6 +6,7 @@ import * as firebase from 'firebase/app';
 import {User} from '../Classes/User';
 import {Util} from '../Util';
 import {Constants} from '../Constants';
+import {isNullOrUndefined} from 'util';
 
 @Injectable({
   providedIn: 'root'
@@ -57,14 +58,22 @@ export class EventclickedService {
       return null;
     }
     const bd = Util.getTicketBreakdown(ticketFee);
+    let stripeAcctId = null;
+    let stripeCustId = null;
+    if (!isNullOrUndefined(user.stripeAccountId)) {
+      stripeAcctId = user.stripeAccountId;
+    }
+    if (!isNullOrUndefined(user.stripeCustomerId)) {
+      stripeCustId = user.stripeCustomerId;
+    }
     return {
       buyerId: user.uid,
       buyerEmail: user.email,
       buyerName: user.userName,
       currency: 'CA$',
       quantity: quantity,
-      stripeAccountId: user.stripeAccountId,
-      stripeCustomerId: user.stripeCustomerId,
+      stripeAccountId: stripeAcctId,
+      stripeCustomerId: stripeCustId,
       token: cardToken,
       timeSpent: Date.now(),
       total: bd[Constants.TOTAL_FEE],

@@ -48,6 +48,8 @@ import {InterestsComponent} from './interests/interests.component';
 import { ChooseuniComponent } from './chooseuni/chooseuni.component';
 import { GetTicketsViewComponent } from './get-tickets-view/get-tickets-view.component';
 import { PayForTicketComponent } from './pay-for-ticket/pay-for-ticket.component';
+import { TicketsComponent } from './tickets/tickets.component';
+import { TicketPurchaseComponent } from './ticket-purchase/ticket-purchase.component';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -62,7 +64,8 @@ const routes: Routes = [
   {path: 'interests', component: InterestsComponent},
   {path: 'university', component: ChooseuniComponent},
   {path: ':eventId/buyTicket', component: GetTicketsViewComponent},
-  {path: 'payForTicket', component: PayForTicketComponent}
+  {path: 'payForTicket', component: PayForTicketComponent},
+  {path: 'ticketPurchase/:id', component: TicketPurchaseComponent}
 ];
 
 @NgModule({
@@ -83,7 +86,9 @@ const routes: Routes = [
     InterestsComponent,
     ChooseuniComponent,
     GetTicketsViewComponent,
-    PayForTicketComponent
+    PayForTicketComponent,
+    TicketsComponent,
+    TicketPurchaseComponent
   ],
   imports: [
     BrowserModule,

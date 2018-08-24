@@ -24,7 +24,7 @@ export class AddeventService {
       eventType: event.eventType,
       eventVideo: event.eventVideo,
       placeId: event.placeId,
-      placeHoldlerImage: event.placeHolderImage,
+      placeholderImage: event.placeholderImage,
       startTime: event.startTime,
       tickets: event.tickets
     }).then(() => {

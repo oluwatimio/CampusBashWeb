@@ -1,0 +1,10 @@
+<body style="margin-top: 10vh">
+<div *ngFor="let ticket of ticketPurchase.ticketCodes" class="">
+  <mat-card class="main">
+    <div>
+      <img class="placeholder" src="{{ticket.qrUrl}}" mat-card-image>
+    </div>
+    <div>{{ticket.ticketName}}</div>
+  </mat-card>
+</div>
+</body>
