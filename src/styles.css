@@ -86,3 +86,41 @@ mat-card{
   background-color: #D4262F !important;
 }
 
+@media (min-width: 300px) and (max-width: 575.98px) {
+  #aboutDetail{
+    width: 100% !important;
+  }
+
+  #aboutMap{
+    width: 100% !important;
+  }
+
+  #eventText{
+    font-size: 15px !important;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+  #aboutDetail{
+    width: 100% !important;
+  }
+
+  #aboutMap{
+    width: 100% !important;
+  }
+
+  #eventText{
+    font-size: 15px !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  #aboutDetail{
+    width: 100% !important;
+  }
+
+  #aboutMap{
+    width: 100% !important;
+  }
+}
+

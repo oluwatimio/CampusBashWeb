@@ -1,17 +1,5 @@
  <body style="overflow: scroll;">
   <div fxLayout="column">
-    <!--<mat-card id="matcard2">
-      <mat-card-content style="margin-left: 2vh">
-          <p id="happening">Here's what's happening in</p>
-          <mat-form-field id="happening2">
-              <mat-select placeholder="University">
-                <mat-option *ngFor="let food of foods" [value]="food.value">
-                  {{food.viewValue}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>    
-      </mat-card-content>
-    </mat-card>-->
     <div *ngFor="let event of allEvents | async">
       <div *ngIf="event.events.length > 0">
         <h1 style="text-align: center">{{event.sectionName}}</h1>
@@ -28,10 +16,10 @@
                 </div>
               <mat-card-footer>
                   <div fxLayout="column" style="margin-top: 2vh">
-                    <div style="text-align: center; font-size: 25px">
-                      {{event1.eventName}}
+                    <div id="eventText" style="text-align: center; font-size: 20px">
+                      {{event1.eventName.substring(0,15)}}
                     </div>
-                    <div style="text-align: center; font-size: 20px">
+                    <div style="text-align: center; font-size: 15px">
                       {{getDate(event1.startTime)[1]}} {{getDate(event1.startTime)[2]}}
                     </div>
                   </div>
