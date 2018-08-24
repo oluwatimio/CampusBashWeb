@@ -68,7 +68,7 @@ const routes: Routes = [
   {path: ':eventId/buyTicket', component: GetTicketsViewComponent},
   {path: 'payForTicket', component: PayForTicketComponent},
   {path: 'ticketPurchase/:id', component: TicketPurchaseComponent},
-  {path: 'scan', component: TicketScannerComponent}
+  {path: 'scan/:eventId', component: TicketScannerComponent}
 ];
 
 @NgModule({

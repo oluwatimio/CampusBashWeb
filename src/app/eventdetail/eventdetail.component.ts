@@ -6,6 +6,7 @@ import {} from '@types/googlemaps';
 import {AuthService} from '../Services/auth.service';
 import {isNullOrUndefined} from 'util';
 import {Util} from '../Util';
+import {Router} from '@angular/router';
 
 declare var google: any;
 
@@ -20,7 +21,7 @@ export class EventdetailComponent implements OnInit {
   eventClicked: Event;
   address: string;
   user: any = null;
-  constructor(clicks: EventclickedService, private auth: AuthService) {
+  constructor(clicks: EventclickedService, private auth: AuthService, private router: Router) {
     this.clicks = clicks;
   }
 
@@ -84,11 +85,14 @@ export class EventdetailComponent implements OnInit {
       }
     });
   }
-  getTicketRoute(): string {
+  buyTicket() {
     if (isNullOrUndefined(this.user)) {
-      return '/signin';
+      this.router.navigateByUrl('/signin');
     }
-    return `/${this.eventClicked.eventId}/buyTicket`;
+    this.router.navigateByUrl(`/${this.eventClicked.eventId}/buyTicket`);
+  }
+  scan() {
+    this.router.navigateByUrl(`/scan/${this.eventClicked.eventId}`);
   }
 
 }

@@ -1,5 +1,4 @@
 .scanner {
-  min-height: 100%;
   width: 100%;
 }
 
@@ -7,4 +6,14 @@ mat-select {
   background: #333;
   padding-top: 10px;
   padding-bottom: 10px;
+  color: black;
 }
+
+mat-option {
+  color: black;
+}
+
+.ticketMessage {
+  vertical-align: center;
+}
+
