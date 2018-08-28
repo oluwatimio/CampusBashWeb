@@ -18,35 +18,61 @@ export class EventService {
   private searchSubject = new BehaviorSubject(null);
   private sectionSubject = new BehaviorSubject(null);
   private unSubscribe;
+  private lastEventFetched = null;
+  private eventFetched = new BehaviorSubject(null);
   constructor(public sb: MatSnackBar) {
     this.eventsTable = new FirebaseKeyTable();
-    this.myEventsTable = new FirebaseKeyTable<Event>();
+    this.myEventsTable = new FirebaseKeyTable();
     this.eventsTable.getData().subscribe((data: Event[]) => {
       this.events = data;
       this.sectionSubject.next(this.getSections());
+      this.updateLastFetched();
     });
     this.myEventsTable.getData().subscribe((data: Event[]) => {
       this.events = data;
+      this.updateLastFetched();
     });
-  }
-
-  getEvents(): Observable<EventSection[]> {
     this.downloadEvents();
+  }
+  addEventToTable(event: Event, myEvent: boolean = false) {
+    if (myEvent) {
+      this.myEventsTable.add(event.eventId, event);
+    } else {
+      this.eventsTable.add(event.eventId, event);
+    }
+  }
+  getEvents(): Observable<EventSection[]> {
     return this.sectionSubject.asObservable();
   }
-  getEvent(eventId: string) {
+  getEvent(eventId: string): Observable<Event> {
+    this.lastEventFetched = eventId;
     let value = this.eventsTable.get(eventId);
-    if (!isNullOrUndefined(value)) {
+    if (isNullOrUndefined(value)) {
       value = this.myEventsTable.get(eventId);
     }
-    return value;
+    console.log(value);
+    this.eventFetched.next(value);
+    if (isNullOrUndefined(value)) {
+      this.downloadEvents();
+    }
+    return this.eventFetched.asObservable();
+  }
+  private updateLastFetched() {
+    if (isNullOrUndefined(this.lastEventFetched)) { return; }
+    let value = this.eventsTable.get(this.lastEventFetched);
+    if (isNullOrUndefined(value)) {
+      value = this.myEventsTable.get(this.lastEventFetched);
+    }
+    console.log(value);
+    this.eventFetched.next(value);
   }
   downloadEvents() {
     if (!isNullOrUndefined(this.unSubscribe)) {
-      this.unSubscribe();
+      return;
     }
     const db = firebase.firestore();
-    this.unSubscribe = db.collection('events').onSnapshot((querySnapshot) => {
+    this.unSubscribe = db.collection('events').where('endTime', '>=', Date.now())
+      .onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const event = new Event(doc.data().address,
           doc.data().creator, doc.data().description, doc.data().endTime,

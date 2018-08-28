@@ -12,7 +12,7 @@ export class FirebaseKeyTable<T> {
     delete this.data[key];
     return value;
   }
-  get(key: string): Event {
+  get(key: string): T {
     return this.data[key];
   }
   getData(): Observable<T[]> {

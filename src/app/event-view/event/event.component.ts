@@ -56,9 +56,7 @@ export class EventComponent implements OnInit {
   async eventDetail(event: Event) {
     console.log('event problem');
     console.log(event);
-    this.eventClickS.setEventClicked(event);
-    await delay(1);
-    this.router.navigateByUrl('detail');
+    this.router.navigateByUrl(`detail/${event.eventId}`);
   }
 
 }
