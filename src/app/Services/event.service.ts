@@ -2,34 +2,77 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import {EventSection} from '../event-view/event/EventSection';
 import {Event} from '../event-view/event/Event';
-import {delay} from 'q';
 import {MatSnackBar} from '@angular/material';
 import {BehaviorSubject, Observable} from 'rxjs';
-import CollectionReference = firebase.firestore.CollectionReference;
-import Query = firebase.firestore.Query;
+import {FirebaseKeyTable} from '../data-structures/FirebaseKeyTable';
+import {isNullOrUndefined} from 'util';
 
 @Injectable()
 export class EventService {
-  eventTypes = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference',
+  eventTypes = ['Frosh', 'House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference',
     'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk', 'Festival'];
   sections: EventSection[] = new Array();
   events: Event[] = new Array();
-  eventsHost: Event[] = new Array();
-  searchSubject = new BehaviorSubject(null);
+  private eventsTable: FirebaseKeyTable<Event>;
+  private myEventsTable: FirebaseKeyTable<Event>;
+  private searchSubject = new BehaviorSubject(null);
+  private sectionSubject = new BehaviorSubject(null);
+  private unSubscribe;
+  private lastEventFetched = null;
+  private eventFetched = new BehaviorSubject(null);
   constructor(public sb: MatSnackBar) {
-
+    this.eventsTable = new FirebaseKeyTable();
+    this.myEventsTable = new FirebaseKeyTable();
+    this.eventsTable.getData().subscribe((data: Event[]) => {
+      this.events = data;
+      this.sectionSubject.next(this.getSections());
+      this.updateLastFetched();
+    });
+    this.myEventsTable.getData().subscribe((data: Event[]) => {
+      this.events = data;
+      this.updateLastFetched();
+    });
+    this.downloadEvents();
   }
-
-  async getEvents() {
-    await this.downloadEvents();
-    return this.getSections();
+  addEventToTable(event: Event, myEvent: boolean = false) {
+    if (myEvent) {
+      this.myEventsTable.add(event.eventId, event);
+    } else {
+      this.eventsTable.add(event.eventId, event);
+    }
   }
-  async downloadEvents() {
-    if (this.events.length > 0) { return; }
-    this.events = [];
+  getEvents(): Observable<EventSection[]> {
+    return this.sectionSubject.asObservable();
+  }
+  getEvent(eventId: string): Observable<Event> {
+    this.lastEventFetched = eventId;
+    let value = this.eventsTable.get(eventId);
+    if (isNullOrUndefined(value)) {
+      value = this.myEventsTable.get(eventId);
+    }
+    console.log(value);
+    this.eventFetched.next(value);
+    if (isNullOrUndefined(value)) {
+      this.downloadEvents();
+    }
+    return this.eventFetched.asObservable();
+  }
+  private updateLastFetched() {
+    if (isNullOrUndefined(this.lastEventFetched)) { return; }
+    let value = this.eventsTable.get(this.lastEventFetched);
+    if (isNullOrUndefined(value)) {
+      value = this.myEventsTable.get(this.lastEventFetched);
+    }
+    console.log(value);
+    this.eventFetched.next(value);
+  }
+  downloadEvents() {
+    if (!isNullOrUndefined(this.unSubscribe)) {
+      return;
+    }
     const db = firebase.firestore();
-    await  db.collection('events').get().then((querySnapshot) => {
-
+    this.unSubscribe = db.collection('events').where('endTime', '>=', Date.now())
+      .onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const event = new Event(doc.data().address,
           doc.data().creator, doc.data().description, doc.data().endTime,
@@ -37,16 +80,14 @@ export class EventService {
           doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
           doc.data().startTime, doc.data().tickets, doc.data().timezone,
           doc.data().university);
-        this.events.push(event);
+        this.eventsTable.add(event.eventId, event);
       });
 
       console.log(this.events);
-      // console.log(this.events);
-      // console.log(this.getSections());
     });
   }
-
   getSections() {
+    const froshParty = new Array();
     const houseParty = new Array();
     const poolParty = new Array();
     const kegger = new Array();
@@ -79,8 +120,11 @@ export class EventService {
         seminar.push(this.events[i]);
       } else if (this.events[i].eventType === 'Festival') {
         festival.push(this.events[i]);
+      } else if (this.events[i].eventType === 'Frosh') {
+        froshParty.push(this.events[i]);
       }
     }
+    const froshSection = new EventSection('Frosh', froshParty);
     const eSect = new EventSection('House Party', houseParty);
     const poolSect = new EventSection('Pool Party', poolParty);
     const keggerSect = new EventSection('Kegger', kegger);
@@ -91,28 +135,27 @@ export class EventService {
     const netSect = new EventSection('Networking', networking);
     const seminarSect = new EventSection('Seminar or Talk', kegger);
     const festSect = new EventSection('Festival', festival);
-    this.sections = [eSect, poolSect, keggerSect, sportsSect, confSect, concertSect, tournSect, netSect, seminarSect, festSect];
+    this.sections = [froshSection, eSect, poolSect, keggerSect, sportsSect, confSect, concertSect, tournSect, netSect, seminarSect,
+      festSect];
     return this.sections;
   }
-  async getEventsHosting() {
-    this.eventsHost = new Array();
-    const db = firebase.firestore();
-    await  db.collection('events').get().then((querySnapshot) => {
-
-      querySnapshot.forEach((doc) => {
-        const event = new Event(doc.data().address,
-          doc.data().creator, doc.data().description, doc.data().endTime,
-          doc.data().eventId, doc.data().eventName, doc.data().eventType,
-          doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
-          doc.data().startTime, doc.data().tickets, doc.data().timezone,
-          doc.data().university);
-        this.eventsHost.push(event);
+  getEventsHosting(uid: string) {
+    if (!isNullOrUndefined(uid) && uid.trim().length > 0) {
+      const db = firebase.firestore();
+      db.collection('events').where('creator.uid', '==', uid).onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          const event = new Event(doc.data().address,
+            doc.data().creator, doc.data().description, doc.data().endTime,
+            doc.data().eventId, doc.data().eventName, doc.data().eventType,
+            doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
+            doc.data().startTime, doc.data().tickets, doc.data().timezone,
+            doc.data().university);
+          this.myEventsTable.add(event.eventId, event);
+        });
       });
-    });
-
-    return this.eventsHost;
+    }
+    return this.myEventsTable.getData();
   }
-
   addEvent(event: Event) {
     const db = firebase.firestore();
 
@@ -155,5 +198,4 @@ export class EventService {
   getSearchObservable(): Observable<Event[]> {
     return this.searchSubject.asObservable();
   }
-
 }

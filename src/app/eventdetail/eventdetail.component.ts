@@ -1,12 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import {Event} from '../event-view/event/Event';
+import {equal} from 'deep-equal';
 import {EventclickedService} from '../Services/eventclicked.service';
 import {} from '@types/googlemaps';
 import {AuthService} from '../Services/auth.service';
 import {isNullOrUndefined} from 'util';
 import {Util} from '../Util';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {EventService} from '../Services/event.service';
 
 declare var google: any;
 
@@ -17,25 +19,29 @@ declare var google: any;
 })
 export class EventdetailComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
-  clicks: EventclickedService;
   eventClicked: Event;
   address: string;
+  lastPlaceId: string;
   user: any = null;
-  constructor(clicks: EventclickedService, private auth: AuthService, private router: Router) {
-    this.clicks = clicks;
+  eventId: string;
+  constructor(private eventsService: EventService, private auth: AuthService, private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.clicks.localStorages.getItem<Event>('event').subscribe((event) => {
+    this.eventId = this.route.snapshot.paramMap.get('eventId') as string;
+    console.log(this.eventId);
+    this.eventsService.getEvent(this.eventId).subscribe(event => {
+      console.log(event);
       this.eventClicked = event;
-      console.log(this.eventClicked.description);
-      this.setMap();
-      this.getAddress(this.eventClicked.placeId);
+      if (!isNullOrUndefined(event) && this.lastPlaceId !== event.placeId) {
+        this.setMap();
+        this.getAddress(this.eventClicked.placeId);
+        this.lastPlaceId = event.placeId;
+      }
     });
     this.auth.user.subscribe((user) => {
       this.user = user;
     });
-    //this.eventClicked = event;
   }
   setMap() {
     const map = new google.maps.Map(this.gmapElement.nativeElement, {
@@ -76,7 +82,7 @@ export class EventdetailComponent implements OnInit {
         if (results[0]) {
           this.address = results[0].formatted_address;
           this.eventClicked.address = this.address;
-          this.clicks.localStorages.setItem('event', event);
+          this.eventsService.addEventToTable(this.eventClicked);
         } else {
           window.alert('No results found');
         }

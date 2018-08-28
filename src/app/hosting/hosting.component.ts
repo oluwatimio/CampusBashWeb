@@ -4,6 +4,7 @@ import {EventSection} from '../event-view/event/EventSection';
 import * as firebase from 'firebase/app';
 import {AuthService} from '../Services/auth.service';
 import {Event} from '../event-view/event/Event';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-hosting',
@@ -22,9 +23,8 @@ export class HostingComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.authS.user.subscribe((user) => {
-      if (user !== null && user !== undefined) {
+      if (!isNullOrUndefined(user)) {
         this.user = user;
         this.uid = user.uid;
         this.getHosted();
@@ -34,13 +34,9 @@ export class HostingComponent implements OnInit {
   }
 
   getHosted() {
-    this.eventService.getEventsHosting().then((events) => {
-      for (let i = 0; i < events.length; i++) {
-            if (events[i].creator.uid === this.user.uid) {
-              const eventGotten = events[i];
-              this.events.push(eventGotten);
-            }
-      }
+    this.eventService.getEventsHosting(this.uid).subscribe((events: Event[]) => {
+      this.events.length = 0;
+      events.forEach(event => this.events.push(event));
     });
   }
 

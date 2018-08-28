@@ -56,11 +56,12 @@ import {ZXingScannerModule} from '@zxing/ngx-scanner';
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
   {path: 'events', component: EventComponent},
+  {path: 'event/:eventId', component: EventdetailComponent},
   {path: '', component: TabsComponent},
   {path: 'tabs', component: TabsComponent},
   {path: 'addevent', component: AddeventComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'detail', component: EventdetailComponent},
+  {path: 'detail/:eventId', component: EventdetailComponent},
   {path: 'mapp', component: MappComponent},
   {path: 'profilec', component: ProfilecreatorComponent},
   {path: 'interests', component: InterestsComponent},
