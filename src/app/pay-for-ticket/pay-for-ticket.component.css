@@ -3,8 +3,9 @@
 }
 
 #main {
+  margin-top: 12vh;
   position: relative;
-  min-height: 440px;
+  min-height: 80vh;
 }
 
 #breakdown {
