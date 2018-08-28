@@ -9,6 +9,7 @@ import { from } from 'rxjs';
 import { Router } from '../../../../node_modules/@angular/router';
 import { EventclickedService } from '../../Services/eventclicked.service';
 import {delay} from 'q';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-event',
@@ -35,13 +36,13 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allEvents = from(this.eventService.getEvents());
-      this.authS.user.subscribe((user) => {
-        if (user !== undefined && user !== null) {
-          this.user = user;
-          this.uid = user.uid;
-          console.log(this.user.email);
-        }
+    this.allEvents = this.eventService.getEvents();
+    this.authS.user.subscribe((user) => {
+      if (user !== undefined && user !== null) {
+        this.user = user;
+        this.uid = user.uid;
+        console.log(this.user.email);
+      }
     });
   }
 
@@ -53,7 +54,6 @@ export class EventComponent implements OnInit {
   }
 
   async eventDetail(event: Event) {
-    //console.log(event);
     console.log('event problem');
     console.log(event);
     this.eventClickS.setEventClicked(event);
