@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <img src="../../assets/applogo.svg" routerLink="/">
+  <img style="width: 5vh; height: 5vh" src="../../assets/applogo.svg" routerLink="/">
 
   <span class="example-fill-remaining-space"></span>
     <button id = "navBD" mat-button routerLink="mapp"><i class="material-icons" id="iconD">phone_iphone</i>GET THE MOBILE APP</button>
@@ -15,7 +15,7 @@
 <button mat-button [matMenuTriggerFor]="menu" id="navBM"><i class="material-icons" id="iconD">menu</i></button>
 <mat-menu #menu="matMenu">
   <button mat-menu-item routerLink="mapp"><i class="material-icons">phone_iphone</i>GET THE MOBILE APP</button>
-  <button mat-menu-item><i class="material-icons">add_box</i>HOST AN EVENT</button>
+  <button mat-menu-item routerLink="addevent"><i class="material-icons">add_box</i>HOST AN EVENT</button>
   <!--<button id="signIn" mat-menu-item (click)="signInPage()"><i class="material-icons">account_circle</i>SIGN IN</button>-->
   <!--<button id="signOut" mat-menu-item (click)="signOut()"><i class="material-icons">account_circle</i>SIGN OUT</button>-->
 </mat-menu>

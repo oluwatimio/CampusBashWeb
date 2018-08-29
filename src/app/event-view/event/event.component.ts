@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {EventSection} from './EventSection';
 import {EventService} from '../../Services/event.service';
 import {Event} from './Event';
@@ -26,13 +26,15 @@ export class EventComponent implements OnInit {
   uid: string;
   user: any;
   router: Router;
+  ng: NgZone;
   eventClickS: EventclickedService;
-  constructor(eventService: EventService, authS: AuthService, router: Router, eventClickS: EventclickedService) {
+  constructor(eventService: EventService, authS: AuthService, router: Router, eventClickS: EventclickedService, ng: NgZone) {
     this.eventService = eventService;
     this.authS = authS;
     this.uid = '';
     this.router = router;
     this.eventClickS = eventClickS;
+    this.ng = ng;
   }
 
   ngOnInit() {
@@ -56,7 +58,13 @@ export class EventComponent implements OnInit {
   async eventDetail(event: Event) {
     console.log('event problem');
     console.log(event);
+<<<<<<< Updated upstream
     this.router.navigateByUrl(`detail/${event.eventId}`);
+=======
+    this.eventClickS.setEventClicked(event);
+    // await delay(1);
+    this.ng.run(() => this.router.navigateByUrl('detail'));
+>>>>>>> Stashed changes
   }
 
 }

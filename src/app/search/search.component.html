@@ -7,32 +7,21 @@
     <mat-chip *ngFor="let date of dates" [selectable]="true" (click)="dateChipChanged(date)">{{date}}</mat-chip>
   </mat-chip-list>
   <mat-calendar *ngIf="showPicker" (selectedChange)="dateChanged($event)"></mat-calendar>
-  
-  <!--<mat-chip-list>-->
-    <!--<mat-chip>House Party</mat-chip>-->
-    <!--<mat-chip>Pool Party</mat-chip>-->
-    <!--<mat-chip>Kegger</mat-chip>-->
-    <!--<mat-chip>Sports Party</mat-chip>-->
-    <!--<mat-chip>Conference</mat-chip>-->
-    <!--<mat-chip>Festival</mat-chip>-->
-    <!--<mat-chip>Concert or Performance</mat-chip>-->
-    <!--<mat-chip>Tournament</mat-chip>-->
-    <!--<mat-chip>Networking</mat-chip>-->
-    <!--<mat-chip>Seminar or Talk</mat-chip>-->
-  <!--</mat-chip-list>-->
   <mat-divider style="margin-top: 2vh"></mat-divider>
 
-  <div *ngFor="let event of events">
-    <mat-card class="main">
-      <div *ngIf="event.placeholderImage != null">
-        <img class="placeholder" src="{{event.placeholderImage.url}}" mat-card-image>
-      </div>
-      <div *ngIf="event.placeholderImage == null">
-        <img class="placeholder" src="assets/placeholder.png" mat-card-image>
-      </div>
-      <div>{{event.eventName}}</div>
-      <div>Starts on {{getDate(event.startTime)}}</div>
-    </mat-card>
+  <div fxLayout="row wrap" fxLayoutAlign="center center">
+    <div *ngFor="let event of events">
+      <mat-card class="main">
+        <div *ngIf="event.placeholderImage != null">
+          <img  style="border-radius: 15px" class="placeholder" src="{{event.placeholderImage.url}}" mat-card-image>
+        </div>
+        <div *ngIf="event.placeholderImage == null">
+          <img class="placeholder" src="assets/placeholder.png" mat-card-image>
+        </div>
+        <div>{{event.eventName}}</div>
+        <div>Starts on {{getDate(event.startTime)}}</div>
+      </mat-card>
+    </div>
   </div>
   <div style="text-align: center" *ngIf="events.length === 0">No events found</div>
 </div>

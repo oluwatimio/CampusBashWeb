@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import {Injectable, NgZone, OnInit} from '@angular/core';
 import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {SigninemitterService} from './signinemitter.service';
@@ -14,9 +14,11 @@ export class AuthService {
   uid: string;
   private currentUser = new BehaviorSubject(null);
   user = this.currentUser.asObservable();
-  constructor(router: Router) {
+  ng: NgZone;
+  constructor(router: Router, ng: NgZone) {
     this.router = router;
     this.observeUser();
+    this.ng = ng;
   }
 
   OnInit() {
@@ -60,9 +62,7 @@ export class AuthService {
     firebase.auth().useDeviceLanguage();
     firebase.auth().signInWithPopup(provider).then((result) => {
       // const token = result.credential.accessToken;
-      this.router.navigateByUrl('/').then(() => {
-        location.reload(true);
-      });
+      this.ng.run(() => this.router.navigateByUrl('/'));
       const user = result.user;
       console.log(user);
     }).catch(function(error) {
@@ -80,9 +80,7 @@ export class AuthService {
 
     firebase.auth().useDeviceLanguage();
     firebase.auth().signInWithPopup(provider).then((result) => {
-      this.router.navigateByUrl('/').then(() => {
-        location.reload(true);
-      });
+      this.ng.run(() => this.router.navigateByUrl('/'));
       const user = result.user;
     }).catch(function(error) {
       const errorCode = error.code;
@@ -112,9 +110,7 @@ export class AuthService {
   signOut() {
     firebase.auth().signOut().then(() => {
       // Sign-out successful.
-      this.router.navigateByUrl('signin').then(() => {
-        location.reload();
-      });
+      this.ng.run(() => this.router.navigateByUrl('signin'));
     }).catch(function(error) {
       // An error happened.
     });
