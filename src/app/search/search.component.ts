@@ -7,6 +7,7 @@ import {User} from '../Classes/User';
 import {isNullOrUndefined} from 'util';
 import {Util} from '../Util';
 import {MatDatepicker} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -20,7 +21,7 @@ export class SearchComponent implements OnInit {
   university = '';
   text = '';
   showPicker = false;
-  constructor(private eventService: EventService, private profileService: ProfileService) {
+  constructor(private eventService: EventService, private profileService: ProfileService, private router: Router) {
     this.profileService.getUserProfile().subscribe((user: User) => {
       if (!isNullOrUndefined(user) && !isNullOrUndefined(user.university)) {
         this.university = user.university;
@@ -67,5 +68,8 @@ export class SearchComponent implements OnInit {
   }
   getDate(time: number) {
     return Util.getDate(time);
+  }
+  eventClicked(event: Event) {
+    this.router.navigateByUrl(`detail/${event.eventId}`);
   }
 }
