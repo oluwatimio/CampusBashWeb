@@ -12,7 +12,6 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
-import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule, MatNativeDateModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -52,6 +51,7 @@ import { TicketsComponent } from './tickets/tickets.component';
 import { TicketPurchaseComponent } from './ticket-purchase/ticket-purchase.component';
 import { TicketScannerComponent } from './ticket-scanner/ticket-scanner.component';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
+import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -106,6 +106,7 @@ const routes: Routes = [
     MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatDatepickerModule,
     FlexLayoutModule,
     MatDividerModule,
     MatChipsModule,
@@ -113,11 +114,11 @@ const routes: Routes = [
     MatFormFieldModule,
     MatOptionModule,
     MatSelectModule,
+    MatMomentDateModule,
     MatStepperModule,
     FormsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', {enabled: environment.production}),
     ReactiveFormsModule,
-    MatDatepickerModule,
     MatNativeDateModule,
     MatMenuModule,
     MatCheckboxModule,

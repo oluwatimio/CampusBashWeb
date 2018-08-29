@@ -84,3 +84,19 @@ body{
     font-size: 1.5em;
   }
 }
+
+label{
+  color: #f3dc50 !important;
+}
+
+.mat-select-placholder{
+  color: #f3dc50;
+}
+
+.mat-form-field-underline{
+  background-color: #f3dc50 !important;
+}
+
+.mat-select-arrow{
+  color: #f3dc50 !important;
+}

@@ -56,15 +56,7 @@ export class EventComponent implements OnInit {
   }
 
   async eventDetail(event: Event) {
-    console.log('event problem');
-    console.log(event);
-<<<<<<< Updated upstream
     this.router.navigateByUrl(`detail/${event.eventId}`);
-=======
-    this.eventClickS.setEventClicked(event);
-    // await delay(1);
-    this.ng.run(() => this.router.navigateByUrl('detail'));
->>>>>>> Stashed changes
   }
 
 }

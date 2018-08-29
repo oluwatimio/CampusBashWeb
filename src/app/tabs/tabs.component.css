@@ -65,3 +65,12 @@
       width: 20%;
     }
   }
+
+.mdc-floating-label{
+  color: red !important;
+  font-size: 20px;
+}
+
+label{
+  color: red;
+}

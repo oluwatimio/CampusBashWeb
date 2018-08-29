@@ -139,3 +139,15 @@ label{
 #ticketPaidPrice{
   visibility: hidden;
  }
+
+label{
+  color: red !important;
+}
+
+.mat-form-field-underline{
+  background-color: red !important;
+}
+
+.mat-select-arrow{
+  color: red !important;
+}

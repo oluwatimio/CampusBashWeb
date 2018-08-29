@@ -34,7 +34,8 @@
               {
                 "input": "src/assets/theme.scss"
               },
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/@coachcare/datepicker/prebuilt-themes/indigo-pink.css"
             ],
             "scripts": []
           },
@@ -88,7 +89,8 @@
               {
                 "input": "src/assets/theme.scss"
               },
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/@coachcare/datepicker/prebuilt-themes/indigo-pink.css"
             ],
             "assets": [
               {

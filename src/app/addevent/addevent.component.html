@@ -64,7 +64,7 @@
 
 
 <div id="marginCardTop" style="overflow-x: hidden">
-  <div fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 1vh">
     <div class="mdc-text-field mdc-text-field--outlined name">
       <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventName"
              (input) = "eventName = $event.target.value">
@@ -77,7 +77,7 @@
       <div class="mdc-notched-outline__idle"></div>
     </div>
 
-    <div class="mdc-text-field mdc-text-field--outlined description">
+    <div class="mdc-text-field mdc-text-field--outlined description" style="margin-top: 1vh">
       <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventDescription"
              (input) = "eventDescription = $event.target.value">
       <label for="tf-outlined" class="mdc-floating-label">Give us a short description</label>
@@ -89,7 +89,7 @@
       <div class="mdc-notched-outline__idle"></div>
     </div>
 
-    <div class="mdc-select">
+    <div class="mdc-select" style="margin-top: 1vh">
       <select class="mdc-select__native-control">
         <option value="" disabled selected></option>
         <option *ngFor="let eventType of eventTypes" value="{{eventType}}">
@@ -101,39 +101,24 @@
     </div>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <mat-form-field class="full-widthdate" id="happening2">
-      <input matInput [matDatepicker]="picker" placeholder="When does it start?" disabled>
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
+    <mat-form-field class="full-widthdate" id="happening2" style="width: 100%">
+      <input matInput [matDatepicker]="picker" placeholder="When does it start? (click the calendar button)">
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker disabled="false"></mat-datepicker>
+      <mat-datepicker #picker type="datetime" startView="clock"></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field class="full-widthdate" id="happening2">
-      <mat-select placeholder="Time">
-        <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
-          <!--{{food.viewValue}}-->
-        <!--</mat-option>-->
-      </mat-select>
-    </mat-form-field>
   </div>
 
-  <div fxLayout="row" fxLayoutAlign="center center">
-    <mat-form-field class="full-widthdate" id="happening2">
-      <input matInput [matDatepicker]="picker2" placeholder="When does it end?" disabled>
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
+    <mat-form-field class="full-widthdate" id="happening2" style="width: 100%">
+      <input matInput [matDatepicker]="picker2" placeholder="When does it end? (click the calendar button)">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2 disabled="false"></mat-datepicker>
-    </mat-form-field>
-
-    <mat-form-field class="full-widthdate" id="happening2">
-      <mat-select placeholder="Time">
-        <!--<mat-option *ngFor="let food of foods" [value]="food.value">-->
-          <!--{{food.viewValue}}-->
-        <!--</mat-option>-->
-      </mat-select>
+      <mat-datepicker #picker2 type="datetime" startView="clock"></mat-datepicker>
     </mat-form-field>
   </div>
 
-  <div fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 1vh">
     <div class="mdc-text-field mdc-text-field--outlined where">
       <input type="text" id="searchbox" class="mdc-text-field__input whereauto" [value]="eventAddress"
              (input) = "eventAddress = $event.target.value">
@@ -146,9 +131,9 @@
       <div class="mdc-notched-outline__idle"></div>
     </div>
   </div>
-  <div fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
     <button style="background-color: #D4262F" mat-flat-button (click) = "openTicketDialog()" color="primary">ADD TICKETS</button>
-    <button style="background-color: #D4262F" mat-flat-button (click) = "uploadEvent()" color="primary">Add Event</button>
+    <button style="background-color: #D4262F; margin-left: 1vw" mat-flat-button (click) = "uploadEvent()" color="primary">Add Event</button>
   </div>
   <!--<div fxLayout="row" fxLayoutAlign="center center">-->
     <!--<button mat-fab color="primary"><i class="material-icons">check</i></button>-->
