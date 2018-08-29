@@ -13,3 +13,9 @@
   width: 22vw;
   margin-top: 10vh;
 }
+
+@media (min-width: 300px) and (max-width: 1024px) {
+  .store-image {
+    width: 100%;
+  }
+}
