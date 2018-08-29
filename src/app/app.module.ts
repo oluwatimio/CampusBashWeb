@@ -66,8 +66,8 @@ const routes: Routes = [
   {path: 'profilec', component: ProfilecreatorComponent},
   {path: 'interests', component: InterestsComponent},
   {path: 'university', component: ChooseuniComponent},
-  {path: ':eventId/buyTicket', component: GetTicketsViewComponent},
-  {path: 'payForTicket', component: PayForTicketComponent},
+  {path: 'buyTicket/:eventId', component: GetTicketsViewComponent},
+  {path: 'payForTicket/:eventId', component: PayForTicketComponent},
   {path: 'ticketPurchase/:id', component: TicketPurchaseComponent},
   {path: 'scan/:eventId', component: TicketScannerComponent}
 ];

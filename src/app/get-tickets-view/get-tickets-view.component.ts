@@ -8,7 +8,8 @@ import {isNullOrUndefined, log} from 'util';
 import {ProfileService} from '../Services/profile.service';
 import {User} from '../Classes/User';
 import {Util} from '../Util';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {EventService} from '../Services/event.service';
 
 @Component({
   selector: 'app-get-tickets-view',
@@ -16,8 +17,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./get-tickets-view.component.css']
 })
 export class GetTicketsViewComponent implements OnInit {
+  eventId: string;
   event: Event;
-  service: EventclickedService;
   form: FormGroup;
   fb: FormBuilder;
   formCreated: Boolean = false;
@@ -31,9 +32,8 @@ export class GetTicketsViewComponent implements OnInit {
   orderMap = {};
   private user: User = null;
 
-  constructor(service: EventclickedService, private profileService: ProfileService, fb: FormBuilder, private snackBar: MatSnackBar,
-              private router: Router) {
-    this.service = service;
+  constructor(private eventService: EventService, private profileService: ProfileService, fb: FormBuilder, private snackBar: MatSnackBar,
+              private router: Router, private route: ActivatedRoute) {
     this.fb = fb;
     this.profileService.getUserProfile().subscribe((user: User) => {
       this.user = user;
@@ -41,9 +41,14 @@ export class GetTicketsViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.localStorages.getItem<Event>('event').subscribe((event) => {
-      this.event = event;
-      this.createFormGroup();
+    this.eventId = this.route.snapshot.paramMap.get('eventId') as string;
+    this.eventService.getEvent(this.eventId).subscribe((event) => {
+      console.log(event);
+      if (!isNullOrUndefined(event) && !this.sameData(event)) {
+        console.log('new event');
+        this.event = event;
+        this.createFormGroup();
+      }
     });
   }
 
@@ -112,7 +117,7 @@ export class GetTicketsViewComponent implements OnInit {
       ticketMap: this.ticketMap,
       ticketFee: this.ticketFee
     };
-    this.service.changeTicketMessage(this.orderMap);
+    this.eventService.changeTicketMessage(this.orderMap);
   }
   quantityLeft(ticket: Tickets): number {
     return ticket.quantity - ticket.ticketsSold;
@@ -122,11 +127,11 @@ export class GetTicketsViewComponent implements OnInit {
   }
   async ticketRoute() {
     if (this.ticketFee > 0.0) {
-      this.router.navigateByUrl('/payForTicket');
+      this.router.navigateByUrl(`/payForTicket/${this.eventId}`);
     } else if (Object.keys(this.ticketMap).length > 0) {
-      const data = this.service.buildTicketPayload(this.ticketFee, this.ticketMap, null, this.user);
+      const data = this.eventService.buildTicketPayload(this.ticketFee, this.ticketMap, null, this.user);
       console.log(data);
-      const result = await this.service.addTicket(data, this.event);
+      const result = await this.eventService.addTicket(data, this.event);
       if (result === true) {
         Util.openSnackbar('Ticket purchase complete, please check your email', this.snackBar);
       } else {
@@ -134,6 +139,18 @@ export class GetTicketsViewComponent implements OnInit {
       }
       this.router.navigateByUrl('');
     }
+  }
+  sameData(other: Event) {
+    if (isNullOrUndefined(this.event)) { return false; }
+    if (other.tickets.length !== this.event.tickets.length) { return false; }
+    for (let i = 0; i < this.event.tickets.length; i++) {
+      const oldTicket: Tickets = this.event.tickets[i];
+      const newTicket: Tickets = other.tickets[i];
+      if (!Tickets.equalTo(newTicket, oldTicket)) {
+        return false;
+      }
+    }
+    return true;
   }
 }
 

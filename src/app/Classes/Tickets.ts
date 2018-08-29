@@ -1,4 +1,6 @@
-export class Tickets{
+import {isNullOrUndefined} from 'util';
+
+export class Tickets {
   currency: string;
   description: string;
   maxAllowedPerOrder: number;
@@ -11,7 +13,8 @@ export class Tickets{
   timeZone: string;
   type: string;
   visible: boolean;
-  constructor(currency: string, description: string, maxAllowedPerOrder: number, minAllowedPerOrder: number, name: string, price: number, quantity: number, salesEndTime: number, ticketsSold: number, timeZone: string, type: string, visible: boolean) {
+  constructor(currency: string, description: string, maxAllowedPerOrder: number, minAllowedPerOrder: number, name: string, price: number,
+              quantity: number, salesEndTime: number, ticketsSold: number, timeZone: string, type: string, visible: boolean) {
     this.currency = currency;
     this.description = description;
     this.maxAllowedPerOrder = maxAllowedPerOrder;
@@ -24,6 +27,13 @@ export class Tickets{
     this.timeZone = timeZone;
     this.type = type;
     this.visible = visible;
+  }
+  static equalTo(ticket: Tickets, other: Tickets): boolean {
+    if (isNullOrUndefined(other)) {
+      return false;
+    }
+    return ticket.currency === other.currency && ticket.name === other.name && ticket.visible === other.visible && ticket.price === other.price &&
+      ticket.ticketsSold === other.ticketsSold && ticket.quantity === other.quantity;
   }
 
 

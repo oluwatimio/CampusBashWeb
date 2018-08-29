@@ -95,7 +95,7 @@ export class EventdetailComponent implements OnInit {
     if (isNullOrUndefined(this.user)) {
       this.router.navigateByUrl('/signin');
     }
-    this.router.navigateByUrl(`/${this.eventClicked.eventId}/buyTicket`);
+    this.router.navigateByUrl(`/buyTicket/${this.eventClicked.eventId}`);
   }
   scan() {
     this.router.navigateByUrl(`/scan/${this.eventClicked.eventId}`);

@@ -6,6 +6,9 @@ import {MatSnackBar} from '@angular/material';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {FirebaseKeyTable} from '../data-structures/FirebaseKeyTable';
 import {isNullOrUndefined} from 'util';
+import {User} from '../Classes/User';
+import {Util} from '../Util';
+import {Constants} from '../Constants';
 
 @Injectable()
 export class EventService {
@@ -17,6 +20,7 @@ export class EventService {
   private myEventsTable: FirebaseKeyTable<Event>;
   private searchSubject = new BehaviorSubject(null);
   private sectionSubject = new BehaviorSubject(null);
+  private ticketSource = new BehaviorSubject(null);
   private unSubscribe;
   private lastEventFetched = null;
   private eventFetched = new BehaviorSubject(null);
@@ -197,5 +201,61 @@ export class EventService {
   }
   getSearchObservable(): Observable<Event[]> {
     return this.searchSubject.asObservable();
+  }
+  getTicketMessage() {
+    return this.ticketSource.asObservable();
+  }
+  changeTicketMessage(data) {
+    this.ticketSource.next(data);
+  }
+  async addTicket(ticketData: any, event: Event): Promise<Boolean> {
+    try {
+      const db = firebase.firestore();
+      await db.collection('events').doc(event.eventId)
+        .collection('tickets').add(ticketData);
+      return true;
+    } catch (e) {
+      console.log(e.message);
+      return false;
+    }
+  }
+  buildTicketPayload(ticketFee: number, ticketData: any, cardToken: string, user: User): any {
+    if (user === null) {
+      return null;
+    }
+    let quantity = 0;
+    for (const key in ticketData) {
+      if (!ticketData.hasOwnProperty(key)) {
+        continue;
+      }
+      quantity += ticketData[key];
+    }
+
+    if (quantity <= 0) {
+      return null;
+    }
+    const bd = Util.getTicketBreakdown(ticketFee);
+    let stripeAcctId = null;
+    let stripeCustId = null;
+    if (!isNullOrUndefined(user.stripeAccountId)) {
+      stripeAcctId = user.stripeAccountId;
+    }
+    if (!isNullOrUndefined(user.stripeCustomerId)) {
+      stripeCustId = user.stripeCustomerId;
+    }
+    return {
+      buyerId: user.uid,
+      buyerEmail: user.email,
+      buyerName: user.userName,
+      currency: 'CA$',
+      quantity: quantity,
+      stripeAccountId: stripeAcctId,
+      stripeCustomerId: stripeCustId,
+      token: cardToken,
+      timeSpent: Date.now(),
+      total: bd[Constants.TOTAL_FEE],
+      breakdown: bd,
+      tickets: ticketData
+    };
   }
 }

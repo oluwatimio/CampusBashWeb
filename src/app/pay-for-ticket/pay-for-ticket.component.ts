@@ -2,12 +2,14 @@ import {Component, OnInit, ChangeDetectorRef, ElementRef, ViewChild, OnDestroy, 
 import {EventclickedService} from '../Services/eventclicked.service';
 import {Util} from '../Util';
 import {Constants} from '../Constants';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Event} from '../event-view/event/Event';
 import {MatSnackBar} from '@angular/material';
 import {User} from '../Classes/User';
 import {ProfileService} from '../Services/profile.service';
 import {environment} from '../../environments/environment';
+import {EventService} from '../Services/event.service';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-pay-for-ticket',
@@ -32,16 +34,20 @@ export class PayForTicketComponent implements OnInit, AfterViewInit, OnDestroy {
   paymentFee = 0;
   serviceFee = 0;
   total = 0;
-  constructor(private cd: ChangeDetectorRef, private service: EventclickedService, profileService: ProfileService,
-              private snackBar: MatSnackBar, private router: Router) {
+  eventId: string;
+  constructor(private cd: ChangeDetectorRef, private service: EventService, profileService: ProfileService,
+              private snackBar: MatSnackBar, private router: Router, private route: ActivatedRoute) {
     this.profileService = profileService;
   }
 
   ngOnInit() {
-    this.service.localStorages.getItem<Event>('event').subscribe((event) => {
-      this.event = event;
+    this.eventId = this.route.snapshot.paramMap.get('eventId') as string;
+    this.service.getEvent(this.eventId).subscribe(event => {
+      if (isNullOrUndefined(this.event)) {
+        this.event = event;
+      }
     });
-    this.service.ticketMessage.subscribe(message => {
+    this.service.getTicketMessage().subscribe(message => {
       if (message.hasOwnProperty('ticketFee')) {
         this.ticketData = message;
         this.updateBreakdown();
