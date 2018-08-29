@@ -1,23 +1,29 @@
 <mat-card id="matcard2">
-    <mat-card-content style="margin-left: 2vh">
-        <p id="happening">Here's what's happening in</p>
-      <div class="mdc-select mdc-select--box" id="happening2">
-        <select class="mdc-select__native-control">
-          <option value="" disabled selected></option>
-          <option *ngFor="let university of universities" [value]="university" (onSelectionChange) = "filterUni()">
-            {{university}}
-          </option>
-        </select>
-        <label class="mdc-floating-label">Select your University</label>
-        <div class="mdc-line-ripple"></div>
-      </div>
-    </mat-card-content>
-  </mat-card>
+  <mat-card-content style="margin-left: 2vh">
+      <p id="happening">Here's what's happening in</p>
+    <div class="mdc-select mdc-select--box" id="happening2">
+      <select class="mdc-select__native-control">
+        <option value="" disabled selected></option>
+        <option *ngFor="let university of universities" [value]="university" (onSelectionChange) = "filterUni()">
+          {{university}}
+        </option>
+      </select>
+      <label class="mdc-floating-label">Select your University</label>
+      <div class="mdc-line-ripple"></div>
+    </div>
+  </mat-card-content>
+</mat-card>
 
-<mat-tab-group>
-    <mat-tab label="Events"><app-event></app-event></mat-tab>
-    <mat-tab label="Search"><app-search></app-search></mat-tab>
-    <mat-tab *ngIf="userExists === true" label="Tickets"><app-tickets></app-tickets></mat-tab>
-    <mat-tab label="Hosting"><app-hosting></app-hosting></mat-tab>
-  </mat-tab-group>
+<mat-tab-group *ngIf="userExists === true">
+  <mat-tab label="Events"><app-event></app-event></mat-tab>
+  <mat-tab label="Search"><app-search></app-search></mat-tab>
+  <mat-tab label="Tickets"><app-tickets></app-tickets></mat-tab>
+  <mat-tab label="Hosting"><app-hosting></app-hosting></mat-tab>
+</mat-tab-group>
+
+<mat-tab-group *ngIf="userExists === false">
+  <mat-tab label="Events"><app-event></app-event></mat-tab>
+  <mat-tab label="Search"><app-search></app-search></mat-tab>
+  <mat-tab label="Hosting"><app-hosting></app-hosting></mat-tab>
+</mat-tab-group>
 
