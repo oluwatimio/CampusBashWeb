@@ -27,13 +27,11 @@ export class EventComponent implements OnInit {
   user: any;
   router: Router;
   ng: NgZone;
-  eventClickS: EventclickedService;
-  constructor(eventService: EventService, authS: AuthService, router: Router, eventClickS: EventclickedService, ng: NgZone) {
+  constructor(eventService: EventService, authS: AuthService, router: Router, ng: NgZone) {
     this.eventService = eventService;
     this.authS = authS;
     this.uid = '';
     this.router = router;
-    this.eventClickS = eventClickS;
     this.ng = ng;
   }
 
