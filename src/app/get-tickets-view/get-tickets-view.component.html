@@ -17,7 +17,7 @@
         <div class="col-4">
           <mat-form-field class="quantity" *ngIf="!isSoldOut(ticket)">
             <input matInput id="{{i}}" formControlName="{{i}}" maxlength="2" size="2"
-                   placeholder="Enter quantity (0-10)" class="quantity">
+                   placeholder="Enter quantity (0-10)" class="quantity" value="{{getLastValue(i)}}">
             <mat-error *ngFor="let validation of validationMessages">
               <mat-error class="error-message" *ngIf="hasError(getId(i), validation)">{{validation.message}}</mat-error>
             </mat-error>

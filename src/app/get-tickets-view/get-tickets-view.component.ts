@@ -1,9 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Event} from '../event-view/event/Event';
-import {EventclickedService} from '../Services/eventclicked.service';
-import {MatDialog, MatDialogConfig, MatDialogRef, MatSnackBar} from '@angular/material';
+import {MatSnackBar} from '@angular/material';
 import {Tickets} from '../Classes/Tickets';
-import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {isNullOrUndefined, log} from 'util';
 import {ProfileService} from '../Services/profile.service';
 import {User} from '../Classes/User';
@@ -30,6 +29,7 @@ export class GetTicketsViewComponent implements OnInit {
   ];
   ticketMap = {};
   orderMap = {};
+  latestValues = {};
   private user: User = null;
 
   constructor(private eventService: EventService, private profileService: ProfileService, fb: FormBuilder, private snackBar: MatSnackBar,
@@ -55,14 +55,17 @@ export class GetTicketsViewComponent implements OnInit {
   createFormGroup() {
     const group = {};
     this.event.tickets.forEach((ticket, index) => {
-      group[String(index)] = new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.pattern('^[0-9]$')
-      ]));
+      if (!group.hasOwnProperty(String(index))) {
+        group[String(index)] = new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]$')
+        ]));
+      }
     });
     this.form = this.fb.group(group);
     this.form.valueChanges
       .subscribe((value) => {
+        this.latestValues = value;
         this.updateTicketMap(value);
       });
     this.formCreated = true;
@@ -73,6 +76,7 @@ export class GetTicketsViewComponent implements OnInit {
   }
   hasError(id: string, validation) {
     const item = this.form.get(id);
+    if (isNullOrUndefined(item)) { return false; }
     return this.hasActualError(item.value, validation) && (item.dirty || item.touched);
   }
   private hasActualError(value: string, validation): boolean {
@@ -151,6 +155,16 @@ export class GetTicketsViewComponent implements OnInit {
       }
     }
     return true;
+  }
+  getLastValue(index: number) {
+    const key = String(index);
+    let value: string;
+    if (this.latestValues.hasOwnProperty(key)) {
+      value = this.latestValues[key];
+    } else {
+      value = '';
+    }
+    return value;
   }
 }
 
