@@ -83,7 +83,7 @@ export class EventService {
           doc.data().eventId, doc.data().eventName, doc.data().eventType,
           doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
           doc.data().startTime, doc.data().tickets, doc.data().timezone,
-          doc.data().university);
+          doc.data().university, doc.data().ticketsSold);
         this.eventsTable.add(event.eventId, event);
       });
 
@@ -153,7 +153,7 @@ export class EventService {
             doc.data().eventId, doc.data().eventName, doc.data().eventType,
             doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
             doc.data().startTime, doc.data().tickets, doc.data().timezone,
-            doc.data().university);
+            doc.data().university, doc.data().ticketsSold);
           this.myEventsTable.add(event.eventId, event);
         });
       });
@@ -162,8 +162,8 @@ export class EventService {
   }
   addEvent(event: Event) {
     const db = firebase.firestore();
-
-    db.collection('events').add({
+    const ev = {
+      eventId: event.eventId,
       address: event.address,
       creator: event.creator,
       description: event.description,
@@ -174,8 +174,13 @@ export class EventService {
       placeId: event.placeId,
       placeholderImage: event.placeholderImage,
       startTime: event.startTime,
-      tickets: event.tickets
-    }).then((docRef) => {
+      tickets: event.tickets,
+      ticketsSold: event.ticketsSold,
+      timeZone: event.timeZone,
+      university: event.university
+    };
+    console.log(ev);
+    db.collection('events').add(ev).then((docRef) => {
       db.collection('events').doc(docRef.id).update({
         eventId: docRef.id
       }).then(() => {
