@@ -103,18 +103,19 @@
 
   <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
     <mat-form-field class="full-widthdate" id="happening2" style="width: 100%">
-      <input matInput [matDatepicker]="picker" placeholder="When does it start? (click the calendar button)">
+      <input matInput [matDatepicker]="picker" placeholder="When does it start? (click the calendar button)" [(ngModel)] = startTime>
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker type="datetime" startView="clock"></mat-datepicker>
+      <mat-datepicker #picker type="datetime" startView="month"></mat-datepicker>
     </mat-form-field>
 
   </div>
 
   <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
     <mat-form-field class="full-widthdate" id="happening2" style="width: 100%">
-      <input matInput [matDatepicker]="picker2" placeholder="When does it end? (click the calendar button)">
+      <input matInput [matDatepicker]="picker2" placeholder="When does it end? (click the calendar button)"
+             [(ngModel)] = endTime>
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2 type="datetime" startView="clock"></mat-datepicker>
+      <mat-datepicker #picker2 type="datetime" startView="month"></mat-datepicker>
     </mat-form-field>
   </div>
 
