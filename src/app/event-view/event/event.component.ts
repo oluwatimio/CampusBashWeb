@@ -51,7 +51,6 @@ export class EventComponent implements OnInit {
   getDate(dateM: number) {
     const date = new Date(dateM);
     const dateArray = date.toString().split(' ');
-    // dateArray[1] + ' ' + dateArray[2];
     return dateArray;
   }
 

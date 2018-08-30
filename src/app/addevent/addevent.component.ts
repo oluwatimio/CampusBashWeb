@@ -11,6 +11,8 @@ import {ProfileService} from '../Services/profile.service';
 import {Event} from '../event-view/event/Event';
 import {User} from '../Classes/User';
 import {EventService} from '../Services/event.service';
+import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material';
 
 declare var require: any;
 @Component({
@@ -23,6 +25,7 @@ export class AddeventComponent implements OnInit {
   prices: string[] = ['FREE', 'PAID'];
   eventTypes: string[] = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Festival',
     'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk'];
+  date = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   ticketPrice: string;
   eventName: string;
   eventDescription: string;
@@ -33,6 +36,8 @@ export class AddeventComponent implements OnInit {
   ticketN: string;
   ticketDes: string;
   ticketQuant: string;
+  startTimeNumber: number;
+  endTimeNumber: number;
   eventTypeSelected: string;
   ticketName: MDCTextField;
   ticketDescription: MDCTextField;
@@ -43,9 +48,12 @@ export class AddeventComponent implements OnInit {
   ps: ProfileService;
   user: any;
   userProfile: User;
+  startTime: string;
+  endTime: string;
   autocomplete: any;
   eventS: EventService;
-  constructor(ps: ProfileService, eventS: EventService) {
+  router: Router;
+  constructor(ps: ProfileService, eventS: EventService, router: Router, public sb: MatSnackBar) {
     this.ticketPrice = '';
     this.ticketFree = true;
     this.checkedPaid = false;
@@ -59,7 +67,7 @@ export class AddeventComponent implements OnInit {
     this.eventName = '';
     this.eventDescription = '';
     this.eventAddress = '';
-
+    this.router = router;
   }
 
   ngOnInit() {
@@ -68,6 +76,9 @@ export class AddeventComponent implements OnInit {
       if (user !== undefined && user !== null) {
         this.user = user;
         console.log(this.user.email);
+      } else if (user === undefined) {
+        this.router.navigateByUrl('signin');
+        this.sb.open('You must be signed in to post events', null, {duration: 5000});
       }
     });
 
@@ -149,19 +160,20 @@ export class AddeventComponent implements OnInit {
 
   uploadEvent() {
     if (this.userProfile !== undefined && this.user !== undefined) {
+      this.startDateToLong();
+      this.endDateToLong();
       const creator = new Creator(this.user.uid, this.userProfile.userName, this.userProfile.stripeAccountId, '');
       const cr = JSON.parse( JSON.stringify(creator));
       const ticks = this.tickets.map((obj) => {
         return Object.assign({}, obj);
       });
       console.log(this.autocomplete.getPlace());
-      const event = new Event('', cr, this.eventDescription, 0, '', this.eventName, this.eventTypeSelected,
-        '', this.autocomplete.getPlace()['place_id'], null, 0, ticks, '',
+      const event = new Event('', cr, this.eventDescription, this.endTimeNumber, '', this.eventName, this.eventTypeSelected,
+        '', this.autocomplete.getPlace()['place_id'], null, this.startTimeNumber, ticks, '',
         this.userProfile.university);
+      console.log(event);
       this.eventS.addEvent(event);
-    }
-
-    else {
+    } else {
       console.log(undefined);
     }
   }
@@ -175,6 +187,20 @@ export class AddeventComponent implements OnInit {
     } else  if (this.checkedPaid === false && this.checkedFree === false) {
       document.getElementById('ticketPaidPrice').style.visibility = 'hidden';
     }
+  }
+
+  startDateToLong() {
+    const date = new Date(this.startTime['_a'][0], this.startTime['_a'][1],
+      this.startTime['_a'][2], this.startTime['_a'][3], this.startTime['_a'][4]);
+    console.log(date);
+    this.startTimeNumber = date.getTime();
+  }
+
+  endDateToLong() {
+    const date = new Date(this.endTime['_a'][0], this.endTime['_a'][1], this.endTime['_a'][2],
+      this.endTime['_a'][3], this.endTime['_a'][4]);
+    console.log(date);
+    this.endTimeNumber = date.getTime();
   }
 
 
