@@ -180,12 +180,10 @@ export class EventService {
       university: event.university
     };
     console.log(ev);
-    db.collection('events').add(ev).then((docRef) => {
-      db.collection('events').doc(docRef.id).update({
-        eventId: docRef.id
-      }).then(() => {
+    const ref = db.collection('events').doc();
+    ev.eventId = ref.id;
+    ref.set(ev).then(() => {
         this.sb.open('Event Added', null, {duration: 5000});
-      });
     });
   }
   search(name: string, university: string, time: number) {
