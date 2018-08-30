@@ -169,8 +169,9 @@ export class AddeventComponent implements OnInit {
       });
       console.log(this.autocomplete.getPlace());
       const event = new Event('', cr, this.eventDescription, this.endTimeNumber, '', this.eventName, this.eventTypeSelected,
-        '', this.autocomplete.getPlace()['place_id'], null, this.startTimeNumber, ticks, '',
+        null, this.autocomplete.getPlace()['place_id'], null, this.startTimeNumber, ticks, '',
         this.userProfile.university, 0);
+      console.log('post');
       console.log(event);
       this.eventS.addEvent(event);
     } else {
