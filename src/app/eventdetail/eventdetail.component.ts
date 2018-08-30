@@ -9,6 +9,7 @@ import {isNullOrUndefined} from 'util';
 import {Util} from '../Util';
 import {ActivatedRoute, Router} from '@angular/router';
 import {EventService} from '../Services/event.service';
+import {MatSnackBar} from '@angular/material';
 
 declare var google: any;
 
@@ -24,7 +25,8 @@ export class EventdetailComponent implements OnInit {
   lastPlaceId: string;
   user: any = null;
   eventId: string;
-  constructor(private eventsService: EventService, private auth: AuthService, private router: Router, private route: ActivatedRoute) {
+  constructor(private eventsService: EventService, private auth: AuthService, private router: Router, private route: ActivatedRoute,
+              private snackBar: MatSnackBar) {
   }
 
   ngOnInit() {
@@ -94,8 +96,11 @@ export class EventdetailComponent implements OnInit {
   buyTicket() {
     if (isNullOrUndefined(this.user)) {
       this.router.navigateByUrl('/signin');
+    } else if (this.eventClicked.tickets.length === 0) {
+      Util.openSnackbar('There are no tickets available', this.snackBar);
+    } else {
+      this.router.navigateByUrl(`/buyTicket/${this.eventClicked.eventId}`);
     }
-    this.router.navigateByUrl(`/${this.eventClicked.eventId}/buyTicket`);
   }
   scan() {
     this.router.navigateByUrl(`/scan/${this.eventClicked.eventId}`);

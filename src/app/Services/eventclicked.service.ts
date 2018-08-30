@@ -14,7 +14,7 @@ import {isNullOrUndefined} from 'util';
 export class EventclickedService {
   private ticketSource = new BehaviorSubject(null);
   private db = firebase.firestore();
-  ticketMessage = this.ticketSource.asObservable();
+
   currentClicked: Event;
   localStorages: LocalStorage;
   constructor(protected localStorage: LocalStorage) {
