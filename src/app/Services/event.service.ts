@@ -153,7 +153,7 @@ export class EventService {
             doc.data().eventId, doc.data().eventName, doc.data().eventType,
             doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
             doc.data().startTime, doc.data().tickets, doc.data().timezone,
-            doc.data().university);
+            doc.data().university, doc.data().ticketsSold);
           this.myEventsTable.add(event.eventId, event);
         });
       });
