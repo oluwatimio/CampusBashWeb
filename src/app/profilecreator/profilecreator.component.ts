@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {MDCTextField} from '@material/textfield';
 import {ProfileService} from '../Services/profile.service';
 import {AuthService} from '../Services/auth.service';
+import {MatSnackBar} from '@angular/material';
 
 @Component({
   selector: 'app-profilecreator',
@@ -14,9 +15,11 @@ export class ProfilecreatorComponent implements OnInit {
   ps: ProfileService;
   uid: string;
   user: any;
-  constructor(ps: ProfileService) {
+  studentNum: string;
+  constructor(ps: ProfileService, public sb: MatSnackBar) {
     this.username = '';
     this.summary = '';
+    this.studentNum = '';
     this.ps = ps;
   }
 
@@ -32,9 +35,16 @@ export class ProfilecreatorComponent implements OnInit {
     });
     const username = new MDCTextField(document.querySelector('.username'));
     const summary = new MDCTextField(document.querySelector('.summary'));
+    const studentNum1 = new MDCTextField(document.querySelector('.studentNum'));
   }
   update() {
-    this.ps.updateUserWithUserName(this.username, this.summary);
+    const sampleUserN = this.username.replace(/\s/g, '');
+    if (sampleUserN !== '') {
+      this.ps.updateUserWithUserName(this.username, this.summary, this.studentNum);
+    } else {
+      this.sb.open('Please enter a username', null, {duration: 5000});
+    }
+
   }
 
 }
