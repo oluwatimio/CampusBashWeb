@@ -69,12 +69,16 @@ label{
   }
 
   #marginCardTop{
-    margin-top: 12vh;
+    margin-top: 7vh;
     margin-bottom: 12vh
   }
 
   .full-widthdate{
     width:50%;
+  }
+
+  #picPreview{
+    width: 100%; height: 15vh; background: gainsboro;
   }
 }
 
@@ -87,34 +91,46 @@ label{
   }
 
   #marginCardTop{
-    margin-top: 12vh;
+    margin-top: 7vh;
     margin-bottom: 12vh;
   }
 
   .full-widthdate{
     width:50%;
+  }
+
+  #picPreview{
+    width: 100%; height: 15vh; background: gainsboro;
   }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
   #marginCardTop{
-    margin-top: 20vh;
+    margin-top: 7vh;
     margin-bottom: 12vh;
   }
 
   .full-widthdate{
     width:50%;
+  }
+
+  #picPreview{
+    width: 100%; height: 15vh; background: gainsboro;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
   #marginCardTop{
-    margin-top: 20vh;
+    margin-top: 7vh;
     margin-bottom: 12vh;
   }
 
   .full-widthdate{
     width:50%;
+  }
+
+  #picPreview{
+    width: 100%; height: 15vh; background: gainsboro;
   }
 }
 
@@ -127,12 +143,16 @@ label{
     height: 50vh;
   }
   #marginCardTop{
-    margin-top: 20vh;
+    margin-top: 7vh;
     margin-bottom: 12vh;
   }
 
   .full-widthdate{
     width:50%;
+  }
+
+  #picPreview {
+    width: 100%; height: 15vh; background: gainsboro;
   }
 }
 
@@ -154,4 +174,17 @@ label{
 
 .plain_link {
   text-decoration: none;
+}
+.material-icons{
+  position: relative;
+  top: 5px;
+  left: 5px;
+  margin-right: 2vh
+}
+
+#iconD{
+  position: relative;
+  top: 0px;
+  left: 5px;
+  margin-right: 2vh
 }
