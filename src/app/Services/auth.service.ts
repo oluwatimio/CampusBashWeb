@@ -6,6 +6,7 @@ import {UserSingle} from './UserSingle';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {delay} from 'q';
 import {ProfileService} from './profile.service';
+import {isNullOrUndefined} from 'util';
 
 @Injectable()
 export class AuthService {
@@ -53,6 +54,7 @@ export class AuthService {
   }
   observeUser() {
     firebase.auth().onAuthStateChanged((user) => {
+      this.uid = user.uid;
       this.currentUser.next(user);
     });
   }
@@ -105,6 +107,17 @@ export class AuthService {
       const email = error.email;
       const credential = error.credential;
     });
+  }
+  getUid() {
+    const user: firebase.User = firebase.auth().currentUser;
+    if (isNullOrUndefined(user)) { return ''; }
+    return firebase.auth().currentUser.uid;
+  }
+
+  async getIdToken() {
+    const user: firebase.User = firebase.auth().currentUser;
+    if (isNullOrUndefined(user)) { return ''; }
+    return firebase.auth().currentUser.getIdToken();
   }
 
   signOut() {

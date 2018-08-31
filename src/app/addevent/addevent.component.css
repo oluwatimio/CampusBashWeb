@@ -172,6 +172,9 @@ label{
   color: red !important;
 }
 
+.plain_link {
+  text-decoration: none;
+}
 .material-icons{
   position: relative;
   top: 5px;
