@@ -41,11 +41,11 @@ export class Util {
     map[Constants.TOTAL_FEE] = totalFee.decimalPlaces(2).toNumber();
     return map;
   }
-  static openSnackbar(message: string, snackBar: MatSnackBar) {
+  static openSnackbar(message: string, snackBar: MatSnackBar, duration: number = 2000) {
     const config = new MatSnackBarConfig();
     config.verticalPosition = 'bottom';
     config.horizontalPosition = 'center';
-    config.duration = 2000;
+    config.duration = duration;
     snackBar.open(message, undefined, config);
   }
   static getDate(dateM: number) {

@@ -151,3 +151,7 @@ label{
 .mat-select-arrow{
   color: red !important;
 }
+
+.plain_link {
+  text-decoration: none;
+}

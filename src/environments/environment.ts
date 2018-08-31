@@ -6,7 +6,10 @@ import * as firebase from 'firebase';
 export const environment = {
   production: false,
   stripeKey: 'pk_test_CVyOXRhK6S5K0RlHkLzIiReJ',
-   config:{
+  createStripeAccountUrl: 'https://us-central1-campusbash-dev.cloudfunctions.net/stripe/:uid/:token/createStripeAccount',
+  createStripeAccountOauthUrl: 'https://connect.stripe.com/oauth/authorize?response_type=code&' +
+  'client_id=ca_CZDCdiBIFm2webGK1uZavYZH0bcmFBgR&scope=read_write',
+   config: {
     apiKey: "AIzaSyAnq8-n9iIIEZdDJUysVFKGPMqXDBGZ_fM",
     authDomain: "campusbash-dev.firebaseapp.com",
     databaseURL: "https://campusbash-dev.firebaseio.com",
