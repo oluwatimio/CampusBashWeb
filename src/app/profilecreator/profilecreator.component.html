@@ -1,7 +1,7 @@
-<div id="marginTop" fxLayout="column" fxLayoutAlign="center center">
+<div id="marginTop" fxLayout="column" fxLayoutAlign="center center" style="overflow-x: hidden">
   <img id="imageSignUp" src="../../assets/EmojiOne_3.1.1_128x128_png/1f471-1f3fc-2640.png">
 
-  <div class="mdc-text-field mdc-text-field--outlined username">
+  <div class="mdc-text-field mdc-text-field--outlined username" style="margin-top: 1vh">
     <input type="text" id="tf-outlined" class="mdc-text-field__input" [value] = "username"
            (input) = "username = $event.target.value">
     <label for="tf-outlined" class="mdc-floating-label">Enter a Username</label>
@@ -13,10 +13,22 @@
     <div class="mdc-notched-outline__idle"></div>
   </div>
 
-  <div class="mdc-text-field mdc-text-field--outlined summary">
+  <div class="mdc-text-field mdc-text-field--outlined summary" style="margin-top: 1vh">
     <input type="text" id="tf-outlined" class="mdc-text-field__input" [value] = "summary"
            (input) = "summary = $event.target.value">
     <label for="tf-outlined" class="mdc-floating-label">Enter summary of yourself</label>
+    <div class="mdc-notched-outline">
+      <svg>
+        <path class="mdc-notched-outline__path"/>
+      </svg>
+    </div>
+    <div class="mdc-notched-outline__idle"></div>
+  </div>
+
+  <div class="mdc-text-field mdc-text-field--outlined studentNum" style="margin-top: 1vh">
+    <input type="text" id="tf-outlined" class="mdc-text-field__input" [value] = "studentNum"
+           (input) = "studentNum = $event.target.value">
+    <label for="tf-outlined" class="mdc-floating-label">Student Number (For frosh events)</label>
     <div class="mdc-notched-outline">
       <svg>
         <path class="mdc-notched-outline__path"/>
