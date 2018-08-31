@@ -61,84 +61,174 @@
   </div>
   <div class="mdc-dialog__backdrop"></div>
 </aside>
-
-
-<div id="marginCardTop" style="overflow-x: hidden">
-  <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 1vh">
-    <div class="mdc-text-field mdc-text-field--outlined name">
-      <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventName"
-             (input) = "eventName = $event.target.value">
-      <label for="tf-outlined" class="mdc-floating-label">What are we calling this?</label>
-      <div class="mdc-notched-outline">
-        <svg>
-          <path class="mdc-notched-outline__path"/>
-        </svg>
-      </div>
-      <div class="mdc-notched-outline__idle"></div>
-    </div>
-
-    <div class="mdc-text-field mdc-text-field--outlined description" style="margin-top: 1vh">
-      <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventDescription"
-             (input) = "eventDescription = $event.target.value">
-      <label for="tf-outlined" class="mdc-floating-label">Give us a short description</label>
-      <div class="mdc-notched-outline">
-        <svg>
-          <path class="mdc-notched-outline__path"/>
-        </svg>
-      </div>
-      <div class="mdc-notched-outline__idle"></div>
-    </div>
-
-    <div class="mdc-select" style="margin-top: 1vh">
-      <select class="mdc-select__native-control">
-        <option value="" disabled selected></option>
-        <option *ngFor="let eventType of eventTypes" value="{{eventType}}">
-          {{eventType}}
-        </option>
-      </select>
-      <label class="mdc-floating-label">Type of event</label>
-      <div class="mdc-line-ripple"></div>
-    </div>
-  </div>
-
-  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
-    <mat-form-field class="full-widthdate" id="happening2" style="width: 100%">
-      <input matInput [matDatepicker]="picker" placeholder="When does it start? (click the calendar button)" [(ngModel)] = startTime>
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker type="datetime" startView="month"></mat-datepicker>
-    </mat-form-field>
-
-  </div>
-
-  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
-    <mat-form-field class="full-widthdate" id="happening2" style="width: 100%">
-      <input matInput [matDatepicker]="picker2" placeholder="When does it end? (click the calendar button)"
-             [(ngModel)] = endTime>
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2 type="datetime" startView="month"></mat-datepicker>
-    </mat-form-field>
-  </div>
-
-  <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 1vh">
-    <div class="mdc-text-field mdc-text-field--outlined where">
-      <input type="text" id="searchbox" class="mdc-text-field__input whereauto" [value]="eventAddress"
-             (input) = "eventAddress = $event.target.value">
-      <!--<label for="tf-outlined" class="mdc-floating-label">Where is it happening?</label>-->
-      <div class="mdc-notched-outline">
-        <svg>
-          <path class="mdc-notched-outline__path"/>
-        </svg>
-      </div>
-      <div class="mdc-notched-outline__idle"></div>
-    </div>
-  </div>
-  <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
-    <button style="background-color: #D4262F" mat-flat-button (click) = "openTicketDialog()" color="primary">ADD TICKETS</button>
-    <button style="background-color: #D4262F; margin-left: 1vw" mat-flat-button (click) = "uploadEvent()" color="primary">Add Event</button>
-  </div>
-  <!--<div fxLayout="row" fxLayoutAlign="center center">-->
-    <!--<button mat-fab color="primary"><i class="material-icons">check</i></button>-->
+<!--<div id="marginCardTop" style="overflow-x: hidden" fxShow.md = "false" fxShow.lg = "false" fxShow.xl = "false">-->
+  <!--<div id="picPreview" style="margin-bottom: 1vh; margin-left: auto; margin-right: auto">-->
+    <!--<div style="background-color: white; top: 24.5vh; position: relative">-->
+      <!--<div fxLayout="row" fxLayoutAlign="left center">-->
+        <!--<label style="font-size: large" for="input-file-id" class="mat-icon-button"><i class="material-icons">attachment</i>Add Event Image</label>-->
+        <!--<input style="visibility: hidden" type="file" name="pic" id="input-file-id" accept="image/*">-->
+      <!--</div>-->
+    <!--</div>-->
   <!--</div>-->
+  <!--<div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 1vh">-->
+    <!--<div class="mdc-text-field mdc-text-field&#45;&#45;outlined name">-->
+      <!--<input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventName"-->
+             <!--(input) = "eventName = $event.target.value">-->
+      <!--<label for="tf-outlined" class="mdc-floating-label">What are we calling this?</label>-->
+      <!--<div class="mdc-notched-outline">-->
+        <!--<svg>-->
+          <!--<path class="mdc-notched-outline__path"/>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div class="mdc-notched-outline__idle"></div>-->
+    <!--</div>-->
+
+    <!--<div class="mdc-text-field mdc-text-field&#45;&#45;outlined description" style="margin-top: 1vh">-->
+      <!--<input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventDescription"-->
+             <!--(input) = "eventDescription = $event.target.value">-->
+      <!--<label for="tf-outlined" class="mdc-floating-label">Give us a short description</label>-->
+      <!--<div class="mdc-notched-outline">-->
+        <!--<svg>-->
+          <!--<path class="mdc-notched-outline__path"/>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div class="mdc-notched-outline__idle"></div>-->
+    <!--</div>-->
+
+    <!--<div class="mdc-select" style="margin-top: 1vh">-->
+      <!--<select class="mdc-select__native-control">-->
+        <!--<option value="" disabled selected></option>-->
+        <!--<option *ngFor="let eventType of eventTypes" value="{{eventType}}">-->
+          <!--{{eventType}}-->
+        <!--</option>-->
+      <!--</select>-->
+      <!--<label class="mdc-floating-label">Type of event</label>-->
+      <!--<div class="mdc-line-ripple"></div>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">-->
+    <!--<mat-form-field class="full-widthdate" id="happening2" style="width: 100%">-->
+      <!--<input matInput [matDatepicker]="picker" placeholder="When does it start? (click the calendar button)" [(ngModel)] = startTime>-->
+      <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+      <!--<mat-datepicker #picker type="datetime" startView="month"></mat-datepicker>-->
+    <!--</mat-form-field>-->
+
+  <!--</div>-->
+
+  <!--<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">-->
+    <!--<mat-form-field class="full-widthdate" id="happening2" style="width: 100%">-->
+      <!--<input matInput [matDatepicker]="picker2" placeholder="When does it end? (click the calendar button)"-->
+             <!--[(ngModel)] = endTime>-->
+      <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+      <!--<mat-datepicker #picker2 type="datetime" startView="month"></mat-datepicker>-->
+    <!--</mat-form-field>-->
+  <!--</div>-->
+
+  <!--<div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 1vh">-->
+    <!--<div class="mdc-text-field mdc-text-field&#45;&#45;outlined where">-->
+      <!--<input type="text" id="searchbox" class="mdc-text-field__input whereauto" [value]="eventAddress"-->
+             <!--(input) = "eventAddress = $event.target.value">-->
+      <!--&lt;!&ndash;<label for="tf-outlined" class="mdc-floating-label">Where is it happening?</label>&ndash;&gt;-->
+      <!--<div class="mdc-notched-outline">-->
+        <!--<svg>-->
+          <!--<path class="mdc-notched-outline__path"/>-->
+        <!--</svg>-->
+      <!--</div>-->
+      <!--<div class="mdc-notched-outline__idle"></div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">-->
+    <!--<button style="background-color: #D4262F" mat-flat-button (click) = "openTicketDialog()" color="primary">ADD TICKETS</button>-->
+    <!--<button style="background-color: #D4262F; margin-left: 1vw" mat-flat-button (click) = "uploadEvent()" color="primary">Add Event</button>-->
+  <!--</div>-->
+  <!--&lt;!&ndash;<div fxLayout="row" fxLayoutAlign="center center">&ndash;&gt;-->
+    <!--&lt;!&ndash;<button mat-fab color="primary"><i class="material-icons">check</i></button>&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+<!--</div>-->
+
+<div style="overflow-x: hidden">
+  <mat-card style="width: 550px; height: 550px; margin-top: 25vh; margin-bottom: 20vh">
+    <div id="picPreview" style="margin-bottom: 1vh; margin-left: auto; margin-right: auto">
+      <div style="background-color: white; top: 0; position: relative">
+        <div fxLayout="row" fxLayoutAlign="left center">
+        <label style="font-size: large" for="input-file-id" class="mat-icon-button"><i class="material-icons">attachment</i>Add Event Image</label>
+        <input style="visibility: hidden" type="file" name="pic" id="input-file-id" accept="image/*">
+        </div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 1vh">
+      <div class="mdc-text-field mdc-text-field--outlined name">
+        <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventName"
+               (input) = "eventName = $event.target.value">
+        <label for="tf-outlined" class="mdc-floating-label">What are we calling this?</label>
+        <div class="mdc-notched-outline">
+          <svg>
+            <path class="mdc-notched-outline__path"/>
+          </svg>
+        </div>
+        <div class="mdc-notched-outline__idle"></div>
+      </div>
+
+      <div class="mdc-text-field mdc-text-field--outlined description" style="margin-top: 1vh">
+        <input type="text" id="tf-outlined" class="mdc-text-field__input" [value]="eventDescription"
+               (input) = "eventDescription = $event.target.value">
+        <label for="tf-outlined" class="mdc-floating-label">Give us a short description</label>
+        <div class="mdc-notched-outline">
+          <svg>
+            <path class="mdc-notched-outline__path"/>
+          </svg>
+        </div>
+        <div class="mdc-notched-outline__idle"></div>
+      </div>
+
+      <div class="mdc-select" style="margin-top: 1vh">
+        <select class="mdc-select__native-control">
+          <option value="" disabled selected></option>
+          <option *ngFor="let eventType of eventTypes" value="{{eventType}}">
+            {{eventType}}
+          </option>
+        </select>
+        <label class="mdc-floating-label">Type of event</label>
+        <div class="mdc-line-ripple"></div>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayoutAlign="center center" style="margin-top: 1vh">
+      <div class="mdc-text-field mdc-text-field--outlined where">
+        <input type="text" id="searchbox" class="mdc-text-field__input whereauto" [value]="eventAddress"
+               (input) = "eventAddress = $event.target.value">
+        <!--<label for="tf-outlined" class="mdc-floating-label">Where is it happening?</label>-->
+        <div class="mdc-notched-outline">
+          <svg>
+            <path class="mdc-notched-outline__path"/>
+          </svg>
+        </div>
+        <div class="mdc-notched-outline__idle"></div>
+      </div>
+    </div>
+
+    <div fxLayout="row" style="margin-top: 1vh">
+      <mat-form-field class="full-widthdate" id="happening2" style="width: 31%">
+        <input matInput [matDatepicker]="picker" placeholder="Start Time" [(ngModel)] = startTime disabled>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker type="datetime" startView="month" disabled="false"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="full-widthdate" id="happening2" style="width: 31%; margin-left: 1vw">
+        <input matInput [matDatepicker]="picker2" placeholder="End Time"
+               [(ngModel)] = endTime disabled>
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2 type="datetime" startView="month" disabled="false"></mat-datepicker>
+      </mat-form-field>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 1vh">
+      <button style="background-color: #D4262F" mat-flat-button (click) = "openTicketDialog()" color="primary">ADD TICKETS</button>
+      <button style="background-color: #D4262F; margin-left: 1vw" mat-flat-button (click) = "uploadEvent()" color="primary">Add Event</button>
+    </div>
+  </mat-card>
 </div>
-
-
