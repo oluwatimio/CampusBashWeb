@@ -1,3 +1,16 @@
+<aside id="please_wait" class="mdc-dialog" role="alertdialog" aria-labelledby="my-mdc-dialog-label"
+       aria-describedby="my-mdc-dialog-description">
+  <div class="mdc-dialog__surface">
+    <section id="" class="mdc-dialog__body" style="color: black">
+      <div style="display: flex">
+        <mat-spinner style="margin-right: 5px"></mat-spinner>
+        Please wait
+      </div>
+    </section>
+  </div>
+
+</aside>
+
 <div id="marginTop" fxLayout="column" fxLayoutAlign="center center" style="overflow-x: hidden">
   <img id="imageSignUp" src="../../assets/EmojiOne_3.1.1_128x128_png/1f471-1f3fc-2640.png">
 
@@ -36,7 +49,6 @@
     </div>
     <div class="mdc-notched-outline__idle"></div>
   </div>
-
 
   <button mat-flat-button id="nextButton" (click)="update()">NEXT</button>
 </div>
