@@ -21,6 +21,7 @@ const mdcDialog = require('@material/dialog');
 const MDCDialog = mdcDialog.MDCDialog;
 
 declare var require: any;
+declare var google: any;
 @Component({
   selector: 'app-addevent',
   templateUrl: './addevent.component.html',

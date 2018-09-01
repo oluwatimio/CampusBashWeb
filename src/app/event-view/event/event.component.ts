@@ -12,6 +12,8 @@ import {delay} from 'q';
 import {isNullOrUndefined} from 'util';
 import {Preference} from '../../Classes/Preference';
 import {EventfilteringService} from '../../eventfiltering.service';
+import {logging} from 'selenium-webdriver';
+import Preferences = logging.Preferences;
 
 @Component({
   selector: 'app-event',
@@ -30,6 +32,7 @@ export class EventComponent implements OnInit {
   user: any;
   router: Router;
   ng: NgZone;
+  userInterests: Preferences[];
   originalArrayOfEvents: EventSection[];
   uniSelected: string;
   efs: EventfilteringService;

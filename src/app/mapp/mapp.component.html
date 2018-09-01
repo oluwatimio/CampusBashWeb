@@ -1,7 +1,36 @@
+<aside id="my-mdc-dialog" class="mdc-dialog" role="alertdialog" aria-labelledby="my-mdc-dialog-label" aria-describedby="my-mdc-dialog-description">
+  <div class="mdc-dialog__surface">
+    <header class="mdc-dialog__header">
+      <h2 id="my-mdc-dialog-label" class="mdc-dialog__header__title">
+        How to Install iOS app using safari.
+        <div fxLayout="column">
+          <p>Click the upload button</p>
+          <img style="width: 100%; height: 10vh" src="assets/share.png">
+          <p>Add to Homescreen</p>
+          <img style="width: 100%; height: 20vh" src="assets/addtohome.png">
+        </div>
+      </h2>
+    </header>
+    <section id="my-mdc-dialog-description" class="mdc-dialog__body">
+
+    </section>
+    <footer class="mdc-dialog__footer">
+      <button type="button" routerLink="/" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Done</button>
+    </footer>
+  </div>
+  <div class="mdc-dialog__backdrop"></div>
+</aside>
 <div id="marginTop" fxLayout="column" fxLayoutAlign="center center">
   <img id="cbiconsize" src="../../assets/app_icon.svg">
-  <a class="store-image" href='https://play.google.com/store/apps/details?id=toluog.campusbash&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
-    <img class="store-image" style="width: 100%;" id="apicon" alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/>
-  </a>
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-bottom: 1vh">
+    <a href="https://play.google.com/store/apps/details?id=toluog.campusbash&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1">
+      <button style="background-color: #D4262F; color: white; margin-top: 1vh; font-size: medium" mat-flat-button id="button">
+        <img id="iconSizeSocial" src="../../assets/app_icon.svg">Android App</button>
+    </a>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="center center" style="margin-bottom: 1vh">
+    <button style="background-color: #D4262F; color: white; margin-top: 1vh; font-size: medium" mat-flat-button (click)="openSnack()" id="button">
+      <img id="iconSizeSocial" src="../../assets/app_icon.svg"> iOS Web App</button>
+  </div>
 
 </div>

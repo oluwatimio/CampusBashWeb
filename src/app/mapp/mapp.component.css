@@ -14,8 +14,30 @@
   margin-top: 10vh;
 }
 
-@media (min-width: 300px) and (max-width: 1024px) {
+@media (min-width: 300px) and (max-width: 799.99px) {
   .store-image {
     width: 100%;
+  }
+
+  #button{
+    width: 50vw; height: 8vh;
+  }
+
+  #iconSizeSocial{
+    height: 30px;
+    width: 30px;
+    margin-right: 0.5vh;
+  }
+}
+
+@media (min-width: 800px)  {
+  #iconSizeSocial{
+    height: 30px;
+    width: 30px;
+    margin-right: 0.5vh;
+  }
+
+  #button {
+    width: 40vw; height: 8vh;
   }
 }
