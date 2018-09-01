@@ -13,6 +13,8 @@ import {User} from '../Classes/User';
 import {EventService} from '../Services/event.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import * as firebase from 'firebase';
+import {Media} from '../Classes/Media';
 
 declare var require: any;
 @Component({
@@ -45,7 +47,9 @@ export class AddeventComponent implements OnInit {
   ticketType: string;
   ticketPaidPrice: MDCTextField;
   tickets: Tickets[] = new Array();
+  imageLink: string;
   ps: ProfileService;
+  downloadUrlImage: string;
   user: any;
   userProfile: User;
   startTime: string;
@@ -68,6 +72,8 @@ export class AddeventComponent implements OnInit {
     this.eventDescription = '';
     this.eventAddress = '';
     this.router = router;
+    this.imageLink = '';
+    this.downloadUrlImage = '';
   }
 
   ngOnInit() {
@@ -168,8 +174,10 @@ export class AddeventComponent implements OnInit {
         return Object.assign({}, obj);
       });
       console.log(this.autocomplete.getPlace());
+      const media = new Media(this.imageLink, 'image', this.downloadUrlImage);
+      const media2 = JSON.parse(JSON.stringify(media))
       const event = new Event('', cr, this.eventDescription, this.endTimeNumber, '', this.eventName, this.eventTypeSelected,
-        null, this.autocomplete.getPlace()['place_id'], null, this.startTimeNumber, ticks, '',
+        null, this.autocomplete.getPlace()['place_id'], media2, this.startTimeNumber, ticks, '',
         this.userProfile.university, 0);
       console.log('post');
       console.log(event);
@@ -202,6 +210,58 @@ export class AddeventComponent implements OnInit {
       this.endTime['_a'][3], this.endTime['_a'][4]);
     console.log(date);
     this.endTimeNumber = date.getTime();
+  }
+
+  onFileSelected(event: any) {
+    this.imageLink = this.imageLink.replace(/\\/g, '/')
+    console.log(this.imageLink);
+    const array = this.imageLink.split('/');
+    this.imageLink = array[array.length - 1];
+    const date = new Date();
+    date.getTime()
+    const fn = this.imageLink;
+    this.imageLink = 'event_placeholder_images' + '/' + this.user.uid + '/' + date.getTime().toString() + fn;
+    console.log(this.imageLink);
+    let imageurl;
+    if (this.imageLink != null) {
+      const storageRef = firebase.storage().ref();
+      const imageRef = storageRef.child(this.imageLink);
+      imageurl = imageRef;
+      const file = event.target.files;
+      console.log(file[0]);
+      // document.getElementById('displayProg').style.visibility = 'visible';
+      const uploadTask = imageRef.put(file[0]);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+        //this.progress = ((uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100).toString();
+        //console.log('Upload is ' + this.progress + '% done');
+      });
+
+      uploadTask.then((snapshot) => {
+        imageurl.getDownloadURL().then((url) => {
+          this.downloadUrlImage = url;
+          this.openImagePrev();
+        });
+        const snackBarRef = this.snackBars.open('Image Uploaded');
+        //this.progress = '0';
+
+      }).catch((error) => {
+        console.log(error);
+      });
+
+    }
+
+    console.log(this.imageLink);
+  }
+
+  openImagePrev() {
+    const mdcDialog = require('@material/dialog');
+    const MDCDialog = mdcDialog.MDCDialog;
+    const MDCDialogFoundation = mdcDialog.MDCDialogFoundation;
+    const util = mdcDialog.util;
+
+    const dialog = new MDCDialog(document.querySelector('#imagePrev'));
+
+    dialog.show();
   }
 
 
