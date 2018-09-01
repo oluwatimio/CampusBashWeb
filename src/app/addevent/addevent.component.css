@@ -146,7 +146,7 @@ label{
   }
 
   #cardSize{
-    width: 50vw; height: 50vh; margin-top: 20vh; margin-bottom: 2vh
+    width: 60vw; height: 50vh; margin-top: 20vh; margin-bottom: 2vh
   }
 }
 
@@ -172,7 +172,7 @@ label{
   }
 
   #cardSize{
-    width: 60vw; height: 60vh; margin-top: 20vh; margin-bottom: 2vh
+    width: 70vw; height: 60vh; margin-top: 20vh; margin-bottom: 2vh
   }
 }
 
@@ -207,4 +207,10 @@ label{
   top: 0px;
   left: 5px;
   margin-right: 2vh
+}
+
+#displayProg {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25vh;
 }

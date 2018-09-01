@@ -39,6 +39,7 @@ export class AddeventComponent implements OnInit {
     'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk'];
   date = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   ticketPrice: string;
+  showProg: boolean;
   eventName: string;
   eventDescription: string;
   eventAddress: string;
@@ -85,6 +86,7 @@ export class AddeventComponent implements OnInit {
     this.imageLink = '';
     this.downloadUrlImage = '';
     this.ps = ps;
+    this.showProg = false;
   }
 
   ngOnInit() {
@@ -185,6 +187,7 @@ export class AddeventComponent implements OnInit {
   }
 
   uploadEvent() {
+    this.showProg = true;
     if (this.userProfile !== undefined && this.user !== undefined) {
       this.startDateToLong();
       this.endDateToLong();
@@ -201,6 +204,7 @@ export class AddeventComponent implements OnInit {
           null, this.autocomplete.getPlace()['place_id'], media2, this.startTimeNumber, ticks, '',
           this.userProfile.university, 0);
         this.eventS.addEvent(event);
+        this.showProg = false;
       } else {
         this.sb.open('Your start date is before your end date or a field is empty', null, {duration: 5000});
       }
@@ -249,6 +253,7 @@ export class AddeventComponent implements OnInit {
     this.imageLink = 'event_placeholder_images' + '/' + this.user.uid + '/' + date.getTime().toString() + fn;
     console.log(this.imageLink);
     let imageurl;
+    this.showProg = true;
     if (this.imageLink != null) {
       const storageRef = firebase.storage().ref();
       const imageRef = storageRef.child(this.imageLink);
@@ -266,6 +271,7 @@ export class AddeventComponent implements OnInit {
         imageurl.getDownloadURL().then((url) => {
           this.downloadUrlImage = url;
           this.openImagePrev();
+          this.showProg = false;
         });
         //this.progress = '0';
 

@@ -16,6 +16,7 @@ import {MatDialogModule, MatNativeDateModule} from '@angular/material';
 import {MatMenuModule} from '@angular/material/menu';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
@@ -54,7 +55,6 @@ import {ZXingScannerModule} from '@zxing/ngx-scanner';
 import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
 import { HttpClientModule } from '@angular/common/http';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {EventfilteringService} from './eventfiltering.service';
 
 
