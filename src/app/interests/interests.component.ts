@@ -35,9 +35,9 @@ export class InterestsComponent implements OnInit {
       if (user !== undefined && user !== null) {
         this.user = user;
         this.getStudentID();
-      } else if (user === undefined) {
+      } else if (user === undefined || user === null) {
         this.sb.open('You need to create an account to select interests', null, {duration: 5000});
-        this.ng.run(() => this.router.navigateByUrl('/'));
+        this.ng.run(() => this.router.navigateByUrl('signin'));
       }
     });
   }
