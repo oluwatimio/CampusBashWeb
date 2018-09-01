@@ -30,6 +30,7 @@ export class EventComponent implements OnInit {
   user: any;
   router: Router;
   ng: NgZone;
+  userInterests: Preference[];
   originalArrayOfEvents: EventSection[];
   userInterests: Preference[];
   uniSelected: string;
@@ -51,7 +52,6 @@ export class EventComponent implements OnInit {
         this.uid = user.uid;
         console.log(this.user.email);
         this.getInterests();
-        this.checkUni();
       } else if (user === undefined || user === null) {
         this.getEventGroups();
       }
@@ -88,7 +88,6 @@ export class EventComponent implements OnInit {
       this.allEvents = this.eventService.getEvents();
     });
   }
-
   checkUni() {
     this.originalArrayOfEvents = this.events;
   }
@@ -104,7 +103,6 @@ export class EventComponent implements OnInit {
     //this.events = events;
     //console.log(this.events);
   }
-
 
   async eventDetail(event: Event) {
     this.router.navigateByUrl(`detail/${event.eventId}`);
