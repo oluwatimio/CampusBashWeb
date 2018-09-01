@@ -253,6 +253,7 @@ export class AddeventComponent implements OnInit {
     });
   }
   handleStripeResult(state: StripeAccountState) {
+    console.log(state);
     if (state === StripeAccountState.CREATED) {
       Util.openSnackbar('Your account has been created. Please check your email for further details.', this.sb, 3000);
       this.lastDialog.close();
