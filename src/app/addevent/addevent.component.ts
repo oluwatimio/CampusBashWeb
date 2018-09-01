@@ -263,7 +263,7 @@ export class AddeventComponent implements OnInit {
           this.downloadUrlImage = url;
           this.openImagePrev();
         });
-        const snackBarRef = this.snackBars.open('Image Uploaded');
+        const snackBarRef = this.sb.open('Image Uploaded');
         //this.progress = '0';
 
       }).catch((error) => {
