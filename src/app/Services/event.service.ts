@@ -10,6 +10,7 @@ import {User} from '../Classes/User';
 import {Util} from '../Util';
 import {Constants} from '../Constants';
 import {EventfilteringService} from '../eventfiltering.service';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class EventService {
@@ -26,7 +27,9 @@ export class EventService {
   private lastEventFetched = null;
   private eventFetched = new BehaviorSubject(null);
   efs: EventfilteringService;
-  constructor(public sb: MatSnackBar, efs: EventfilteringService) {
+  router: Router;
+  constructor(public sb: MatSnackBar, efs: EventfilteringService, router: Router) {
+    this.router = router;
     this.eventsTable = new FirebaseKeyTable();
     this.myEventsTable = new FirebaseKeyTable();
     this.eventsTable.getData().subscribe((data: Event[]) => {
@@ -192,6 +195,7 @@ export class EventService {
     ev.eventId = ref.id;
     ref.set(ev).then(() => {
         this.sb.open('Event Added', null, {duration: 5000});
+        this.router.navigateByUrl('/');
     });
   }
   search(name: string, university: string, time: number) {
