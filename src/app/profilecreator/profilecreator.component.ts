@@ -32,12 +32,10 @@ export class ProfilecreatorComponent implements OnInit {
 
   ngOnInit() {
     this.ps.getCurrentUser().subscribe((user) => {
-      console.log(this.user);
       if (this.user !== null) {
         this.uid = user.uid;
         document.getElementById('signOut').style.display = 'block';
         document.getElementById('signIn').style.display = 'none';
-        console.log(this.user.email);
       }
     });
     const username = new MDCTextField(document.querySelector('.username'));
@@ -55,7 +53,6 @@ export class ProfilecreatorComponent implements OnInit {
         return;
       } else if (isNew) {
         dialog.close();
-        console.log(isNew);
       } else {
         dialog.close();
         Util.openSnackbar('This student id has been used', this.sb);

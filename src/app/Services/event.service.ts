@@ -68,7 +68,6 @@ export class EventService {
       this.lastEventFetched = eventId;
       value = this.myEventsTable.get(eventId);
     }
-    console.log(value);
     this.eventFetched.next(value);
     if (isNullOrUndefined(value)) {
       this.downloadEventById(eventId);
@@ -83,12 +82,9 @@ export class EventService {
     } else {
       this.lastEventFetched = null;
     }
-    console.log(value);
     this.eventFetched.next(value);
   }
   downloadEvents(uni: any = {university: 'University of Ottawa'}) {
-    console.log('d events');
-    console.log(uni);
     if (!isNullOrUndefined(this.unSubscribe)) {
       this.unSubscribe();
     }
@@ -106,8 +102,6 @@ export class EventService {
             doc.data().university, doc.data().ticketsSold);
           this.eventsTable.add(event.eventId, event);
         });
-
-        console.log(this.events);
       });
   }
   downloadEventById(eventId: string) {
@@ -140,7 +134,6 @@ export class EventService {
     const networking = new Array();
     const seminar = new Array();
     const festival = new Array();
-    console.log(this.events.length);
     for (let i = 0; i < this.events.length; i++) {
       if (this.events[i].eventType === 'House Party') {
         houseParty.push(this.events[i]);
@@ -217,7 +210,6 @@ export class EventService {
       timeZone: event.timeZone,
       university: event.university
     };
-    console.log(ev);
     const ref = db.collection('events').doc();
     ev.eventId = ref.id;
     ref.set(ev).then(() => {
@@ -257,7 +249,6 @@ export class EventService {
         .collection('tickets').add(ticketData);
       return true;
     } catch (e) {
-      console.log(e.message);
       return false;
     }
   }

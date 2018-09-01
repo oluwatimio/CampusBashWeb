@@ -43,9 +43,7 @@ export class GetTicketsViewComponent implements OnInit {
   ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('eventId') as string;
     this.eventService.getEvent(this.eventId).subscribe((event) => {
-      console.log(event);
       if (!isNullOrUndefined(event) && !this.sameData(event)) {
-        console.log('new event');
         this.event = event;
         this.createFormGroup();
       }
@@ -115,7 +113,6 @@ export class GetTicketsViewComponent implements OnInit {
         delete this.ticketMap[ticket.name];
       }
     });
-    console.log(this.ticketMap);
     this.ticketFee = total;
     this.orderMap = {
       ticketMap: this.ticketMap,
@@ -134,7 +131,6 @@ export class GetTicketsViewComponent implements OnInit {
       this.router.navigateByUrl(`/payForTicket/${this.eventId}`);
     } else if (Object.keys(this.ticketMap).length > 0) {
       const data = this.eventService.buildTicketPayload(this.ticketFee, this.ticketMap, null, this.user);
-      console.log(data);
       const result = await this.eventService.addTicket(data, this.event);
       if (result === true) {
         Util.openSnackbar('Ticket purchase complete, please check your email', this.snackBar);

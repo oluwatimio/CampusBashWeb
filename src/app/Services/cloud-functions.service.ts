@@ -13,7 +13,6 @@ export class CloudFunctionsService {
       const result = await func({studentId: id});
       return result.data.isNew;
     } catch (e) {
-      console.log(e.message);
     }
     return null;
   }

@@ -93,8 +93,7 @@ export class AddeventComponent implements OnInit {
     this.ps.getCurrentUser().subscribe((user) => {
       if (user !== undefined && user !== null) {
         this.user = user;
-        console.log(this.user.email);
-      } else if (user === undefined) {
+      } else if (user === undefined || user === null) {
         this.router.navigateByUrl('signin');
         this.sb.open('You must be signed in to post events', null, {duration: 5000});
       }
@@ -111,8 +110,6 @@ export class AddeventComponent implements OnInit {
     const select = new MDCSelect(document.querySelector('.mdc-select'));
     select.listen('change', () => {
       this.eventTypeSelected = select.value;
-      console.log(this.eventTypeSelected);
-      console.log(textField.value);
     });
 
     const textField3 = new MDCTextField(document.querySelector('.where'));
@@ -159,11 +156,8 @@ export class AddeventComponent implements OnInit {
     } else {
       this.ticketType = 'free';
     }
-    console.log(this.userProfile);
-    console.log(this.checkedPaid);
     if (!isNullOrUndefined(this.userProfile) && this.checkedPaid === true &&
       (isNullOrUndefined(this.userProfile.stripeAccountId) || this.userProfile.stripeAccountId.trim().length === 0)) {
-      console.log(true);
       this.openStripeQueryDialog();
       return;
     }
@@ -172,13 +166,11 @@ export class AddeventComponent implements OnInit {
         this.ticketName.value, parseFloat(this.ticketPaidPrice.value), parseInt(this.ticketQuantity.value, 10), 0,
         0, 0, '', this.ticketType, true);
       this.tickets.push(ticket);
-      console.log(ticket);
     } else {
       const ticket = new Tickets('CA$', this.ticketDescription.value, 10, 1,
         this.ticketName.value, 0, parseInt(this.ticketQuantity.value, 10), 0, 0, 0,
         '', this.ticketType, true);
       this.tickets.push(ticket);
-      console.log(ticket);
     }
     this.checkedPaid = undefined;
     this.checkedFree = undefined;
@@ -196,7 +188,6 @@ export class AddeventComponent implements OnInit {
       const ticks = this.tickets.map((obj) => {
         return Object.assign({}, obj);
       });
-      console.log(this.autocomplete.getPlace());
       const media = new Media(this.imageLink, 'image', this.downloadUrlImage);
       const media2 = JSON.parse(JSON.stringify(media));
       if (this.startTimeNumber < this.endTimeNumber || this.eventName !== '' || this.eventDescription !== '') {
@@ -209,7 +200,6 @@ export class AddeventComponent implements OnInit {
         this.sb.open('Your start date is before your end date or a field is empty', null, {duration: 5000});
       }
     } else {
-      console.log(undefined);
     }
   }
 
@@ -232,26 +222,22 @@ export class AddeventComponent implements OnInit {
   startDateToLong() {
     const date = new Date(this.startTime['_a'][0], this.startTime['_a'][1],
       this.startTime['_a'][2], this.startTime['_a'][3], this.startTime['_a'][4]);
-    console.log(date);
     this.startTimeNumber = date.getTime();
   }
 
   endDateToLong() {
     const date = new Date(this.endTime['_a'][0], this.endTime['_a'][1], this.endTime['_a'][2],
       this.endTime['_a'][3], this.endTime['_a'][4]);
-    console.log(date);
     this.endTimeNumber = date.getTime();
   }
   onFileSelected(event: any) {
     this.imageLink = this.imageLink.replace(/\\/g, '/')
-    console.log(this.imageLink);
     const array = this.imageLink.split('/');
     this.imageLink = array[array.length - 1];
     const date = new Date();
     date.getTime()
     const fn = this.imageLink;
     this.imageLink = 'event_placeholder_images' + '/' + this.user.uid + '/' + date.getTime().toString() + fn;
-    console.log(this.imageLink);
     let imageurl;
     this.showProg = true;
     if (this.imageLink != null) {
@@ -259,7 +245,6 @@ export class AddeventComponent implements OnInit {
       const imageRef = storageRef.child(this.imageLink);
       imageurl = imageRef;
       const file = event.target.files;
-      console.log(file[0]);
       // document.getElementById('displayProg').style.visibility = 'visible';
       const uploadTask = imageRef.put(file[0]);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
@@ -276,12 +261,9 @@ export class AddeventComponent implements OnInit {
         //this.progress = '0';
 
       }).catch((error) => {
-        console.log(error);
       });
 
     }
-
-    console.log(this.imageLink);
   }
 
   openImagePrev() {
@@ -314,15 +296,12 @@ export class AddeventComponent implements OnInit {
   observeAccount() {
     this.stripeService.createdStripeAccount().subscribe((state: StripeAccountState) => {
       if (isNullOrUndefined(state)) {
-        console.log(state);
       } else {
-        console.log(state);
         this.handleStripeResult(state);
       }
     });
   }
   handleStripeResult(state: StripeAccountState) {
-    console.log(state);
     if (state === StripeAccountState.CREATED) {
       Util.openSnackbar('Your account has been created. Please check your email for further details.', this.sb, 3000);
       this.lastDialog.close();

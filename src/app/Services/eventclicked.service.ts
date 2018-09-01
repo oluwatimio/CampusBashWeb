@@ -23,7 +23,6 @@ export class EventclickedService {
 
   setEventClicked(event: Event) {
     this.localStorages.setItem('event', event).subscribe(() => {
-      console.log(event);
     });
   }
   getEventClicked() {
@@ -38,7 +37,6 @@ export class EventclickedService {
         .collection('tickets').add(ticketData);
       return true;
     } catch (e) {
-      console.log(e.message);
       return false;
     }
   }

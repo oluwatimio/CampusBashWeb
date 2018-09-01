@@ -16,7 +16,6 @@ export class TicketServiceService {
   private tickets = new BehaviorSubject(null);
   constructor(private profileService: ProfileService) {
     this.profileService.getUserProfile().subscribe((user: User) => {
-      console.log(user);
       if (!isNullOrUndefined(user)) {
         this.uid = user.uid;
         this.observeTickets();
@@ -27,13 +26,11 @@ export class TicketServiceService {
   private observeTickets() {
     this.db.collection('userTickets').where('buyerId', '==', this.uid)
       .onSnapshot(snapshot => {
-        console.log('snapshot gotten');
         const tickets = [];
         snapshot.forEach(ticket => {
           tickets.push(<TicketMetaData> ticket.data());
         });
         this.tickets.next(tickets);
-        console.log(tickets);
       });
   }
   getTickets(): Observable<TicketPurchase[]> {

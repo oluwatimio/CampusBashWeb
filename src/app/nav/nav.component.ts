@@ -29,14 +29,12 @@ export class NavComponent implements OnInit {
 
   ngOnInit() {
     this.authS.user.subscribe((user) => {
-      console.log(user);
       if (!isNullOrUndefined(user)) {
         this.signedIn = true;
         this.user = user;
         this.uid = user.uid;
         document.getElementById('signOut').style.display = 'block';
         document.getElementById('signIn').style.display = 'none';
-        console.log(this.user.email);
       }
     });
   }

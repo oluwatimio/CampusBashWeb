@@ -2,21 +2,19 @@
   <img style="width: 5vh; height: 5vh" src="../../assets/applogo.svg" routerLink="/">
 
   <span class="example-fill-remaining-space"></span>
-    <button id = "navBD" mat-button routerLink="mapp"><i class="material-icons" id="iconD">phone_iphone</i>GET THE MOBILE APP</button>
-    <button id = "navBD" mat-button (click)="addEvent()"><i class="material-icons" id="iconD">add_box</i>HOST AN EVENT </button>
-
+    <button mat-icon-button routerLink="mapp"><i class="material-icons" id="iconD">phone_iphone</i></button>
   <div>
-    <button id="signIn" mat-button (click)="signInPage();"><i class="material-icons" id="iconD">account_circle</i>SIGN IN</button>
+    <button id="signIn" mat-button (click)="signInPage();"><i class="material-icons" id="iconD">vpn_key</i>SIGN IN</button>
   </div>
 
   <div>
-      <button id="signOut" mat-button (click)="signOut();"><i class="material-icons" id="iconD">account_circle</i>SIGN OUT</button>
+      <button id="signOut" mat-button (click)="signOut();"><i class="material-icons" id="iconD">vpn_key</i>SIGN OUT</button>
     </div>
-<button mat-button [matMenuTriggerFor]="menu" id="navBM"><i class="material-icons" id="iconD">menu</i></button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="mapp"><i class="material-icons">phone_iphone</i>GET THE MOBILE APP</button>
-  <button mat-menu-item routerLink="addevent"><i class="material-icons">add_box</i>HOST AN EVENT</button>
-  <!--<button id="signIn" mat-menu-item (click)="signInPage()"><i class="material-icons">account_circle</i>SIGN IN</button>-->
-  <!--<button id="signOut" mat-menu-item (click)="signOut()"><i class="material-icons">account_circle</i>SIGN OUT</button>-->
-</mat-menu>
+<!--<button mat-button [matMenuTriggerFor]="menu" id="navBM"><i class="material-icons" id="iconD">menu</i></button>-->
+<!--<mat-menu #menu="matMenu">-->
+  <!--<button mat-menu-item routerLink="mapp"><i class="material-icons">phone_iphone</i>GET THE MOBILE APP</button>-->
+  <!--<button mat-menu-item routerLink="addevent"><i class="material-icons">add_box</i>HOST AN EVENT</button>-->
+  <!--&lt;!&ndash;<button id="signIn" mat-menu-item (click)="signInPage()"><i class="material-icons">account_circle</i>SIGN IN</button>&ndash;&gt;-->
+  <!--&lt;!&ndash;<button id="signOut" mat-menu-item (click)="signOut()"><i class="material-icons">account_circle</i>SIGN OUT</button>&ndash;&gt;-->
+<!--</mat-menu>-->
 </mat-toolbar>

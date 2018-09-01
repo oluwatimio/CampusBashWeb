@@ -42,7 +42,6 @@ export class SearchComponent implements OnInit {
     this.eventService.getSearchObservable().subscribe((events) => {
       if (!isNullOrUndefined(events)) {
         this.events = events;
-        console.log(events);
       }
     });
   }
@@ -50,14 +49,11 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
   searchChanged(text: string) {
-    console.log(text);
     this.text = '';
     this.eventService.search(text, this.university, this.date);
   }
   dateChipChanged(selected: string) {
-    console.log(this.date);
     const dt = new Date();
-    console.log(dt.toDateString());
     dt.setMilliseconds(Date.now());
     if (selected === this.dates[0]) {
       this.eventService.search(this.text, this.university, this.date);
@@ -68,7 +64,6 @@ export class SearchComponent implements OnInit {
     } else {
       this.showPicker = !this.showPicker;
     }
-    console.log(selected);
   }
   dateChanged(selected: string) {
     const split = selected.toString().split(' ');
@@ -101,11 +96,9 @@ export class SearchComponent implements OnInit {
           return;
         }
         const user = snap.data() as User;
-        console.log(user);
         user.preference.forEach(val => {
           this.preferences[String(val)] = true;
         });
-        console.log(this.preferences);
       });
   }
   downloadIdList() {
@@ -118,7 +111,6 @@ export class SearchComponent implements OnInit {
         list.forEach(val => {
           this.idList[val] = true;
         });
-        console.log(this.idList);
       });
   }
 }

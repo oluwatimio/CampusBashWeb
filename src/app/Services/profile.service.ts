@@ -49,7 +49,6 @@ export class ProfileService {
       summary: summary,
       studentId: studentNum
     }).then(() => {
-      console.log('Username Updated');
       this.router.navigateByUrl('interests');
     });
   }
@@ -87,7 +86,6 @@ export class ProfileService {
       userName: username,
       summary: summary
     }).then(() => {
-      console.log('Username Updated');
     });
   }
 
@@ -100,7 +98,6 @@ export class ProfileService {
       university: university,
       preference: preference
     }).then(() => {
-      console.log('Onboarding updated');
     });
   }
 
@@ -111,7 +108,6 @@ export class ProfileService {
     db.collection('users').doc(this.uid).update({
       fcmToken: fcmt,
     }).then(() => {
-      console.log('fcmt updated');
     });
   }
 
@@ -122,7 +118,6 @@ export class ProfileService {
     db.collection('users').doc(this.uid).update({
       stripeCustomerId: stripeid,
     }).then(() => {
-      console.log('sid updated');
     });
   }
 }

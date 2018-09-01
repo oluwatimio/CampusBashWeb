@@ -93,12 +93,10 @@ export class PayForTicketComponent implements OnInit, AfterViewInit, OnDestroy {
     const { token, error } = await stripe.createToken(this.card);
 
     if (error) {
-      console.log('Something is wrong:', error);
       this.error = 'An error occurred';
       return;
     }
     const data = this.service.buildTicketPayload(this.ticketFee, this.ticketData.ticketMap, token.id, this.user);
-    console.log(data);
     const result = await this.service.addTicket(data, this.event);
     if (result === true) {
       Util.openSnackbar('Ticket purchase complete, please check your email', this.snackBar);

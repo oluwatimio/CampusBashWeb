@@ -23,7 +23,6 @@ export class ChooseuniComponent implements OnInit {
     this.ps.getCurrentUser().subscribe((user) => {
       if (user !== undefined && user !== null) {
         this.user = user;
-        console.log(this.user.email);
       }
     });
   }

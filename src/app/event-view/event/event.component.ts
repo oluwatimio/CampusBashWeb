@@ -51,7 +51,6 @@ export class EventComponent implements OnInit {
       if (user !== undefined && user !== null) {
         this.user = user;
         this.uid = user.uid;
-        console.log(this.user.email);
         this.getInterests();
       } else if (user === undefined || user === null) {
         this.getEventGroups();
@@ -73,14 +72,12 @@ export class EventComponent implements OnInit {
         querySnapshot.forEach((doc) => {
           this.userInterests = doc.data().preference;
         });
-        console.log(this.userInterests);
         this.allEvents = this.eventService.getEvents();
     });
   }
 
   getEventGroups() {
     const db = firebase.firestore();
-    console.log('here');
 
     db.collection('eventGroup').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
@@ -96,7 +93,6 @@ export class EventComponent implements OnInit {
   filter(events: EventSection[], uni: string) {
     this.events = new Array();
     for (let i = 0; i < events.length; i++) {
-      console.log(events[i].events);
       events[i].events = events[i].events.filter((eventN) => {
         return eventN.university === uni;
       });

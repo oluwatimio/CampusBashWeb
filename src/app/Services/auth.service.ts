@@ -7,6 +7,7 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {delay} from 'q';
 import {ProfileService} from './profile.service';
 import {isNullOrUndefined} from 'util';
+import {MatSnackBar} from '@angular/material';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,7 @@ export class AuthService {
   private currentUser = new BehaviorSubject(null);
   user = this.currentUser.asObservable();
   ng: NgZone;
-  constructor(router: Router, ng: NgZone) {
+  constructor(router: Router, ng: NgZone, public sb: MatSnackBar) {
     this.router = router;
     this.observeUser();
     this.ng = ng;
@@ -30,21 +31,18 @@ export class AuthService {
     firebase.auth().createUserWithEmailAndPassword(email , pass).then((response) => {
       this.router.navigateByUrl('profilec');
     }).catch((error) => {
-      console.log(error.code);
-      alert(error.message);
+      this.sb.open(error.message, null, {duration: 5000});
     });
   }
 
   signIn(email: string, pass: string) {
-    console.log(email);
     firebase.auth().signInWithEmailAndPassword(email, pass).then(() => {
       this.router.navigateByUrl('/');
     }).catch((error) => {
-      console.log(error.code);
       if (error.code === 'auth/user-not-found') {
         this.signUp(email, pass);
       } else if (error.code === 'auth/wrong-password') {
-        alert('Wrong user name or password');
+        this.sb.open('Wrong user name or password', null, {duration: 5000});
       }
     });
   }
@@ -82,7 +80,6 @@ export class AuthService {
       const errorMessage = error.message;
       const email = error.email;
       const credential = error.credential;
-      console.log(errorMessage);
     });
 
   }

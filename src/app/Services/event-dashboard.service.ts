@@ -33,11 +33,9 @@ export class EventDashboardService {
     if (isNullOrUndefined(doc.transactionValid) || !doc.transactionValid) {
       return;
     }
-    console.log(doc);
     const id: string = data.doc.id;
     const codes = doc.ticketCodes as any[];
     const total = doc.breakdown.totalFee;
-    console.log(codes);
     codes.forEach((it: any) => {
       const code = this.mapToTicketMetadata(it, id);
       if (data.type === 'added' || data.type === 'modified') {
@@ -46,7 +44,6 @@ export class EventDashboardService {
         delete this.metadatas[code.code];
       }
     });
-    console.log(this.metadatas);
     const q: TicketQuantity[] = [];
     const quantities = doc.tickets;
     for (const k in quantities) {
@@ -77,7 +74,6 @@ export class EventDashboardService {
       const index = this.findTicket(userTicket);
       this.tickets.splice(index, 1);
     }
-    console.log(this.tickets);
     this.liveTickets.next(this.tickets);
     this.liveMetaDatum.next(this.metadatas);
   }
@@ -112,11 +108,9 @@ export class EventDashboardService {
     this.db.runTransaction((transaction) => {
       return transaction.get(ref).then((doc) => {
         if (!doc.exists) {
-          console.log('document does not exist');
         } else  {
           const purchase = doc.data();
           const codes = purchase.ticketCodes as any[];
-          console.log(codes);
           for (let i = 0; i < codes.length; i++) {
             const cd = codes[i];
             if (cd.code === code) {
@@ -124,9 +118,7 @@ export class EventDashboardService {
               break;
             }
           }
-          console.log(codes);
           transaction.update(ref, {ticketCodes: codes});
-          console.log('ticket updated');
         }
       });
     });

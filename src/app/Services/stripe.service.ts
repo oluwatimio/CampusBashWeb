@@ -22,7 +22,6 @@ export class StripeService {
         const uid = this.user.getUid();
         url = url.replace(':uid', uid);
         url = url.replace(':token', token);
-        console.log(url);
         const body = {
           uid: value.uid,
           email: value.email,
@@ -31,12 +30,10 @@ export class StripeService {
         this.http.post(url, body)
           .subscribe(
             (res: AccountResponse) => {
-              console.log(res);
               this.handleStripeAccountResponse(res.status);
               this.accountUpdateSent = true;
             },
             err => {
-              console.log('Error occured');
               this.stripeAccountResponse.next(StripeAccountState.UNKNOWN);
               this.accountUpdateSent = true;
             }
@@ -47,7 +44,6 @@ export class StripeService {
   }
   private handleStripeAccountResponse(code: number) {
     let state: StripeAccountState;
-    console.log(code);
     if (code === 422) {
       state = StripeAccountState.EXISTS;
     } else if (code === 200) {

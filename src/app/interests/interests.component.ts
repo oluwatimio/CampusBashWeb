@@ -50,7 +50,6 @@ export class InterestsComponent implements OnInit {
       .then((querySnaphot) => {
         querySnaphot.forEach((doc) => {
           this.studentId = doc.data().studentId;
-          console.log(this.studentId);
           this.ng.run(() => this.checkGroups());
         });
       }).catch((error) => {
@@ -63,7 +62,6 @@ export class InterestsComponent implements OnInit {
     for (let i = 0; i < interests.length; i++) {
       const preference = new Preference();
       preference.name = interests[i].value;
-      console.log(preference.name);
       preferences.push(preference.name);
     }
     this.ps.updateUserWithUserPreferences(preferences);
@@ -74,7 +72,6 @@ export class InterestsComponent implements OnInit {
     db.collection('eventGroup').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const group = new EventGroup(doc.data().eventType, doc.data().idList);
-        console.log(group);
         this.groups.push(group);
       });
       this.hideL = true;
