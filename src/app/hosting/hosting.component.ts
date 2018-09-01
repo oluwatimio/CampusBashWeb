@@ -6,6 +6,7 @@ import {AuthService} from '../Services/auth.service';
 import {Event} from '../event-view/event/Event';
 import {isNullOrUndefined} from 'util';
 import {StripeService} from '../Services/stripe.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-hosting',
@@ -18,9 +19,11 @@ export class HostingComponent implements OnInit {
   authS: AuthService;
   user: any;
   uid: string;
-  constructor(eventService: EventService, authS: AuthService) {
+  router: Router;
+  constructor(eventService: EventService, authS: AuthService, router: Router) {
     this.eventService = eventService;
     this.authS = authS;
+    this.router = router;
   }
 
   ngOnInit() {
@@ -46,6 +49,10 @@ export class HostingComponent implements OnInit {
     const dateArray = date.toString().split(' ');
     // dateArray[1] + ' ' + dateArray[2];
     return dateArray;
+  }
+
+  async eventDetail(event: Event) {
+    this.router.navigateByUrl(`detail/${event.eventId}`);
   }
 
 }

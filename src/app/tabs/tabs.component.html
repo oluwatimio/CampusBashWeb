@@ -3,12 +3,11 @@
       <p id="happening">What's happening in</p>
     <div class="mdc-select mdc-select--box" id="happening2">
       <select class="mdc-select__native-control">
-        <option value="" disabled selected></option>
         <option style="font-size: 0.8" *ngFor="let university of universities" [value]="university" (onSelectionChange) = "filterUni()">
           {{university}}
         </option>
       </select>
-      <label class="mdc-floating-label">Select your University</label>
+      <!--<label class="mdc-floating-label">Select your University</label>-->
       <div class="mdc-line-ripple"></div>
     </div>
   </mat-card-content>

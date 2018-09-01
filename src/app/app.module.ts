@@ -55,6 +55,7 @@ import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker'
 import { HttpClientModule } from '@angular/common/http';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {EventfilteringService} from './eventfiltering.service';
 
 
 const routes: Routes = [
@@ -134,7 +135,7 @@ const routes: Routes = [
     MatRadioModule,
     MatProgressSpinnerModule
   ],
-  providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
+  providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService, EventfilteringService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
