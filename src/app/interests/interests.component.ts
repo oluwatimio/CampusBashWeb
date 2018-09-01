@@ -42,7 +42,7 @@ export class InterestsComponent implements OnInit {
     });
   }
 
-  addInterests(interests: any, group: any) {
+  addInterests(interests: any) {
     if (isNullOrUndefined(this.user)) {
       this.sb.open('You need to create an account to select interests', null, {duration: 5000});
       this.ng.run(() => this.router.navigateByUrl('signin'));
