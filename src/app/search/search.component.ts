@@ -8,6 +8,8 @@ import {isNullOrUndefined} from 'util';
 import {Util} from '../Util';
 import {MatDatepicker} from '@angular/material';
 import {Router} from '@angular/router';
+import * as firebase from 'firebase';
+import {Preference} from '../Classes/Preference';
 
 @Component({
   selector: 'app-search',
@@ -21,8 +23,17 @@ export class SearchComponent implements OnInit {
   university = '';
   text = '';
   showPicker = false;
+  user: User;
+  preferences = {};
+  idList = {};
+  db = firebase.firestore();
   constructor(private eventService: EventService, private profileService: ProfileService, private router: Router) {
     this.profileService.getUserProfile().subscribe((user: User) => {
+      this.user = user;
+      if (!isNullOrUndefined(user)) {
+        this.downloadIdList();
+        this.downloadInterests();
+      }
       if (!isNullOrUndefined(user) && !isNullOrUndefined(user.university)) {
         this.university = user.university;
       }
@@ -71,5 +82,43 @@ export class SearchComponent implements OnInit {
   }
   eventClicked(event: Event) {
     this.router.navigateByUrl(`detail/${event.eventId}`);
+  }
+  shouldShow(event: Event): boolean {
+    if (event.eventType !== 'Frosh') {
+      return true;
+    }
+    if (isNullOrUndefined(this.user)) {
+      return false;
+    } else if (this.idList.hasOwnProperty(this.user.uid) || this.preferences.hasOwnProperty('Frosh')) {
+      return true;
+    }
+    return false;
+  }
+  downloadInterests() {
+    this.db.collection('users').doc(this.user.uid)
+      .onSnapshot(snap => {
+        if (!snap.exists) {
+          return;
+        }
+        const user = snap.data() as User;
+        console.log(user);
+        user.preference.forEach(val => {
+          this.preferences[String(val)] = true;
+        });
+        console.log(this.preferences);
+      });
+  }
+  downloadIdList() {
+    this.db.collection('eventGroup').doc('ess')
+      .onSnapshot(snap => {
+        if (!snap.exists) {
+          return;
+        }
+        const list: string[] = snap.data().idList;
+        list.forEach(val => {
+          this.idList[val] = true;
+        });
+        console.log(this.idList);
+      });
   }
 }
