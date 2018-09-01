@@ -6,6 +6,9 @@ import * as firebase from 'firebase';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
 import {EventGroup} from '../Classes/EventGroup';
+import {Util} from '../Util';
+import {isNullOrUndefined} from 'util';
+import {User} from '../Classes/User';
 
 @Component({
   selector: 'app-interests',
@@ -16,50 +19,42 @@ export class InterestsComponent implements OnInit {
 
   eventTypes: string[] = ['Frosh', 'House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Festival',
     'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk'];
-  user: any;
+  user: User;
   studentId: string;
   ps: ProfileService;
   router: Router;
   ng: NgZone;
   groups: EventGroup[] = new Array();
-  hideL: boolean;
+  isFreshMan = false;
   constructor(ps: ProfileService, router: Router, ng: NgZone, public sb: MatSnackBar) {
     this.ps = ps;
     this.ng = ng;
     this.router = router;
-    this.hideL = false;
   }
 
   ngOnInit() {
-    this.ps.getCurrentUser().subscribe((user) => {
-      if (user !== undefined && user !== null) {
+    this.ps.getUserProfile().subscribe((user) => {
+      if (!isNullOrUndefined(user)) {
         this.user = user;
-        this.getStudentID();
-      } else if (user === undefined || user === null) {
-        this.sb.open('You need to create an account to select interests', null, {duration: 5000});
-        this.ng.run(() => this.router.navigateByUrl('signin'));
+        this.studentId = this.user.studentId;
+        this.ng.run(() => this.checkGroups());
       }
     });
   }
 
-  getStudentID() {
-    const db = firebase.firestore();
-
-    db.collection('users').where('uid', '==', this.user.uid)
-      .get()
-      .then((querySnaphot) => {
-        querySnaphot.forEach((doc) => {
-          this.studentId = doc.data().studentId;
-          this.ng.run(() => this.checkGroups());
-        });
-      }).catch((error) => {
-
-    });
-  }
-
   addInterests(interests: any, group: any) {
+    if (isNullOrUndefined(this.user)) {
+      this.sb.open('You need to create an account to select interests', null, {duration: 5000});
+      this.ng.run(() => this.router.navigateByUrl('signin'));
+      return;
+    }
+    const len = interests.length;
+    if (len < 3) {
+      Util.openSnackbar('Please select at least 3 events', this.sb);
+      return;
+    }
     const preferences = new Array();
-    for (let i = 0; i < interests.length; i++) {
+    for (let i = 0; i < len; i++) {
       const preference = new Preference();
       preference.name = interests[i].value;
       preferences.push(preference.name);
@@ -78,10 +73,21 @@ export class InterestsComponent implements OnInit {
     db.collection('eventGroup').get().then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         const group = new EventGroup(doc.data().eventType, doc.data().idList);
+        this.isInFroshList(group);
         this.groups.push(group);
       });
-      this.hideL = true;
     });
   }
-
+  isInFroshList(group: EventGroup) {
+    if (isNullOrUndefined(group)) {
+      return;
+    }
+    for (let i = 0; i < group.idList.length; i++) {
+      if (group.idList[i] === this.studentId) {
+        this.isFreshMan = true;
+        return;
+      }
+    }
+    this.isFreshMan = false;
+  }
 }
