@@ -14,8 +14,8 @@ import {EventGroup} from '../Classes/EventGroup';
 })
 export class InterestsComponent implements OnInit {
 
-  eventTypes: string[] = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Festival',
-    'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk', 'Frosh'];
+  eventTypes: string[] = ['Frosh', 'House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Festival',
+    'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk'];
   user: any;
   studentId: string;
   ps: ProfileService;
