@@ -6,6 +6,7 @@ import {UserSingle} from './UserSingle';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {delay} from 'q';
 import {ProfileService} from './profile.service';
+import {isNullOrUndefined} from 'util';
 
 @Injectable()
 export class AuthService {
@@ -53,6 +54,7 @@ export class AuthService {
   }
   observeUser() {
     firebase.auth().onAuthStateChanged((user) => {
+      this.uid = user.uid;
       this.currentUser.next(user);
     });
   }
@@ -62,9 +64,16 @@ export class AuthService {
     firebase.auth().useDeviceLanguage();
     firebase.auth().signInWithPopup(provider).then((result) => {
       // const token = result.credential.accessToken;
-      this.ng.run(() => this.router.navigateByUrl('/'));
-      const user = result.user;
-      console.log(user);
+      const db = firebase.firestore();
+      db.collection('users').doc(result.user.uid).get().then((doc) => {
+        if (doc.exists) {
+          if (doc.data().university === undefined) {
+            this.ng.run(() => this.router.navigateByUrl('profilec'));
+          } else {
+            this.ng.run(() => this.router.navigateByUrl('/'));
+          }
+        }
+      });
     }).catch(function(error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -80,7 +89,17 @@ export class AuthService {
 
     firebase.auth().useDeviceLanguage();
     firebase.auth().signInWithPopup(provider).then((result) => {
-      this.ng.run(() => this.router.navigateByUrl('/'));
+
+      const db = firebase.firestore();
+      db.collection('users').doc(result.user.uid).get().then((doc) => {
+        if (doc.exists) {
+          if (doc.data().university === undefined) {
+            this.ng.run(() => this.router.navigateByUrl('profilec'));
+          } else {
+            this.ng.run(() => this.router.navigateByUrl('/'));
+          }
+        }
+      })
       const user = result.user;
     }).catch(function(error) {
       const errorCode = error.code;
@@ -88,23 +107,17 @@ export class AuthService {
       const email = error.email;
       const credential = error.credential;
     });
+  }
+  getUid() {
+    const user: firebase.User = firebase.auth().currentUser;
+    if (isNullOrUndefined(user)) { return ''; }
+    return firebase.auth().currentUser.uid;
+  }
 
-    // firebase.auth().getRedirectResult().then(function(result) {
-    //   if (result.credential) {
-    //   }
-    //   // The signed-in user info.
-    //   const user = result.user;
-    //   this.router.navigateByUrl('/');
-    // }).catch(function(error) {
-    //   // Handle Errors here.
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   // The email of the user's account used.
-    //   const email = error.email;
-    //   // The firebase.auth.AuthCredential type that was used.
-    //   const credential = error.credential;
-    //   // ...
-    // });
+  async getIdToken() {
+    const user: firebase.User = firebase.auth().currentUser;
+    if (isNullOrUndefined(user)) { return ''; }
+    return firebase.auth().currentUser.getIdToken();
   }
 
   signOut() {

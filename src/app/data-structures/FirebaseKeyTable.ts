@@ -27,4 +27,9 @@ export class FirebaseKeyTable<T> {
     }
     return list;
   }
+
+  clear() {
+    this.data = {};
+    this.liveData.next(new Array());
+  }
 }

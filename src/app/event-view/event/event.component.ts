@@ -10,6 +10,8 @@ import { Router } from '../../../../node_modules/@angular/router';
 import { EventclickedService } from '../../Services/eventclicked.service';
 import {delay} from 'q';
 import {isNullOrUndefined} from 'util';
+import {Preference} from '../../Classes/Preference';
+import {EventfilteringService} from '../../eventfiltering.service';
 
 @Component({
   selector: 'app-event',
@@ -21,27 +23,37 @@ export class EventComponent implements OnInit {
   events: EventSection[] = new Array();
   allEvents: Observable<EventSection[]>;
   eventService: EventService;
+  eventGroups: string[] = new Array();
   authS: AuthService;
   userisHere: boolean;
   uid: string;
   user: any;
   router: Router;
   ng: NgZone;
-  constructor(eventService: EventService, authS: AuthService, router: Router, ng: NgZone) {
+  userInterests: Preference[];
+  originalArrayOfEvents: EventSection[];
+  userInterests: Preference[];
+  uniSelected: string;
+  efs: EventfilteringService;
+  constructor(eventService: EventService, authS: AuthService, router: Router, ng: NgZone, efs: EventfilteringService) {
     this.eventService = eventService;
     this.authS = authS;
     this.uid = '';
     this.router = router;
     this.ng = ng;
+    this.efs = efs;
   }
 
   ngOnInit() {
-    this.allEvents = this.eventService.getEvents();
+    this.efs.selectUni('University of Ottawa');
     this.authS.user.subscribe((user) => {
       if (user !== undefined && user !== null) {
         this.user = user;
         this.uid = user.uid;
         console.log(this.user.email);
+        this.getInterests();
+      } else if (user === undefined || user === null) {
+        this.getEventGroups();
       }
     });
   }
@@ -50,6 +62,46 @@ export class EventComponent implements OnInit {
     const date = new Date(dateM);
     const dateArray = date.toString().split(' ');
     return dateArray;
+  }
+  getInterests() {
+
+    const db = firebase.firestore();
+
+    db.collection('users').where('uid', '==', this.user.uid)
+      .get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          this.userInterests = doc.data().preference;
+        });
+        console.log(this.userInterests);
+        this.allEvents = this.eventService.getEvents();
+    });
+  }
+
+  getEventGroups() {
+    const db = firebase.firestore();
+    console.log('here');
+
+    db.collection('eventGroup').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.eventGroups.push(doc.data().eventType);
+      });
+      this.allEvents = this.eventService.getEvents();
+    });
+  }
+  checkUni() {
+    this.originalArrayOfEvents = this.events;
+  }
+
+  filter(events: EventSection[], uni: string) {
+    this.events = new Array();
+    for (let i = 0; i < events.length; i++) {
+      console.log(events[i].events);
+      events[i].events = events[i].events.filter((eventN) => {
+        return eventN.university === uni;
+      });
+    }
+    //this.events = events;
+    //console.log(this.events);
   }
 
   async eventDetail(event: Event) {

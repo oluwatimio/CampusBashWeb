@@ -1,11 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {MDCTextField} from '@material/textfield';
 import {MDCSelect} from '@material/select';
-import {text} from '../../../node_modules/@angular/core/src/render3/instructions';
 import {Tickets} from '../Classes/Tickets';
-import {} from '@types/googlemaps';
-import {tick} from '@angular/core/testing';
 import {Creator} from '../Classes/Creator';
 import {ProfileService} from '../Services/profile.service';
 import {Event} from '../event-view/event/Event';
@@ -13,6 +9,16 @@ import {User} from '../Classes/User';
 import {EventService} from '../Services/event.service';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material';
+import * as firebase from 'firebase';
+import {Media} from '../Classes/Media';
+import {StripeAccountState, StripeService} from '../Services/stripe.service';
+import {isNullOrUndefined} from 'util';
+import {Util} from '../Util';
+import {environment} from '../../environments/environment';
+import {Subscription} from 'rxjs';
+
+const mdcDialog = require('@material/dialog');
+const MDCDialog = mdcDialog.MDCDialog;
 
 declare var require: any;
 @Component({
@@ -22,7 +28,12 @@ declare var require: any;
 })
 export class AddeventComponent implements OnInit {
   // @Input() checked = false;
-  prices: string[] = ['FREE', 'PAID'];
+  info_message = 'In order to receive payments on CampusBash, we need to create an account for you on Stripe - our 3rd party\n' +
+    '          payments provider. Stripe will help you monitor the income from all your CampusBash ticket purchases. They\n' +
+    '          will also make payouts to your bank account 7 days after any amount is spent on your CampusBash tickets. You\n' +
+    '          can find out more <a href="https://stripe.com/" target="_blank">here</a>.';
+  exists_message = 'Seems like you already have a Stripe account. Would you like to connect it to CampusBash?';
+  ticketTypes: string[] = ['FREE', 'PAID'];
   eventTypes: string[] = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Festival',
     'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk'];
   date = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -45,15 +56,19 @@ export class AddeventComponent implements OnInit {
   ticketType: string;
   ticketPaidPrice: MDCTextField;
   tickets: Tickets[] = new Array();
+  imageLink: string;
   ps: ProfileService;
+  downloadUrlImage: string;
   user: any;
   userProfile: User;
   startTime: string;
   endTime: string;
   autocomplete: any;
-  eventS: EventService;
-  router: Router;
-  constructor(ps: ProfileService, eventS: EventService, router: Router, public sb: MatSnackBar) {
+  lastDialog = null;
+  dialogState = 1;
+  stripeSubscription: Subscription;
+  constructor(ps: ProfileService, private eventS: EventService, private router: Router, private stripeService: StripeService,
+              public sb: MatSnackBar) {
     this.ticketPrice = '';
     this.ticketFree = true;
     this.checkedPaid = false;
@@ -62,16 +77,15 @@ export class AddeventComponent implements OnInit {
     this.ticketDes = '';
     this.ticketQuant = '';
     this.eventTypeSelected = '';
-    this.ps = ps;
-    this.eventS = eventS;
     this.eventName = '';
     this.eventDescription = '';
     this.eventAddress = '';
     this.router = router;
+    this.imageLink = '';
+    this.downloadUrlImage = '';
   }
 
   ngOnInit() {
-
     this.ps.getCurrentUser().subscribe((user) => {
       if (user !== undefined && user !== null) {
         this.user = user;
@@ -120,35 +134,45 @@ export class AddeventComponent implements OnInit {
   }
 
   openTicketDialog() {
-    const mdcDialog = require('@material/dialog');
-    const MDCDialog = mdcDialog.MDCDialog;
-    const MDCDialogFoundation = mdcDialog.MDCDialogFoundation;
-    const util = mdcDialog.util;
+    this.lastDialog = new MDCDialog(document.querySelector('#my-mdc-dialog'));
+    this.lastDialog.show();
+  }
+  openStripeQueryDialog() {
+    if (!isNullOrUndefined(this.lastDialog)) {
+      this.lastDialog.close();
+    }
 
-    const dialog = new MDCDialog(document.querySelector('#my-mdc-dialog'));
-
-    dialog.show();
+    this.lastDialog = new MDCDialog(document.querySelector('#create-stripe-dialog'));
+    this.lastDialog.show();
   }
 
   checkVal() {}
 
   addTicket() {
 
-    if (this.checkedPaid === false) {
-      this.ticketType = 'Paid';
+    if (this.checkedPaid === true) {
+      this.ticketType = 'paid';
     } else {
-      this.ticketType = 'Free';
+      this.ticketType = 'free';
+    }
+    console.log(this.userProfile);
+    console.log(this.checkedPaid);
+    if (!isNullOrUndefined(this.userProfile) && this.checkedPaid === true &&
+      (isNullOrUndefined(this.userProfile.stripeAccountId) || this.userProfile.stripeAccountId.trim().length === 0)) {
+      console.log(true);
+      this.openStripeQueryDialog();
+      return;
     }
     if (this.ticketPaidPrice.value !== '' && this.ticketPaidPrice.value !== undefined) {
       const ticket = new Tickets('CA$', this.ticketDescription.value, 10, 1,
-        this.ticketName.value, parseFloat(this.ticketPaidPrice.value), parseInt(this.ticketQuantity.value, 10), null,
-        0, null, this.ticketType, true );
+        this.ticketName.value, parseFloat(this.ticketPaidPrice.value), parseInt(this.ticketQuantity.value, 10), 0,
+        0, 0, '', this.ticketType, true);
       this.tickets.push(ticket);
       console.log(ticket);
     } else {
       const ticket = new Tickets('CA$', this.ticketDescription.value, 10, 1,
-        this.ticketName.value, 0, parseInt(this.ticketQuantity.value, 10), null, 0, null,
-        this.ticketType, true );
+        this.ticketName.value, 0, parseInt(this.ticketQuantity.value, 10), 0, 0, 0,
+        '', this.ticketType, true);
       this.tickets.push(ticket);
       console.log(ticket);
     }
@@ -168,9 +192,12 @@ export class AddeventComponent implements OnInit {
         return Object.assign({}, obj);
       });
       console.log(this.autocomplete.getPlace());
+      const media = new Media(this.imageLink, 'image', this.downloadUrlImage);
+      const media2 = JSON.parse(JSON.stringify(media))
       const event = new Event('', cr, this.eventDescription, this.endTimeNumber, '', this.eventName, this.eventTypeSelected,
-        '', this.autocomplete.getPlace()['place_id'], null, this.startTimeNumber, ticks, '',
-        this.userProfile.university);
+        null, this.autocomplete.getPlace()['place_id'], media2, this.startTimeNumber, ticks, '',
+        this.userProfile.university, 0);
+      console.log('post');
       console.log(event);
       this.eventS.addEvent(event);
     } else {
@@ -178,14 +205,19 @@ export class AddeventComponent implements OnInit {
     }
   }
 
-  onSelected() {
-
+  onSelected(type: string) {
     if (this.checkedPaid === true && this.checkedFree !== true) {
       document.getElementById('ticketPaidPrice').style.visibility = 'visible';
     } else if (this.checkedPaid === false && this.checkedFree === true) {
       document.getElementById('ticketPaidPrice').style.visibility = 'hidden';
     } else  if (this.checkedPaid === false && this.checkedFree === false) {
       document.getElementById('ticketPaidPrice').style.visibility = 'hidden';
+    } else if (type === this.ticketTypes[0]) {
+      this.checkedPaid = false;
+      document.getElementById('ticketPaidPrice').style.visibility = 'hidden';
+    } else {
+      this.checkedFree = false;
+      document.getElementById('ticketPaidPrice').style.visibility = 'visible';
     }
   }
 
@@ -202,6 +234,97 @@ export class AddeventComponent implements OnInit {
     console.log(date);
     this.endTimeNumber = date.getTime();
   }
+  onFileSelected(event: any) {
+    this.imageLink = this.imageLink.replace(/\\/g, '/')
+    console.log(this.imageLink);
+    const array = this.imageLink.split('/');
+    this.imageLink = array[array.length - 1];
+    const date = new Date();
+    date.getTime()
+    const fn = this.imageLink;
+    this.imageLink = 'event_placeholder_images' + '/' + this.user.uid + '/' + date.getTime().toString() + fn;
+    console.log(this.imageLink);
+    let imageurl;
+    if (this.imageLink != null) {
+      const storageRef = firebase.storage().ref();
+      const imageRef = storageRef.child(this.imageLink);
+      imageurl = imageRef;
+      const file = event.target.files;
+      console.log(file[0]);
+      // document.getElementById('displayProg').style.visibility = 'visible';
+      const uploadTask = imageRef.put(file[0]);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, (snapshot) => {
+        //this.progress = ((uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100).toString();
+        //console.log('Upload is ' + this.progress + '% done');
+      });
 
+      uploadTask.then((snapshot) => {
+        imageurl.getDownloadURL().then((url) => {
+          this.downloadUrlImage = url;
+          this.openImagePrev();
+        });
+        const snackBarRef = this.snackBars.open('Image Uploaded');
+        //this.progress = '0';
 
+      }).catch((error) => {
+        console.log(error);
+      });
+
+    }
+
+    console.log(this.imageLink);
+  }
+
+  openImagePrev() {
+    const mdcDialog = require('@material/dialog');
+    const MDCDialog = mdcDialog.MDCDialog;
+    const MDCDialogFoundation = mdcDialog.MDCDialogFoundation;
+    const util = mdcDialog.util;
+
+    const dialog = new MDCDialog(document.querySelector('#imagePrev'));
+
+    dialog.show();
+  }
+  showStripeInfoDialog() {
+    if (!isNullOrUndefined(this.lastDialog)) {
+      this.lastDialog.close();
+    }
+    this.lastDialog = new MDCDialog(document.querySelector('#stripe_info_dialog'));
+    this.lastDialog.show();
+  }
+  createStripeAccount() {
+    if (this.dialogState === 1) {
+      this.dialogState = 2;
+      this.observeAccount();
+    } else if (this.dialogState === 3) {
+      window.open(environment.createStripeAccountOauthUrl, '_blank');
+      this.lastDialog.close();
+      this.openTicketDialog();
+    }
+  }
+  observeAccount() {
+    this.stripeService.createdStripeAccount().subscribe((state: StripeAccountState) => {
+      if (isNullOrUndefined(state)) {
+        console.log(state);
+      } else {
+        console.log(state);
+        this.handleStripeResult(state);
+      }
+    });
+  }
+  handleStripeResult(state: StripeAccountState) {
+    console.log(state);
+    if (state === StripeAccountState.CREATED) {
+      Util.openSnackbar('Your account has been created. Please check your email for further details.', this.sb, 3000);
+      this.lastDialog.close();
+      this.openTicketDialog();
+      return;
+    } else if (state === StripeAccountState.UNKNOWN) {
+      Util.openSnackbar('An error occurred', this.sb, 3000);
+      this.lastDialog.close();
+      this.openTicketDialog();
+      return;
+    }
+    this.dialogState = 3;
+  }
 }

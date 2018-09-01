@@ -1,15 +1,20 @@
-<div style="margin-top: 10vh">
+<div style="margin-top: 10vh" *ngIf="hideL === true">
   <h1 style="text-align: center; font-family: Roboto">Select your Interests</h1>
   <mat-selection-list #interests>
     <mat-list-option *ngFor="let event of eventTypes" [value]="event">
       {{event}}
     </mat-list-option>
   </mat-selection-list>
-
+  <div *ngFor="let group of groups" >
+    <mat-selection-list #interests *ngIf="group.idList.includes(studentId) === true">
+      <mat-list-option [value]="group">
+        {{group.eventType}}
+      </mat-list-option>
+    </mat-selection-list>
+  </div>
   <p>
     Options selected: {{interests.selectedOptions.selected.length}}
   </p>
-
   <div fxLayout="row" fxLayoutAlign="center center">
     <button mat-flat-button style="background-color: #D4262F"
             (click)="addInterests(interests.selectedOptions.selected)">Next</button>

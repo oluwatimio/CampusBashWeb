@@ -9,29 +9,24 @@
     <h3>You're not hosting any events</h3>
   </div>
   <div *ngFor="let event of events">
-          <mat-card>
+          <mat-card (click) = "eventDetail(event)">
             <mat-card-content>
-              <div *ngIf="event.placeHolderImage != null">
-                <img mat-card-image src="{{event.placeHolderImage.url}}">
+              <div *ngIf="event.placeholderImage !== null">
+                <img mat-card-image src="{{event.placeholderImage.url}}">
                 <mat-divider></mat-divider>
               </div>
-              <div *ngIf="event.placeHolderImage == null">
+              <div *ngIf="event.placeholderImage == null">
                 <img mat-card-image src="assets/placeholder.png">
                 <mat-divider></mat-divider>
               </div>
             </mat-card-content>
             <mat-card-footer>
-              <div fxLayout="row" id="footer">
-                <div fxLayout="column">
-                  <div>
-                    {{getDate(event.startTime)[1]}}
-                  </div>
-                  <div>
-                    {{getDate(event.startTime)[2]}}
-                  </div>
+              <div fxLayout="column" style="margin-top: 2vh">
+                <div id="eventText" style="text-align: center; font-size: 20px">
+                  {{event.eventName.substring(0,15)}}
                 </div>
-                <div id="margin">
-                  {{event.eventName}}
+                <div style="text-align: center; font-size: 15px">
+                  {{getDate(event.startTime)[1]}} {{getDate(event.startTime)[2]}}
                 </div>
               </div>
             </mat-card-footer>

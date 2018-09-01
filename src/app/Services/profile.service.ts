@@ -41,12 +41,13 @@ export class ProfileService {
     return this.auth.user;
   }
 
-  updateUserWithUserName(username: string, summary: string) {
+  updateUserWithUserName(username: string, summary: string, studentNum: string) {
     if (isNullOrUndefined(this.uid)) { return; }
     const db = firebase.firestore();
     db.collection('users').doc(this.uid).update({
       userName: username,
-      summary: summary
+      summary: summary,
+      studentId: studentNum
     }).then(() => {
       console.log('Username Updated');
       this.router.navigateByUrl('interests');

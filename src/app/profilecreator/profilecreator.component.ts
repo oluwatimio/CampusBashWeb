@@ -2,7 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import {MDCTextField} from '@material/textfield';
 import {ProfileService} from '../Services/profile.service';
 import {AuthService} from '../Services/auth.service';
+import {MatSnackBar} from '@angular/material';
+import {CloudFunctionsService} from '../Services/cloud-functions.service';
+import {isNullOrUndefined} from 'util';
+import {Util} from '../Util';
 
+const mdcDialog = require('@material/dialog');
+const MDCDialog = mdcDialog.MDCDialog;
+
+declare var require: any;
 @Component({
   selector: 'app-profilecreator',
   templateUrl: './profilecreator.component.html',
@@ -14,9 +22,11 @@ export class ProfilecreatorComponent implements OnInit {
   ps: ProfileService;
   uid: string;
   user: any;
-  constructor(ps: ProfileService) {
+  studentNum: string;
+  constructor(ps: ProfileService, private functionsService: CloudFunctionsService, public sb: MatSnackBar) {
     this.username = '';
     this.summary = '';
+    this.studentNum = '';
     this.ps = ps;
   }
 
@@ -32,9 +42,32 @@ export class ProfilecreatorComponent implements OnInit {
     });
     const username = new MDCTextField(document.querySelector('.username'));
     const summary = new MDCTextField(document.querySelector('.summary'));
+    const studentNum1 = new MDCTextField(document.querySelector('.studentNum'));
   }
-  update() {
-    this.ps.updateUserWithUserName(this.username, this.summary);
+  async update() {
+    const dialog = new MDCDialog(document.querySelector('#please_wait'));
+    if (!isNullOrUndefined(this.studentNum) && this.studentNum.trim().length > 0) {
+      dialog.show();
+      const isNew: boolean = await this.functionsService.isNewStudentId(this.studentNum);
+      if (isNullOrUndefined(isNew)) {
+        dialog.close();
+        Util.openSnackbar('oops, could not verify your student id', this.sb);
+        return;
+      } else if (isNew) {
+        dialog.close();
+        console.log(isNew);
+      } else {
+        dialog.close();
+        Util.openSnackbar('This student id has been used', this.sb);
+        return;
+      }
+    }
+    const sampleUserN = this.username.replace(/\s/g, '');
+    if (sampleUserN !== '') {
+      this.ps.updateUserWithUserName(this.username, this.summary, this.studentNum);
+    } else {
+      this.sb.open('Please enter a username', null, {duration: 5000});
+    }
   }
 
 }

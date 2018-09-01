@@ -52,6 +52,11 @@ import { TicketPurchaseComponent } from './ticket-purchase/ticket-purchase.compo
 import { TicketScannerComponent } from './ticket-scanner/ticket-scanner.component';
 import {ZXingScannerModule} from '@zxing/ngx-scanner';
 import { MatDatepickerModule, MatMomentDateModule } from '@coachcare/datepicker';
+import { HttpClientModule } from '@angular/common/http';
+import {MatRadioModule} from '@angular/material/radio';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {EventfilteringService} from './eventfiltering.service';
+
 
 const routes: Routes = [
   {path: 'signin', component: SigninComponent},
@@ -97,6 +102,7 @@ const routes: Routes = [
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot(
       routes,
     ),
@@ -126,8 +132,10 @@ const routes: Routes = [
     MatDialogModule,
     MatListModule,
     ZXingScannerModule,
+    MatRadioModule,
+    MatProgressSpinnerModule
   ],
-  providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService],
+  providers: [AuthService, EventService, SigninemitterService, UserSingle, EventclickedService, ProfileService, EventfilteringService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
