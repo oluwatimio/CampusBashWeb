@@ -4,9 +4,9 @@
       <div *ngIf="event.events.length > 0">
         <div *ngIf="eventGroups.includes(event.sectionName) === false">
           <h1 style="text-align: center">{{event.sectionName}}</h1>
-          <div fxLayout="row wrap" fxLayoutAlign="center center">
+          <div fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 3vh">
             <div *ngFor="let event1 of event.events">
-              <mat-card (click) = "eventDetail(event1)">
+              <mat-card (click) = "eventDetail(event1)" style="margin-top: 2vh">
                 <div *ngIf="event1.placeholderImage != null">
                   <img style="border-radius: 15px" mat-card-image src="{{event1.placeholderImage.url}}">
                   <mat-divider></mat-divider>
@@ -37,9 +37,9 @@
       <div *ngIf="event.events.length > 0">
         <div *ngIf="userInterests.includes(event.sectionName) === true">
           <h1 style="text-align: center">{{event.sectionName}}</h1>
-          <div fxLayout="row wrap" fxLayoutAlign="center center">
+          <div fxLayout="row wrap" fxLayoutAlign="center center" style="margin-top: 3vh">
             <div *ngFor="let event1 of event.events">
-              <mat-card (click) = "eventDetail(event1)">
+              <mat-card (click) = "eventDetail(event1)" style="margin-top: 2vh">
                 <div *ngIf="event1.placeholderImage != null">
                   <img style="border-radius: 15px" mat-card-image src="{{event1.placeholderImage.url}}">
                   <mat-divider></mat-divider>
@@ -65,4 +65,4 @@
       </div>
     </div>
   </div>
-  </body>
+ </body>

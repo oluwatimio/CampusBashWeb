@@ -194,13 +194,15 @@ export class AddeventComponent implements OnInit {
       });
       console.log(this.autocomplete.getPlace());
       const media = new Media(this.imageLink, 'image', this.downloadUrlImage);
-      const media2 = JSON.parse(JSON.stringify(media))
-      const event = new Event('', cr, this.eventDescription, this.endTimeNumber, '', this.eventName, this.eventTypeSelected,
-        null, this.autocomplete.getPlace()['place_id'], media2, this.startTimeNumber, ticks, '',
-        this.userProfile.university, 0);
-      console.log('post');
-      console.log(event);
-      this.eventS.addEvent(event);
+      const media2 = JSON.parse(JSON.stringify(media));
+      if (this.startTimeNumber < this.endTimeNumber || this.eventName !== '' || this.eventDescription !== '') {
+        const event = new Event('', cr, this.eventDescription, this.endTimeNumber, '', this.eventName, this.eventTypeSelected,
+          null, this.autocomplete.getPlace()['place_id'], media2, this.startTimeNumber, ticks, '',
+          this.userProfile.university, 0);
+        this.eventS.addEvent(event);
+      } else {
+        this.sb.open('Your start date is before your end date or a field is empty', null, {duration: 5000});
+      }
     } else {
       console.log(undefined);
     }

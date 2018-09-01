@@ -41,6 +41,10 @@ body{
   #happening2{
     font-size: 1.2em;
   }
+
+  #marginMobile{
+    margin-top: 20vh;
+  }
 }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
@@ -52,6 +56,10 @@ body{
     font-size: 1.2em;
   }
 
+  #marginMobile{
+    margin-top: 20vh;
+  }
+
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
@@ -61,6 +69,10 @@ body{
 
   #happening2{
     font-size: 1.2em;
+  }
+
+  #marginMobile{
+    margin-top: 20vh;
   }
 
 }
