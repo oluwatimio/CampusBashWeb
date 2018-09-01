@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {MDCSelect} from '@material/select';
 import {AuthService} from '../Services/auth.service';
+import {EventfilteringService} from '../eventfiltering.service';
 
 @Component({
   selector: 'app-tabs',
@@ -13,14 +14,15 @@ export class TabsComponent implements OnInit {
   user: any;
   uid: string;
   userExists: boolean;
+  efs: EventfilteringService;
 
-  constructor(authS: AuthService) {
+  constructor(authS: AuthService, efs: EventfilteringService) {
     this.authS = authS;
     this.userExists = false;
+    this.efs = efs;
   }
 
   ngOnInit() {
-
     this.authS.user.subscribe((user) => {
       if (user !== undefined && user !== null) {
         this.user = user;
@@ -28,10 +30,9 @@ export class TabsComponent implements OnInit {
         this.userExists = true;
       }
     });
-
     const select = new MDCSelect(document.querySelector('.mdc-select'));
     select.listen('change', () => {
-      alert(`Selected option at index ${select.selectedIndex} with value "${select.value}"`);
+      this.efs.selectUni(select.value);
     });
   }
   filterUni() {

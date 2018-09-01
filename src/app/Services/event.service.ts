@@ -9,6 +9,7 @@ import {isNullOrUndefined} from 'util';
 import {User} from '../Classes/User';
 import {Util} from '../Util';
 import {Constants} from '../Constants';
+import {EventfilteringService} from '../eventfiltering.service';
 
 @Injectable()
 export class EventService {
@@ -24,11 +25,13 @@ export class EventService {
   private unSubscribe;
   private lastEventFetched = null;
   private eventFetched = new BehaviorSubject(null);
-  constructor(public sb: MatSnackBar) {
+  efs: EventfilteringService;
+  constructor(public sb: MatSnackBar, efs: EventfilteringService) {
     this.eventsTable = new FirebaseKeyTable();
     this.myEventsTable = new FirebaseKeyTable();
     this.eventsTable.getData().subscribe((data: Event[]) => {
       this.events = data;
+      this.efs = efs;
       this.sectionSubject.next(this.getSections());
       this.updateLastFetched();
     });
@@ -75,19 +78,24 @@ export class EventService {
       return;
     }
     const db = firebase.firestore();
-    this.unSubscribe = db.collection('events').where('endTime', '>=', Date.now())
-      .onSnapshot((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        const event = new Event(doc.data().address,
-          doc.data().creator, doc.data().description, doc.data().endTime,
-          doc.data().eventId, doc.data().eventName, doc.data().eventType,
-          doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
-          doc.data().startTime, doc.data().tickets, doc.data().timezone,
-          doc.data().university, doc.data().ticketsSold);
-        this.eventsTable.add(event.eventId, event);
-      });
 
-      console.log(this.events);
+    this.efs.getUni().subscribe((uni) => {
+      this.unSubscribe = db.collection('events').where('endTime', '>=', Date.now()).where(
+        'university', '==', uni.university)
+        .onSnapshot((querySnapshot) => {
+          this.eventsTable.clear();
+          querySnapshot.forEach((doc) => {
+            const event = new Event(doc.data().address,
+              doc.data().creator, doc.data().description, doc.data().endTime,
+              doc.data().eventId, doc.data().eventName, doc.data().eventType,
+              doc.data().eventVideo, doc.data().placeId, doc.data().placeholderImage,
+              doc.data().startTime, doc.data().tickets, doc.data().timezone,
+              doc.data().university, doc.data().ticketsSold);
+            this.eventsTable.add(event.eventId, event);
+          });
+
+          console.log(this.events);
+        });
     });
   }
   getSections() {
