@@ -32,7 +32,6 @@ export class EventComponent implements OnInit {
   ng: NgZone;
   userInterests: Preference[];
   originalArrayOfEvents: EventSection[];
-  userInterests: Preference[];
   uniSelected: string;
   efs: EventfilteringService;
   constructor(eventService: EventService, authS: AuthService, router: Router, ng: NgZone, efs: EventfilteringService) {

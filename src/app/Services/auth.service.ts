@@ -54,8 +54,11 @@ export class AuthService {
   }
   observeUser() {
     firebase.auth().onAuthStateChanged((user) => {
-      this.uid = user.uid;
-      this.currentUser.next(user);
+      try {
+        this.uid = user.uid;
+        this.currentUser.next(user);
+      } catch (e) {
+      }
     });
   }
 

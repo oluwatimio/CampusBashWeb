@@ -83,6 +83,7 @@ export class AddeventComponent implements OnInit {
     this.router = router;
     this.imageLink = '';
     this.downloadUrlImage = '';
+    this.ps = ps;
   }
 
   ngOnInit() {
@@ -263,7 +264,6 @@ export class AddeventComponent implements OnInit {
           this.downloadUrlImage = url;
           this.openImagePrev();
         });
-        const snackBarRef = this.snackBars.open('Image Uploaded');
         //this.progress = '0';
 
       }).catch((error) => {
