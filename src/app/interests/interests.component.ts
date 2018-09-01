@@ -15,7 +15,7 @@ import {EventGroup} from '../Classes/EventGroup';
 export class InterestsComponent implements OnInit {
 
   eventTypes: string[] = ['House Party', 'Pool Party', 'Kegger', 'Sports Party', 'Conference', 'Festival',
-    'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk'];
+    'Concert or Performance', 'Tournament', 'Networking', 'Seminar or Talk', 'Frosh'];
   user: any;
   studentId: string;
   ps: ProfileService;
@@ -57,13 +57,19 @@ export class InterestsComponent implements OnInit {
     });
   }
 
-  addInterests(interests: any) {
+  addInterests(interests: any, group: any) {
     const preferences = new Array();
     for (let i = 0; i < interests.length; i++) {
       const preference = new Preference();
       preference.name = interests[i].value;
       preferences.push(preference.name);
     }
+
+    // if (group[0].value !== undefined) {
+    //   const pref = new Preference()
+    //   pref.name = group[0].value;
+    //   preferences.push(pref);
+    // }
     this.ps.updateUserWithUserPreferences(preferences);
   }
 

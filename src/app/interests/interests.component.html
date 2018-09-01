@@ -1,17 +1,29 @@
 <div style="margin-top: 10vh" *ngIf="hideL === true">
-  <h1 style="text-align: center; font-family: Roboto">Select your Interests</h1>
+  <h1 style="text-align: center; font-family: Roboto">Select your Interests (This determines the events you see)</h1>
   <mat-selection-list #interests>
-    <mat-list-option *ngFor="let event of eventTypes" [value]="event">
-      {{event}}
-    </mat-list-option>
+    <div *ngFor="let event of eventTypes">
+      <div *ngIf="event !== 'Frosh'">
+
+        <mat-list-option [value]="event">
+          {{event}}
+        </mat-list-option>
+      </div>
+      <div *ngIf="event === 'Frosh'">
+        <div *ngFor="let group of groups" >
+          <mat-list-option [value]="event" *ngIf="group.idList.includes(studentId) === true">
+            {{event}}
+          </mat-list-option>
+      </div>
+      </div>
+    </div>
   </mat-selection-list>
-  <div *ngFor="let group of groups" >
-    <mat-selection-list #interests *ngIf="group.idList.includes(studentId) === true">
-      <mat-list-option [value]="group">
-        {{group.eventType}}
-      </mat-list-option>
-    </mat-selection-list>
-  </div>
+  <!--<div *ngFor="let group of groups" >-->
+    <!--<mat-selection-list #interestGroup *ngIf="group.idList.includes(studentId) === true">-->
+      <!--<mat-list-option [value]="group">-->
+        <!--{{group.eventType}}-->
+      <!--</mat-list-option>-->
+    <!--</mat-selection-list>-->
+  <!--</div>-->
   <p>
     Options selected: {{interests.selectedOptions.selected.length}}
   </p>

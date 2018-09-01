@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, NgZone} from '@angular/core';
 import * as firebase from 'firebase/app';
 import {Preference} from '../Classes/Preference';
 import {Router} from '@angular/router';
@@ -15,7 +15,8 @@ export class ProfileService {
   private user = new BehaviorSubject(null);
   private uid: string = null;
   private db = firebase.firestore();
-  constructor(router: Router, public snackbar: MatSnackBar, private auth: AuthService) {
+  ng: NgZone;
+  constructor(router: Router, public snackbar: MatSnackBar, private auth: AuthService, ng: NgZone) {
     this.router = router;
     this.auth.user.subscribe((currentUser) => {
       if (!isNullOrUndefined(currentUser)) {
@@ -24,6 +25,7 @@ export class ProfileService {
         this.observeUser();
       }
     });
+    this.ng = ng;
   }
 
   private observeUser() {
@@ -75,7 +77,7 @@ export class ProfileService {
       this.snackbar.open('University Set', null, {
         duration: 5000
       });
-      this.router.navigateByUrl('/');
+      this.ng.run(() => this.router.navigateByUrl('/'));
     });
   }
 
