@@ -58,12 +58,14 @@ export class EventService {
     }
   }
   getEvents(): Observable<EventSection[]> {
+    this.lastEventFetched = null;
     return this.sectionSubject.asObservable();
   }
   getEvent(eventId: string): Observable<Event> {
-    this.lastEventFetched = eventId;
+    this.eventFetched = new BehaviorSubject<any>(null);
     let value = this.eventsTable.get(eventId);
     if (isNullOrUndefined(value)) {
+      this.lastEventFetched = eventId;
       value = this.myEventsTable.get(eventId);
     }
     console.log(value);
@@ -78,6 +80,8 @@ export class EventService {
     let value = this.eventsTable.get(this.lastEventFetched);
     if (isNullOrUndefined(value)) {
       value = this.myEventsTable.get(this.lastEventFetched);
+    } else {
+      this.lastEventFetched = null;
     }
     console.log(value);
     this.eventFetched.next(value);

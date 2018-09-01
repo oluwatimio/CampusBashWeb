@@ -29,6 +29,7 @@ export class EventdetailComponent implements OnInit {
     this.eventId = this.route.snapshot.paramMap.get('eventId') as string;
     this.eventsService.getEvent(this.eventId).subscribe(event => {
       if (!Event.equalToForView(this.eventClicked, event)) {
+        console.log('event changed');
         this.eventClicked = event;
         this.setMap();
         this.getAddress(this.eventClicked.placeId);
@@ -70,6 +71,7 @@ export class EventdetailComponent implements OnInit {
   }
 
   getAddress(placeID: string) {
+    console.log('getaddreess');
     const geocoder = new google.maps.Geocoder;
     geocoder.geocode({'placeId': placeID}, (results, status) => {
       if (status === 'OK') {
@@ -86,7 +88,8 @@ export class EventdetailComponent implements OnInit {
     });
   }
   buyTicket() {
-    if (isNullOrUndefined(this.user)) {
+    if (isNullOrUndefined(this.user))
+    {
       this.router.navigateByUrl('/signin');
     } else if (this.eventClicked.tickets.length === 0) {
       Util.openSnackbar('There are no tickets available', this.snackBar);
