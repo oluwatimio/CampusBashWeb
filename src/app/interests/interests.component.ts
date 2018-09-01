@@ -71,6 +71,7 @@ export class InterestsComponent implements OnInit {
   checkGroups() {
     const db = firebase.firestore();
     db.collection('eventGroup').get().then((querySnapshot) => {
+      this.groups.length = 0;
       querySnapshot.forEach((doc) => {
         const group = new EventGroup(doc.data().eventType, doc.data().idList);
         this.isInFroshList(group);
