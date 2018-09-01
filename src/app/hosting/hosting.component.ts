@@ -5,6 +5,7 @@ import * as firebase from 'firebase/app';
 import {AuthService} from '../Services/auth.service';
 import {Event} from '../event-view/event/Event';
 import {isNullOrUndefined} from 'util';
+import {StripeService} from '../Services/stripe.service';
 
 @Component({
   selector: 'app-hosting',
