@@ -10,6 +10,7 @@ import { Router } from '../../../../node_modules/@angular/router';
 import { EventclickedService } from '../../Services/eventclicked.service';
 import {delay} from 'q';
 import {isNullOrUndefined} from 'util';
+import {Preference} from '../../Classes/Preference';
 
 @Component({
   selector: 'app-event',
@@ -21,12 +22,14 @@ export class EventComponent implements OnInit {
   events: EventSection[] = new Array();
   allEvents: Observable<EventSection[]>;
   eventService: EventService;
+  eventGroups: string[] = new Array();
   authS: AuthService;
   userisHere: boolean;
   uid: string;
   user: any;
   router: Router;
   ng: NgZone;
+  userInterests: Preference[];
   constructor(eventService: EventService, authS: AuthService, router: Router, ng: NgZone) {
     this.eventService = eventService;
     this.authS = authS;
@@ -36,12 +39,14 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.allEvents = this.eventService.getEvents();
     this.authS.user.subscribe((user) => {
       if (user !== undefined && user !== null) {
         this.user = user;
         this.uid = user.uid;
         console.log(this.user.email);
+        this.getInterests();
+      } else if (user === undefined || user === null) {
+        this.getEventGroups();
       }
     });
   }
@@ -51,6 +56,32 @@ export class EventComponent implements OnInit {
     const dateArray = date.toString().split(' ');
     return dateArray;
   }
+  getInterests() {
+
+    const db = firebase.firestore();
+
+    db.collection('users').where('uid', '==', this.user.uid)
+      .get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          this.userInterests = doc.data().preference;
+        });
+        console.log(this.userInterests);
+        this.allEvents = this.eventService.getEvents();
+    });
+  }
+
+  getEventGroups() {
+    const db = firebase.firestore();
+    console.log('here');
+
+    db.collection('eventGroup').get().then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.eventGroups.push(doc.data().eventType);
+      });
+      this.allEvents = this.eventService.getEvents();
+    });
+  }
+
 
   async eventDetail(event: Event) {
     this.router.navigateByUrl(`detail/${event.eventId}`);

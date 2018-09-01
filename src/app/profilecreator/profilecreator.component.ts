@@ -44,7 +44,6 @@ export class ProfilecreatorComponent implements OnInit {
     } else {
       this.sb.open('Please enter a username', null, {duration: 5000});
     }
-
   }
 
 }

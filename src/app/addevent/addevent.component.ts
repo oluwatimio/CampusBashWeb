@@ -56,12 +56,9 @@ export class AddeventComponent implements OnInit {
   ticketType: string;
   ticketPaidPrice: MDCTextField;
   tickets: Tickets[] = new Array();
-<<<<<<< HEAD
   imageLink: string;
   ps: ProfileService;
   downloadUrlImage: string;
-=======
->>>>>>> edca2abaf8ee8d8086f0707c1e54af69d4671306
   user: any;
   userProfile: User;
   startTime: string;
@@ -70,7 +67,7 @@ export class AddeventComponent implements OnInit {
   lastDialog = null;
   dialogState = 1;
   stripeSubscription: Subscription;
-  constructor(private ps: ProfileService, private eventS: EventService, private router: Router, private stripeService: StripeService,
+  constructor(ps: ProfileService, private eventS: EventService, private router: Router, private stripeService: StripeService,
               public sb: MatSnackBar) {
     this.ticketPrice = '';
     this.ticketFree = true;
