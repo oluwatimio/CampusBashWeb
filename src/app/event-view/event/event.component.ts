@@ -30,7 +30,6 @@ export class EventComponent implements OnInit {
   user: any;
   router: Router;
   ng: NgZone;
-  userInterests: Preference[];
   originalArrayOfEvents: EventSection[];
   uniSelected: string;
   efs: EventfilteringService;
@@ -99,8 +98,6 @@ export class EventComponent implements OnInit {
         return eventN.university === uni;
       });
     }
-    //this.events = events;
-    //console.log(this.events);
   }
 
   async eventDetail(event: Event) {

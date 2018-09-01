@@ -1,9 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ViewChild } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {Event} from '../event-view/event/Event';
 import {equal} from 'deep-equal';
-import {EventclickedService} from '../Services/eventclicked.service';
-import {} from '@types/googlemaps';
 import {AuthService} from '../Services/auth.service';
 import {isNullOrUndefined} from 'util';
 import {Util} from '../Util';
@@ -22,7 +19,6 @@ export class EventdetailComponent implements OnInit {
   @ViewChild('gmap') gmapElement: any;
   eventClicked: Event;
   address: string;
-  lastPlaceId: string;
   user: any = null;
   eventId: string;
   constructor(private eventsService: EventService, private auth: AuthService, private router: Router, private route: ActivatedRoute,
@@ -31,14 +27,11 @@ export class EventdetailComponent implements OnInit {
 
   ngOnInit() {
     this.eventId = this.route.snapshot.paramMap.get('eventId') as string;
-    console.log(this.eventId);
     this.eventsService.getEvent(this.eventId).subscribe(event => {
-      console.log(event);
-      this.eventClicked = event;
-      if (!isNullOrUndefined(event) && this.lastPlaceId !== event.placeId) {
+      if (!Event.equalToForView(this.eventClicked, event)) {
+        this.eventClicked = event;
         this.setMap();
         this.getAddress(this.eventClicked.placeId);
-        this.lastPlaceId = event.placeId;
       }
     });
     this.auth.user.subscribe((user) => {
@@ -78,8 +71,7 @@ export class EventdetailComponent implements OnInit {
 
   getAddress(placeID: string) {
     const geocoder = new google.maps.Geocoder;
-    const placeId = placeID;
-    geocoder.geocode({'placeId': placeId}, (results, status) => {
+    geocoder.geocode({'placeId': placeID}, (results, status) => {
       if (status === 'OK') {
         if (results[0]) {
           this.address = results[0].formatted_address;

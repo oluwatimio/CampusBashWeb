@@ -1,6 +1,7 @@
 import {Creator} from '../../Classes/Creator';
 import {Media} from '../../Classes/Media';
 import {Tickets} from '../../Classes/Tickets';
+import {isNullOrUndefined} from 'util';
 
 export class Event {
   address: string;
@@ -36,5 +37,13 @@ export class Event {
     this.timeZone = timeZone;
     this.university = university;
     this.ticketsSold = ticketsSold;
+  }
+  static equalToForView(a: Event, b: Event): boolean {
+    if (isNullOrUndefined(a) || isNullOrUndefined(b)) {
+      return a === b;
+    }
+    return a.eventType === b.eventType && a.placeId === b.placeId && a.startTime === b.startTime && a.timeZone === b.timeZone &&
+      a.endTime === b.endTime && a.eventName === b.eventName && a.description === b.description &&
+      Media.deepEquals(a.placeholderImage, b.placeholderImage);
   }
 }
