@@ -11,4 +11,5 @@ export class User {
   uid: string;
   university: string;
   userName: string;
+  studentId: string;
 }
