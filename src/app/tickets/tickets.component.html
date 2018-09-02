@@ -3,7 +3,8 @@
     <div *ngFor="let ticket of tickets">
       <mat-card class="main" routerLink="{{getRoute(ticket)}}">
         <div>
-          <img class="placeholder" src="{{ticket.placeholderImage.url}}" mat-card-image>
+          <img *ngIf="ticket.placeholderImage !== null" class="placeholder" src="{{ticket.placeholderImage.url}}" mat-card-image>
+          <img *ngIf="ticket.placeholderImage === null" class="placeholder" src="assets/default_event_background.png" mat-card-image>
         </div>
         <div>{{ticket.eventName}}</div>
         <div *ngIf="ticket.ticketCodes.length > 1">{{ticket.ticketCodes.length}} tickets</div>
