@@ -16,7 +16,7 @@
           <img  style="border-radius: 15px" class="placeholder" src="{{event.placeholderImage.url}}" mat-card-image>
         </div>
         <div *ngIf="event.placeholderImage == null">
-          <img class="placeholder" src="assets/default_event_background.png" mat-card-image>
+          <img style="border-radius: 15px" class="placeholder" src="assets/default_event_background.png" mat-card-image>
         </div>
         <div>{{event.eventName}}</div>
         <div>Starts on {{getDate(event.startTime)}}</div>
