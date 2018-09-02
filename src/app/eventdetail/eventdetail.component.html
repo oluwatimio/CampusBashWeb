@@ -4,7 +4,7 @@
   <div fxLayout="row" style="width: 100%">
   <img *ngIf = "eventClicked.placeholderImage !== null" src="{{eventClicked.placeholderImage.url}}" id="imgdiv"
   style="border-radius: 15px; margin-right: 8vw">
-  <img  *ngIf = "eventClicked.placeholderImage === null" src="assets/placeholder.png" id="imgdiv"
+  <img  *ngIf = "eventClicked.placeholderImage === null" src="assets/default_event_background.png" id="imgdiv"
   style="border-radius: 15px;  margin-right: 8vw;">
   <div style="right: 0px">
   <h1 *ngIf="eventClicked !== undefined"  style="font-family: Arial; font-size: 30px">{{eventClicked.eventName}}</h1>
@@ -21,7 +21,7 @@
     <div fxLayout="row" style="width: 100%">
       <img *ngIf = "eventClicked.placeholderImage !== null" src="{{eventClicked.placeholderImage.url}}" id="imgdiv"
       style="border-radius: 15px;width: 100%">
-      <img  *ngIf = "eventClicked.placeholderImage === null" src="assets/placeholder.png" id="imgdiv"
+      <img  *ngIf = "eventClicked.placeholderImage === null" src="assets/default_event_background.png" id="imgdiv"
       style="border-radius: 15px; width: 100%">
     </div>
     <div style="margin-left: 10px">
